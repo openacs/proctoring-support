@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="proctoring-support" locale="en_US" charset="ISO-8859-1">
+
+  <msg key="accept_message">An automated exam-supervision is activated to detect any fraudulent examination performance. You, your screen and your microphone will be recorded. Your data will only be used for the stated purpose, will be stored securely and will not be passed on to third parties.</msg>
+  <msg key="audio_grabbing_not_supported">Your browser does not support audio acquisition.</msg>
+  <msg key="banner_message">The examination mode is activated. Close your browser window after the exam.</msg>
+  <msg key="camera_cannot_be_recorded_because">Camera cannot be recorded. The error is:</msg>
+  <msg key="camera_grabbing_not_supported">Camera cannot be recorded because your browser does not support camera recording. Please use the most recent version of Google Chrome.</msg>
+  <msg key="camera_not_readable">No camera was recognized. Check the following:&lt;ol&gt;&lt;li&gt;Check if the camera is currently running in another application. If so, stop the camera recording in this application.&lt;/li&gt;    &lt;li&gt;Make sure a camera is installed and activated. Open the device manager. The camera is displayed under Image devices or Camera. If no camera is displayed, connect an external camera to your computer. If a down arrow appears in the device manager, it means the camera device is disabled. Right-click the camera to select Activate. Some cameras appear under Cameras and Integrated camera.&lt;/li&gt;    &lt;li&gt;Has access to the camera been permitted in the system settings? Open the system settings of your computer and go to \&#34;camera\&#34;. Check whether camera access is generally activated. Go to \&#34;Change\&#34; to enable camera access. Check if desktop apps are allowed to access your camera. Set the slider to \&#34;On\&#34;.&lt;/li&gt;    &lt;li&gt;If you are using an external camera, check whether it is connected to the computer and, if it has a switch, is also switched on.&lt;/li&gt;    &lt;li&gt;Make sure that the correct camera is selected in the Browser. In Google Chrome go to: Browser Settings | Privacy and security | Website settings | Permissions | Camera and check if the correct camera has been selected.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="camera_permission_denied">Camera cannot be recorded because it has no permission to do so. Check the following:&lt;ol&gt;    &lt;li&gt;Is your camera blocked in the browser settings? In Google Chrome go to: Browser Settings | Privacy and security | Website settings | Permissions | camera. If the slider is set to ?Blocked?, set it to ?Ask before access (recommended)?.&lt;/li&gt;    &lt;li&gt;Have you ever denied access to the camera in the past? In Google Chrome go to: Browser Settings | Privacy and security | Website settings | Permissions | Camera. Check whether there are links to WU websites under ?Block?. Delete these websites from the list by clicking on the garbage can symbol.&lt;/li&gt;    &lt;li&gt;Has access to the camera been permitted in the system settings? Open the system settings of your computer and go to \&#34;camera\&#34;. Check whether camera access is generally activated. Go to \&#34;Change\&#34; to enable camera access. Check if desktop apps are allowed to access your camera. Set the slider to \&#34;On\&#34;.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="check_again">Check again</msg>
+  <msg key="community_help_text">If automated exam-supervision is activated, the system will create recordings of the participants and their screen.</msg>
+  <msg key="desktop_cannot_be_recorded_because">Desktop cannot be recorded. Error is:</msg>
+  <msg key="desktop_grabbing_not_supported">Desktop cannot be recorded because your browser does not support screen recording. Please use the most recent version of Google Chrome.</msg>
+  <msg key="desktop_permission_denied">Desktop cannot be recorded because it is denied the permission to do so. Check the following:&lt;ol&gt;    &lt;li&gt;Make sure you granted your Browser access to record your desktop and browser in the system and browser settings.&lt;/li&gt;    &lt;li&gt;Check the settings of your antivirus program and deactivate the adblocker in Google Chrome.&lt;/li&gt;    &lt;li&gt;In Google Chrome settings delete the cache.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="display_surface_not_supported">Desktop cannot be recorded because your browser does not support the enforcing of full-screen selection. Please use the most recent version of Google Chrome.</msg>
+  <msg key="dotlrn_admin_infotext">&lt;a href=&#34;proctoring&#34;&gt;List of recordings during an automated exam-supervision&lt;/a&gt;</msg>
+  <msg key="Exam_mode">Exam mode</msg>
+  <msg key="Exam_mode_message">&lt;h4&gt;Examination statement: Important
+information for taking online examinations&lt;/h4&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;1) Participation&lt;/h5&gt;
+&lt;p&gt;Without exception,
+only students who are officially registered for the course and/or the
+examination on LPIS will be allowed to take the exam.&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;The exam will only
+be graded if all 3 of the following conditions have been fulfilled:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;p&gt;You have
+	uploaded a photo that fulfills the necessary criteria to confirm
+	your identity, if such an identification requirement was previously
+	announced for the examination in question by the person responsible
+	for the examination.&lt;/p&gt;
+	&lt;li&gt;&lt;p&gt;You have
+	consented to automated online supervision, if previously announced
+	for this examination&lt;/p&gt;
+	&lt;li&gt;&lt;p&gt;You have
+	confirmed that you have read and understood this examination
+	statement&lt;/p&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;By confirming the
+examination statement, you also confirm receipt of the examination.
+If you have received the examination but not fulfilled the identity
+requirement and/or not confirmed your consent to online supervision
+(as applicable), the examination will be declared VOID and will count
+as an examination attempt. If you do not confirm the examination
+statement, you will not be given access to the exam. This means that
+the examination will not be graded and the examination attempt will
+not be counted. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;2) Technical requirements&lt;/h5&gt;
+&lt;p&gt;It is your
+responsibility to ensure that you will not be disturbed during the
+examination and that all technical requirements (as previously
+announced) are fulfilled (see &#34;Online Exam&#34;
+and/or &#34;Technical Checklist&#34; in your online exam environment). WU
+cannot guarantee a problem-free completion of the examination for
+every student working on their individual electronic device. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;3) Starting and terminating/interrupting the
+examination&lt;/h5&gt;
+&lt;p&gt;By confirming that
+you have read and understood this examination statement, you also
+confirm receipt of the examination, and the attempt will be counted.
+The exam will be graded and counted towards your total number of
+permissible examination attempts. This applies even if you terminate
+the exam prematurely or do not submit your completed exam. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;If you are forced to
+terminate the exam prematurely or interrupt the exam due to technical
+difficulties (e.g. loss of your internet connection), please contact
+the person responsible for the examination without delay. To do that,
+please use the communication channel previously announced for that
+purpose by the person responsible for the examination. When reporting
+the termination/interruption of your exam, be sure to include the
+following information:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;p&gt;Your student ID
+	number&lt;/p&gt;
+	&lt;li&gt;&lt;p&gt;Exact time of
+	termination/interruption&lt;/p&gt;
+	&lt;li&gt;&lt;p&gt;Screenshot of
+	the error message, if applicable 
+	&lt;/p&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you are able to
+solve the problem and continue with the exam, please report this with
+the message &#34;Examination resumed.&#34; To be able to send such
+reports in the event of technical problems, it is recommended that
+you download the appropriate apps to your mobile devices before the
+start of the examination. In this way, you will for example be able
+to report the termination/interruption of the exam even if your Wi-Fi
+connection fails. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;In cases where you
+report the termination/interruption of the exam due to technical
+problems beyond your control, as a general rule, the examination is
+not graded and the examination attempt not counted. If you would like
+to have your exam graded nonetheless, please contact the person
+responsible for the examination immediately after the exam and
+request that your exam be graded. The examination can only be graded
+if all the applicable requirements for grading are fulfilled. Only
+those parts of the exam will be graded that were completed without
+any technical problems (i.e. under active online exam supervision).&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;4) Cheating and identity confirmation&lt;/h5&gt;
+&lt;p&gt;Any attempt to cheat
+on the exam (e.g. cell phone, consulting forbidden materials,
+consulting other people) will result in the exam being declared VOID
+and the examination attempt counted. You will also be blocked from
+re-registering to repeat the examination for a period of 4 months
+starting from the examination date. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;Having someone else
+take your exam for you can constitute a criminal offense. Such
+instances of cheating will be reported to the public prosecutor&#39;s
+office, without exception.&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;If announced in
+advance by the person responsible for the exam, automated online
+examination supervision will be conducted for the duration of the
+exam. This means that you and your screen will be monitored by camera
+and microphone (video and audio) throughout the exam, and the
+examiner will be able to see and hear the recordings. You need to
+consent to this online supervision in advance under &#34;Online
+Supervision&#34;. As soon as you start the exam, you will need to give
+your browser permission to access your screen, webcam, and
+microphone. Any attempts to manipulate the online exam supervision
+will be considered attempts at cheating.&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;5) Permissible aids&lt;/h5&gt;
+&lt;p&gt;When taking this
+examination, you may use only the aids explicitly listed by the
+person responsible for the examination in the exam information under
+&#34;Online exam.&#34; As a rule, no one else may be present in the same
+room with you while you are working on the exam. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Acknowledgment of
+the information on receipt and completion of the examination 
+&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;I confirm that&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;I have read and
+	understood the information given above on taking this written online
+	examination
+	&lt;li&gt;
+	I fulfill all the requirements for taking this examination
+	&lt;li&gt;I will complete
+	the examination independently and without consulting any forbidden
+	aids 
+	&lt;li&gt;I accept
+	receipt of this examination, i.e. I acknowledge that the exam will
+	be graded and will count towards my total number of examination
+	attempts
+&lt;/ul&gt;</msg>
+  <msg key="grant_access_to_camera_msg">If your browser prompts you to give access to the camera, please do so. Once permission has been granted, a preview image will appear. Please make sure your face is clearly visible in the picture before proceeding.</msg>
+  <msg key="grant_access_to_camera_title">Grant access to your camera</msg>
+  <msg key="grant_access_to_desktop_msg">You are being prompted to give access to your desktop. Please first select &#34;full screen&#34; and grant the access thereafter by clicking the button &#34;share&#34;. On success you should see a preview of your desktop on the page.</msg>
+  <msg key="grant_access_to_desktop_title">Grant access to your desktop</msg>
+  <msg key="grant_access_to_microphone_msg">If your browser prompts you to give access to the microphone, please do so. Once permission has been granted, an audiowave will be displayed to test your microphone. Please make sure your microphone is not muted and the audiowave is moving and reacts to your voice.</msg>
+  <msg key="grant_access_to_microphone_title">Grant access to your microphone</msg>
+  <msg key="microphone_cannot_be_recorded_because">Microphone cannot be recorded. Error is:</msg>
+  <msg key="microphone_not_found">No microphone was recognized. Check the following:&lt;ol&gt;    &lt;li&gt;Make sure a microphone is installed. Open the control panel of your computer and click on \&#34;Hardware and Sound\&#34;. In the window that opens, navigate to Sound | Enter and check that a microphone is listed. Test the microphone and troubleshoot it if necessary.&lt;/li&gt;    &lt;li&gt;If you are using an external microphone, check whether it is connected to the computer and, if it has a switch, is also switched on.&lt;/li&gt;    &lt;li&gt;Make sure that the correct microphone is selected in the Browser. In Google Chrome go to: Browser Settings | Privacy and security | Website settings | Permissions | Microphone and check if the correct microphone has been selected.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="microphone_not_readable">Access to your microphone has been prevented. Please check if access to the microphone has been permitted in the system settings. Open the system settings of your computer and go to \&#34;Microphone\&#34;. Check whether microphone access is generally activated. Go to \&#34;Change\&#34; to enable microphone access. Check if apps and desktop apps are allowed to access your microphone. Set the slider to \&#34;On\&#34;.</msg>
+  <msg key="microphone_permission_denied">Your microphone cannot be recorded because it has no permission to do so. Check the following:&lt;ol&gt;    &lt;li&gt;Is your microphone blocked in the browser settings? In Google Chrome go to: Browser Settings | Privacy and security | Website settings | Permissions | Microphone. If the slider is set to \&#34;Blocked\&#34;, set it to \&#34;Ask before access (recommended)\&#34;.&lt;/li&gt;    &lt;li&gt;Have you ever denied access to the microphone in the past? In Google Chrome go to: Browser Settings | Privacy and security | Website settings | Permissions | Microphone. Check whether there are links to WU websites under \&#34;Block\&#34;. Delete these websites from the list by clicking on the trash symbol.&lt;/li&gt;    &lt;li&gt;Has access to the microphone been permitted in the system settings? Open the system settings of your computer and go to \&#34;Microphone\&#34;. Check whether microphone access is generally activated. Go to \&#34;Change\&#34; to enable microphone access. Check if desktop apps are allowed to access your microphone. Set the slider to \&#34;On\&#34;.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="microphone_volume_is_too_low">Your microphone seems to be completely silent. Please raise your recording volume. Check the following:&lt;ol&gt;    &lt;li&gt;Open the control panel of your computer and go to: Sound | Advanced sound options. If necessary, adjust the volume here.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="missing_stream_message">Your browser does not support camera, microphone or screen capturing or you denied access to those devices. To proceed with the exam, please set related browser settings back and grant access to camera, microphone and your full-screen capturing and ensure that your microphone is activated and not muted.</msg>
+  <msg key="mobile_devices_are_unsupported">Mobile devices are unsupported.</msg>
+  <msg key="OnlineExam">Online Exam</msg>
+  <msg key="preview_help_text">If enabled, a preview of recorded input will be displayed to users during the online supervision session.</msg>
+  <msg key="Proctoring">Automated exam-supervision</msg>
+  <msg key="recordings">Recordings</msg>
+  <msg key="request_failed">Request to the server has failed. Retry in 10s...</msg>
+  <msg key="request_timeout">Request to the server timed out. Retry in 10s...</msg>
+  <msg key="user_photo">Photo</msg>
+  <msg key="wizard_finish">Finish</msg>
+  <msg key="wrong_display_surface_selected">Desktop cannot be recorded because you selected something different than full screen in your desktop selection. Select full screen in your desktop selection.</msg>
+  <msg key="you_are_producing_black_pictures_from_camera">Important Note:&lt;br&gt;&lt;br&gt;LEARN shows that your camera is producing black or otherwise indiscernible pictures at the moment. This could invalidate your exam attempt!&lt;ul&gt;&lt;li&gt;Please make sure the camera is working and is not obstructed.&lt;/li&gt;&lt;li&gt;Please make sure that your device is plugged into a power cord and that you are not running on battery.&lt;/li&gt;&lt;li&gt;You can test your camera setup at &lt;a href=\&#34;https://learn.wu.ac.at/browser-multimedia-test\&#34;&gt;https://learn.wu.ac.at/browser-multimedia-test&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</msg>
+  <msg key="you_are_producing_black_pictures_from_desktop">Important Note:&lt;br&gt;&lt;br&gt;LEARN shows that your desktop is producing black or otherwise indiscernible pictures at the moment. This could invalidate your exam attempt!&lt;ul&gt;&lt;li&gt;Please make sure that your device is plugged into a power cord and that you are not running on battery.&lt;/li&gt;&lt;li&gt;You can test your camera setup at &lt;a href=\&#34;https://learn.wu.ac.at/browser-multimedia-test\&#34;&gt;https://learn.wu.ac.at/browser-multimedia-test&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</msg>
+  <msg key="your_microphone_is_muted">Your microphone is muted. Please unmute it. Check the following:&lt;ol&gt;    &lt;li&gt;Open the control panel of your computer and go to: Sound | Enter | Manage audio devices. Check whether your microphone is listed under \&#34;Deactivated\&#34;. If so, activate it by clicking on the microphone.&lt;/li&gt;&lt;/ol&gt;</msg>
+</message_catalog>

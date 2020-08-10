@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<message_catalog package_key="proctoring-support" locale="de_DE" charset="ISO-8859-1">
+
+  <msg key="accept_message">Zur Erkennung einer &#34;Erschleichung der Prüfungsleistung&#34; findet eine automatisierte Online-Aufsicht statt. Dabei werden Sie, Ihr Bildschirm und Ihr Mikrofon aufgezeichnet. Ihre Daten werden nur zum angegebenen Zweck verwendet, sicher verwahrt und nicht an Dritte weitergegeben.</msg>
+  <msg key="audio_grabbing_not_supported">Ihr Browser unterstützt keine Mikrophon-Aufnahme.</msg>
+  <msg key="banner_message">Der Prüfungsmodus läuft. Schließen Sie das Browserfenster daher erst nach Beendigung der Prüfung.</msg>
+  <msg key="camera_grabbing_not_supported">Die Kamera kann nicht aufgezeichnet werden, da Ihr Browser die Kameraaufnahme nicht unterstützt. Bitte verwenden Sie die neueste Version von Google Chrome.</msg>
+  <msg key="camera_not_readable">Es wurde keine Kamera erkannt. Prüfen Sie das Folgende:&lt;ol&gt;    &lt;li&gt;Prüfen Sie ob die Kamera momentan in einer anderen Anwendung läuft. Wenn ja dann beenden Sie die Kameraaufnahme in dieser Anwendung.&lt;/li&gt;    &lt;li&gt;Stellen Sie sicher, dass eine Kamera installiert und aktiviert ist. Öffnen Sie den Gerätemanager. Unter Bildgeräte oder Kamera wird die Kamera angezeigt. Wenn keine Kamera angezeigt wird, dann schließen Sie eine externe Kamera an Ihren Computer an. Wenn im Gerätemanager ein Abwärtspfeil angezeigt wird, bedeutet dies, dass das Kameragerät deaktiviert ist. Klicken Sie mit der rechten Maustaste auf die Kamera, um Aktivieren auszuwählen. Einige Kameras werden unter Kameras und Integrierte Kamera angezeigt.&lt;/li&gt;    &lt;li&gt;Wurde in den Systemeinstellungen der Zugriff auf die Kamera gestattet? Öffnen Sie die Systemeinstellungen Ihres Computers und gehen Sie zu \&#34;Kamera\&#34;. Prüfen Sie, ob der Kamerazugriff allgemein aktiviert ist. Gehen Sie auf \&#34;Ändern\&#34; um den Kamerazugriff zu aktivieren. Prüfen Sie, ob Desktop-Apps auf Ihre Kamera zugreifen dürfen. Setzen Sie den Schieberegler auf \&#34;Ein\&#34;.&lt;/li&gt;    &lt;li&gt;Wenn Sie eine externe Kamera verwenden, dann prüfen Sie, ob diese an den Computer angeschlossen ist und, sofern sie einen Schalter hat, auch angeschaltet ist.&lt;/li&gt;    &lt;li&gt;Stellen Sie sicher, dass die korrekte Kamera im Browser ausgewählt ist. Gehen Sie in Google Chrome auf: Browsereinstellungen | Datenschutz und Sicherheit | Webseite Einstellungen | Berechtigungen | Kamera und prüfen Sie das hier ausgewählte Mikrofon.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="camera_permission_denied">Die Kamera kann nicht aufgezeichnet werden, da sie keine Berechtigung dazu hat. Überprüfen Sie das Folgende:&lt;ol&gt;    &lt;li&gt;Ist Ihre Kamera in den Browsereinstellungen blockiert? Gehen Sie in Google Chrome auf: Browsereinstellungen | Datenschutz und Sicherheit | Webseite Einstellungen | Berechtigungen | Kamera. Wenn der Schieberegler auf \&#34;Blockiert\&#34; steht, dann setzen Sie ihn auf &lt;i&gt;Vor&lt;/i&gt; dem Zugriff nachfragen (empfohlen).&lt;/li&gt;    &lt;li&gt;Haben Sie den Zugriff auf die Kamera in der Vergangenheit einmal verweigert? Gehen Sie in Google Chrome auf: Browsereinstellungen | Datenschutz und Sicherheit | Webseite Einstellungen | Berechtigungen | Kamera. Prüfen Sie ob unter \&#34;Blockieren\&#34; Links zu WU-Webseiten angeführt sind. Löschen Sie diese Webseiten aus der Liste über einen Klick auf das Mülltonnensymbol.&lt;/li&gt;     &lt;li&gt;Wurde in den Systemeinstellungen der Zugriff auf die Kamera gestattet? Öffnen Sie die Systemeinstellungen Ihres Computers und gehen Sie zu \&#34;Kamera\&#34;. Prüfen Sie, ob der Kamerazugriff allgemein aktiviert ist. Gehen Sie auf \&#34;Ändern\&#34; um den Kamerazugriff zu aktivieren. Prüfen Sie, ob Desktop-Apps auf Ihre Kamera zugreifen dürfen. Setzen Sie den Schieberegler auf \&#34;Ein\&#34;.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="check_again">Nochmals prüfen</msg>
+  <msg key="community_help_text">Wenn die automatisierte Online-Aufsicht aktiviert ist, erstellt das System Aufzeichnungen von den Teilnehmer/innen und deren Bildschirm.</msg>
+  <msg key="desktop_grabbing_not_supported">Der Desktop kann nicht aufgezeichnet werden, da Ihr Browser die Bildschirmaufnahme nicht unterstützt. Bitte verwenden Sie die neueste Version von Google Chrome.</msg>
+  <msg key="desktop_permission_denied">Der Desktop kann nicht aufgezeichnet werden da ihm dieses nicht erlaubt wird. Prüfen Sie das Folgende:&lt;ol&gt;    &lt;li&gt;Vergewissern Sie sich, dass Sie in den Systemeinstellungen und Browsereinstellungen Ihrem Browser die Erlaubnis Ihren Bildschirm aufzunehmen erteilt haben.&lt;/li&gt;    &lt;li&gt;Überprüfen Sie die Einstellungen Ihres Antivirenprogramms und deaktivieren Sie den Adblocker in Google Chrome.&lt;/li&gt;    &lt;li&gt;Löschen Sie die Cache in den Einstellungen von Google Chrome.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="display_surface_not_supported">Der Desktop kann nicht aufgezeichnet werden, da Ihr Browser die die Vollbildauswahl nicht unterstützt. Bitte verwenden Sie die neueste Version von Google Chrome.</msg>
+  <msg key="dotlrn_admin_infotext">&lt;a href=&#34;proctoring&#34;&gt;Liste der Aufzeichnungen während einer automatisierten Online-Aufsicht&lt;/a&gt;</msg>
+  <msg key="Exam_mode">Prüfungsmodus</msg>
+  <msg key="Exam_mode_message">&lt;h4&gt;Prüfungserklärung: Wichtige Informationen
+zur Absolvierung von schriftlichen Online-Prüfungen&lt;/h4&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;1) Teilnahme an einer Prüfung&lt;/h5&gt;
+&lt;p&gt;Die Teilnahme an
+einer Prüfung ist ausnahmslos nur mit gültiger
+Lehrveranstaltungsanmeldung bzw. Prüfungsanmeldung in LPIS möglich.&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;Eine Beurteilung der
+Prüfung erfolgt nur, wenn alle drei folgenden Bedingungen erfüllt
+sind:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;p&gt;Ein Foto zur
+	Identitätsfeststellung wurde, entsprechend den Vorgaben,
+	hochgeladen, sofern vom/von der Prüfungsverantwortlichen eine
+	solche Identitätsfeststellung für die entsprechende Prüfung
+	angekündigt wurde.&lt;/p&gt;
+	&lt;li&gt;&lt;p&gt;Der
+	automatisierten Online-Aufsicht wurde zugestimmt, sofern diese
+	vom/von der Prüfungsverantwortlichen für diese Prüfung
+	angekündigt wurde.&lt;/p&gt;
+	&lt;li&gt;&lt;p&gt;Die
+	Prüfungserklärung wurde bestätigt.&lt;/p&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;Die Bestätigung der
+Prüfungserklärung entspricht der Entgegennahme der Prüfung. Haben
+Sie die Prüfung entgegengenommen, aber ggf. die
+&#34;Identitätsfeststellung&#34; und/oder ggf. die Zustimmung zur
+&#34;Online-Aufsicht&#34; nicht erfüllt, wird die Prüfung mit &#34;NICHTIG&#34;
+bewertet und der Antritt gezählt. Haben Sie die Prüfungserklärung
+nicht bestätigt, dann erhalten Sie keinen Zugang zur Prüfung, es
+erfolgt somit keine Beurteilung und der Antritt wird nicht gezählt 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;2) Technische Voraussetzungen für die Teilnahme&lt;/h5&gt;
+&lt;p&gt;Sie sind für eine
+störungsfreie Prüfungsumgebung und das Vorhandensein der vorab
+bekanntgegebenen, notwendigen technischen Voraussetzungen selbst
+verantwortlich (siehe &#34;Online-Prüfung&#34; bzw. &#34;Technik
+Checkliste&#34; in Ihrer Online-Prüfungsumgebung). Die WU kann die
+störungsfreie Absolvierung der Prüfung nicht für jeden/jede
+Studierende auf dem individuellen Endgerät garantieren. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;3) Starten und Abbruch/Unterbrechung einer Prüfung&lt;/h5&gt;
+&lt;p&gt;Ihre Bestätigung
+dieser Prüfungserklärung gilt als Entgegennahme der Prüfung und
+ist somit ein Prüfungsantritt. Die Prüfung wird beurteilt und auf
+die Gesamtzahl der Wiederholungen angerechnet. Dies gilt auch bei
+vorzeitigem Abbruch der Prüfung bzw. wenn Sie die Prüfung nicht
+abgeben. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;Müssen Sie aufgrund
+technischer Probleme (z.B. Ausfall Ihrer Internetverbindung) Ihre
+Prüfung abbrechen bzw. unterbrechen, dann wenden Sie sich bitte
+unverzüglich an Ihre/n Prüfungsverantwortliche/n.&lt;font size=&#34;1&#34;&gt;
+&lt;/font&gt;Nutzen Sie dazu den, von der/dem Prüfungsverantwortlichen
+vorab kommunizierten Kanal, z.B. via E-Mail oder Microsoft Teams.
+Melden Sie den Abbruch/die Unterbrechung der Prüfung inkl. folgender
+Angaben:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;p&gt;Ihre
+	Matrikelnummer&lt;/p&gt;
+	&lt;li&gt;&lt;p&gt;Zeitpunkt des
+	Abbruchs bzw. der Unterbrechung&lt;/p&gt;
+	&lt;li&gt;&lt;p&gt;Ggf. Screenshot
+	der Fehlermeldung 
+	&lt;/p&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sollte Ihnen eine
+Wiederaufnahme der Prüfung möglich sein, melden Sie dies ebenfalls
+mit der Nachricht &#34;Wiederaufnahme der Prüfung&#34;. Es empfiehlt
+sich für die Meldung ggf. vorab die passenden Apps auf mobile Geräte
+herunterzuladen, z.B. um die Meldung auch während eines Ausfalls der
+WLAN-Verbindung schicken zu können. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;In gemeldeten Fällen
+von Abbrüchen/Unterbrechungen aufgrund technischer Probleme während
+der Prüfung, die außerhalb Ihrer Verantwortung liegen, wird die
+Prüfung grundsätzlich nicht beurteilt und nicht auf die Gesamtzahl
+der Wiederholungen angerechnet. Wenn Sie trotzdem eine Beurteilung
+der Prüfung möchten, teilen Sie das bitte der/dem
+Prüfungsverantwortlichen gleich nach der Prüfung mit. Die
+Beurteilung erfolgt nur, wenn alle Bedingungen für eine Beurteilung
+erfüllt sind und beurteilt werden nur die Teile der Prüfung, die
+ohne technische Probleme absolviert wurden (z.B. nur bei
+funktionierender Online-Aufsicht).&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;4) Leistungserschleichung und
+Identitätsfeststellung&lt;/h5&gt;
+&lt;p&gt;Der Versuch die
+Beurteilung durch unerlaubte Hilfsmittel zu erschleichen (z.B.
+Mobiltelefone, Zuhilfenahme nicht erlaubter Lehrunterlagen, Absprache
+mit anderen Personen) führt dazu, dass die Prüfung mit &#34;NICHTIG&#34;
+bewertet wird und der Antritt gezählt wird. Zudem werden Sie für
+die Dauer von 4 Monaten ab dem Prüfungsdatum für weitere
+Anmeldungen zu der betreffenden Prüfung gesperrt. 
+&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;Die Abfassung einer
+Prüfung für eine andere Person kann strafrechtliche Folgen nach
+sich ziehen und wird ausnahmslos bei der Staatsanwaltschaft
+angezeigt.&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;p&gt;Während der
+gesamten Prüfungsdauer wird eine automatisierte Online-Aufsicht
+durchgeführt, sofern diese vom/von der Prüfungsverantwortlichen für
+diese Prüfung angekündigt wurde. Dazu werden während der Prüfung
+laufend Aufnahmen von Ihnen (Kamera und Ton) und Ihrem Bildschirm
+gemacht, die von den Prüfungsverantwortlichen eingesehen werden
+können. Für die Online-Aufsicht müssen Sie vorab ihr Zustimmung
+unter dem Punkt &#34;Zustimmung zur Online-Aufsicht&#34; gegeben haben.
+Beim Starten der Prüfung erteilen Sie Ihrem Browser die Erlaubnis
+den ganzen Bildschirm, die Kamera und den Ton aufzuzeichnen. Die
+Manipulation der Online-Aufsicht wird als Erschleichungsversuch
+gewertet.&lt;/p&gt;
+&lt;p&gt;
+
+&lt;/p&gt;
+&lt;h5&gt;5) Erlaubte Hilfsmittel&lt;/h5&gt;
+&lt;p&gt;Es sind nur solche
+Hilfsmittel für die Bearbeitung dieser Prüfung erlaubt, die von den
+Prüfungsverantwortlichen in den Informationen zur Prüfung unter
+&#34;Online-Prüfung&#34; explizit aufgelistet wurden. Während der
+Prüfung dürfen sich grundsätzlich keine anderen Personen im selben
+Raum befinden. 
+&lt;/p&gt;
+&lt;p&gt;&lt;/a&gt;
+
+
+&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Kenntnisnahme der
+Informationen zur Absolvierung der Prüfung und Entgegennahme der
+Prüfung 
+&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Ich bestätige
+hiermit, dass ich&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;alle oben
+	genannten Informationen zur Absolvierung der schriftlichen
+	Online-Prüfung verstanden habe,
+	&lt;li&gt;alle genannten
+	Bedingungen für die Teilnahme an der Prüfung erfülle,
+	&lt;li&gt;die Prüfung
+	selbstständig und ohne unerlaubte Hilfsmittel absolvieren werde und
+	&lt;li&gt;die Prüfung
+	mit dieser Bestätigung entgegennehme, d.h. es erfolgt eine
+	Beurteilung und dieser Antritt wird auf die Gesamtzahl der
+	Wiederholungen angerechnet. 
+&lt;/ul&gt;</msg>
+  <msg key="grant_access_to_camera_msg">Erlauben Sie den Zugriff auf Ihre Kamera, wenn Ihr Browser Sie dazu auffordert. Haben Sie den Zugriff erlaubt, wird Ihnen eine Vorschau angezeigt. Stellen Sie sicher, dass ihr Gesicht im Vorschaubild gut zu erkennen ist</msg>
+  <msg key="grant_access_to_camera_title">Zugriff auf Ihre Kamera erlauben</msg>
+  <msg key="grant_access_to_desktop_msg">Sie werden von Ihrem Browser aufgefordert, den Zugriff auf Ihren Bildschirm zu erlauben. Bitte wählen Sie zuerst den gesamten Bildschirm aus und bestätigen Sie die Erlaubnis über den Button &#34;Teilen&#34;. Ihnen wird eine Vorschau Ihres Bildschirms angezeigt.</msg>
+  <msg key="grant_access_to_desktop_title">Zugriff auf Ihren Bildschirm erlauben</msg>
+  <msg key="grant_access_to_microphone_msg">Erlauben Sie den Zugriff auf Ihr Mikrofon, wenn Ihr Browser Sie dazu auffordert. Haben Sie den Zugriff erlaubt, wird Ihnen eine Audiowelle angezeigt, damit Sie Ihr Mikrofon testen können. Stellen Sie sicher, dass Ihr Mikrofon nicht stumm geschaltet ist und dass sich die Audiowelle bewegt und auf Ihre Stimme reagiert.</msg>
+  <msg key="grant_access_to_microphone_title">Zugriff auf Ihr Mikrofon erlauben</msg>
+  <msg key="microphone_not_found">Es wurde kein Mikrofon erkannt. Prüfen Sie das Folgende:&lt;ol&gt;    &lt;li&gt;Stellen Sie sicher, dass ein Mikrofon installiert ist. Öffnen Sie die Systemsteuerung Ihres Computers und gehen Sie zu Sound | Eingabe und überprüfen Sie, ob ein Mikrofon angeführt ist. Testen Sie das Mikrofon und führen Sie ggf. eine Problembehandlung aus.&lt;/li&gt;    &lt;li&gt;Wenn Sie ein externes Mikrofon verwenden, dann prüfen Sie, ob dieses an den Computer angeschlossen ist und, sofern es einen Schalter hat, auch angeschaltet ist.&lt;/li&gt;    &lt;li&gt;Stellen Sie sicher, dass das korrekte Mikrofon im Browser ausgewählt ist. Gehen Sie in Google Chrome auf: Browsereinstellungen | Datenschutz und Sicherheit | Webseite Einstellungen | Berechtigungen | Mikrofon und prüfen Sie das hier ausgewählte Mikrofon.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="microphone_not_readable">Der Zugriff auf Ihr Mikrofon wurde verhindert. Überprüfen Sie bitte, ob in den Systemeinstellungen der Zugriff auf das Mikrofon gestattet ist. Öffnen Sie die Systemeinstellungen Ihres Computers und gehen Sie zu \&#34;Mikrofon\&#34;. Prüfen Sie, ob der Mikrofonzugriff allgemein aktiviert ist. Gehen Sie auf \&#34;Ändern\&#34; um den Mikrofonzugriff zu aktivieren. Prüfen Sie, ob Apps und Desktop-Apps auf Ihr Mikrofon zugreifen dürfen. Setzen Sie den Schieberegler auf \&#34;Ein\&#34;.</msg>
+  <msg key="microphone_permission_denied">Ihr Mikrofon kann nicht aufgezeichnet werden, da es keine Berechtigung dazu hat. Prüfen Sie das Folgende:&lt;ol&gt;&lt;li&gt;Ist Ihr Mikrofon in den Browsereinstellungen blockiert? Gehen Sie in Google Chrome auf: Browsereinstellungen | Datenschutz und Sicherheit | Webseite Einstellungen | Berechtigungen | Mikrofon. Wenn der Schieberegler auf \&#34;Blockiert\&#34; steht, dann setzen Sie ihn auf &lt;i&gt;Vor&lt;/i&gt; dem Zugriff nachfragen (empfohlen).&lt;/li&gt;&lt;li&gt;Haben Sie den Zugriff auf das Mikrofon in der Vergangenheit einmal verweigert? Gehen Sie in Google Chrome auf: Browsereinstellungen | Datenschutz und Sicherheit | Webseite Einstellungen | Berechtigungen | Mikrofon. Prüfen Sie ob unter \&#34;Blockieren\&#34; Links zu WU-Webseiten angeführt sind. Löschen Sie diese Webseiten aus der Liste über einen Klick auf das Mülltonnensymbol.&lt;/li&gt;&lt;li&gt;Wurde in den Systemeinstellungen der Zugriff auf das Mikrofon gestattet? Öffnen Sie die Systemeinstellungen Ihres Computers und gehen Sie zu \&#34;Mikrofon\&#34;. Prüfen Sie, ob der Mikrofonzugriff allgemein aktiviert ist. Gehen Sie auf \&#34;Ändern\&#34; um den Mikrofonzugriff zu aktivieren. Prüfen Sie, ob Desktop-Apps auf Ihr Mikrofon zugreifen dürfen. Setzen Sie den Schieberegler auf \&#34;Ein\&#34;.&lt;/li&gt;&lt;/ol&gt;</msg>
+  <msg key="microphone_volume_is_too_low">Ihr Mikrofon ist zu leise eingestellt. Bitte erhöhen Sie die Lautstärke. Prüfen Sie das Folgende:
+&lt;ol&gt;
+    &lt;li&gt;Öffnen Sie die Systemsteuerung Ihres Computers und gehen Sie zu: Sound | Erweiterte Soundoptionen. Passen Sie hier ggf. die Lautstärke an.&lt;/li&gt;
+&lt;/ol&gt;</msg>
+  <msg key="missing_stream_message">Ihr Browser unterstützt keine Kamera-, Mikrofon- oder Bildschirmaufnahmen oder Sie haben den Zugriff auf diese Geräte verweigert. Bitte warten Sie, bis die Seite neu geladen ist und erlauben Sie den Zugriff auf Kamera, Mikrofon und Ihre Vollbildaufnahme und vergewissern Sie sich, dass Ihr Mikrofon aktiviert und nicht stumm geschaltet ist, um mit der Prüfung fortzufahren.</msg>
+  <msg key="mobile_devices_are_unsupported">Mobile Geräte werden nicht unterstützt.</msg>
+  <msg key="preview_help_text">Falls aktiviert, wird den Benutzern während der Online-Aufsichtssitzung eine Vorschau der aufgezeichneten Eingaben angezeigt.</msg>
+  <msg key="Proctoring">Automatisierte Online-Aufsicht</msg>
+  <msg key="recordings">Aufzeichnungen</msg>
+  <msg key="user_photo">Foto</msg>
+  <msg key="wizard_finish">Abschließen</msg>
+  <msg key="wrong_display_surface_selected">Der Desktop kann nicht aufgezeichnet werden, da Sie nicht Ihren gesamten Bildschirm ausgewählt haben. Wählen Sie \&#34;Gesamten Bildschirm\&#34; aus.</msg>
+  <msg key="you_are_producing_black_pictures_from_camera">Wichtiger Hinweis:&lt;br&gt;&lt;br&gt;Auf LEARN wird angezeigt, dass Ihre Kamera momentan schwarze bzw. unlesbare Aufnahmen sendet. Dies kann für Sie einen ungültigen Prüfungsantritt zur Folge haben.&lt;ul&gt;&lt;li&gt;Vergewissern Sie sich bitte, dass Ihre Kamera funktioniert und nicht abgedeckt ist.&lt;/li&gt;&lt;li&gt;Stellen Sie bitte sicher, dass Ihr Endgerät an ein Netzkabel angesteckt ist und nicht im Batteriemodus läuft.&lt;/li&gt;&lt;li&gt;Sie können die Kamerabild-Vorschau auf der Testseite unter &lt;a href=\&#34;https://learn.wu.ac.at/browser-multimedia-test\&#34;&gt;https://learn.wu.ac.at/browser-multimedia-test&lt;/a&gt; überprüfen.&lt;/li&gt;&lt;/ul&gt;</msg>
+  <msg key="you_are_producing_black_pictures_from_desktop">Wichtiger Hinweis:&lt;br&gt;&lt;br&gt;Auf LEARN wird angezeigt, dass Ihre Bildschirm momentan schwarze bzw. unlesbare Aufnahmen sendet. Dies kann für Sie einen ungültigen Prüfungsantritt zur Folge haben.&lt;ul&gt;&lt;li&gt;Stellen Sie bitte sicher, dass Ihr Endgerät an ein Netzkabel angesteckt ist und nicht im Batteriemodus läuft.&lt;/li&gt;&lt;li&gt;Sie können die Kamerabild-Vorschau auf der Testseite unter &lt;a href=\&#34;https://learn.wu.ac.at/browser-multimedia-test\&#34;&gt;https://learn.wu.ac.at/browser-multimedia-test&lt;/a&gt; überprüfen.&lt;/li&gt;&lt;/ul&gt;</msg>
+  <msg key="your_microphone_is_muted">Ihr Mikrofon ist stummgeschaltet. Bitte heben Sie die Stummschaltung auf. Prüfen Sie das Folgende:&lt;ol&gt;    &lt;li&gt;Öffnen Sie die Systemsteuerung Ihres Computers und gehen Sie zu: Sound | Eingabe | Audiogeräte verwalten. Prüfen Sie, ob Ihr Mikrofon unter \&#34;Deaktiviert\&#34; angeführt ist. Wenn ja, aktivieren Sie es durch einen Klick auf das Mikrofon.&lt;/li&gt;&lt;/ol&gt;</msg>
+</message_catalog>
