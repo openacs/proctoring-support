@@ -70,7 +70,7 @@ ad_proc ::proctoring::configure {
             :proctoring_p,
             :examination_statement_p
           ) on conflict(object_id) do update set
-            enabled_p  = :enabled_p
+            enabled_p  = :enabled_p,
             start_date = :start_date,
             end_date   = :end_date,
             start_time = :start_time,
