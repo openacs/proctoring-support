@@ -187,6 +187,7 @@ hiermit, dass ich&lt;/p&gt;
 	Beurteilung und dieser Antritt wird auf die Gesamtzahl der
 	Wiederholungen angerechnet. 
 &lt;/ul&gt;</msg>
+  <msg key="Examination_Statement">Prüfungserklärung</msg>
   <msg key="grant_access_to_camera_msg">Erlauben Sie den Zugriff auf Ihre Kamera, wenn Ihr Browser Sie dazu auffordert. Haben Sie den Zugriff erlaubt, wird Ihnen eine Vorschau angezeigt. Stellen Sie sicher, dass ihr Gesicht im Vorschaubild gut zu erkennen ist</msg>
   <msg key="grant_access_to_camera_title">Zugriff auf Ihre Kamera erlauben</msg>
   <msg key="grant_access_to_desktop_msg">Sie werden von Ihrem Browser aufgefordert, den Zugriff auf Ihren Bildschirm zu erlauben. Bitte wählen Sie zuerst den gesamten Bildschirm aus und bestätigen Sie die Erlaubnis über den Button &#34;Teilen&#34;. Ihnen wird eine Vorschau Ihres Bildschirms angezeigt.</msg>
@@ -202,6 +203,7 @@ hiermit, dass ich&lt;/p&gt;
 &lt;/ol&gt;</msg>
   <msg key="missing_stream_message">Ihr Browser unterstützt keine Kamera-, Mikrofon- oder Bildschirmaufnahmen oder Sie haben den Zugriff auf diese Geräte verweigert. Bitte warten Sie, bis die Seite neu geladen ist und erlauben Sie den Zugriff auf Kamera, Mikrofon und Ihre Vollbildaufnahme und vergewissern Sie sich, dass Ihr Mikrofon aktiviert und nicht stumm geschaltet ist, um mit der Prüfung fortzufahren.</msg>
   <msg key="mobile_devices_are_unsupported">Mobile Geräte werden nicht unterstützt.</msg>
+  <msg key="OnlineExam">Online-Prüfung</msg>
   <msg key="preview_help_text">Falls aktiviert, wird den Benutzern während der Online-Aufsichtssitzung eine Vorschau der aufgezeichneten Eingaben angezeigt.</msg>
   <msg key="Proctoring">Automatisierte Online-Aufsicht</msg>
   <msg key="recordings">Aufzeichnungen</msg>

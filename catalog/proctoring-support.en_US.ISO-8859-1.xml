@@ -185,6 +185,7 @@ the information on receipt and completion of the examination
 	be graded and will count towards my total number of examination
 	attempts
 &lt;/ul&gt;</msg>
+  <msg key="Examination_Statement">Examination Statement</msg>
   <msg key="grant_access_to_camera_msg">If your browser prompts you to give access to the camera, please do so. Once permission has been granted, a preview image will appear. Please make sure your face is clearly visible in the picture before proceeding.</msg>
   <msg key="grant_access_to_camera_title">Grant access to your camera</msg>
   <msg key="grant_access_to_desktop_msg">You are being prompted to give access to your desktop. Please first select &#34;full screen&#34; and grant the access thereafter by clicking the button &#34;share&#34;. On success you should see a preview of your desktop on the page.</msg>
