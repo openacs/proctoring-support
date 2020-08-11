@@ -245,8 +245,6 @@ if (hasProctoring) {
         }).catch(err => {
             if (err.name == "NotAllowedError") {
                 err = cameraPermissionDeniedMessage;
-            } else if (err.name == "NotFoundError") {
-                err = cameraNotFoundMessage;
             } else if (err.name == "NotReadableError") {
                 err = cameraNotReadableMessage;
             }

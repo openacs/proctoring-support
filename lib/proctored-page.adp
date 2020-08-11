@@ -107,7 +107,6 @@
     var cameraPermissionDeniedMessage = "@msg.camera_permission_denied;noquote@";
     var desktopPermissionDeniedMessage = "@msg.desktop_permission_denied;noquote@";
     var microphoneNotFoundMessage = "@msg.microphone_not_found;noquote@";
-    var cameraNotFoundMessage = "@msg.camera_not_found;noquote@";
     var microphoneNotReadableMessage = "@msg.microphone_not_readable;noquote@";
     var cameraNotReadableMessage = "@msg.camera_not_readable;noquote@";
     var wrongDisplaySurfaceSelectedMessage = "@msg.wrong_display_surface_selected;noquote@";

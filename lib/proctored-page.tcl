@@ -79,7 +79,6 @@ set default_msg(your_microphone_is_muted) [_ proctoring-support.your_microphone_
 set default_msg(camera_permission_denied) [_ proctoring-support.camera_permission_denied]
 set default_msg(microphone_permission_denied) [_ proctoring-support.microphone_permission_denied]
 set default_msg(desktop_permission_denied) [_ proctoring-support.desktop_permission_denied]
-set default_msg(camera_not_found) [_ proctoring-support.camera_not_found]
 set default_msg(microphone_not_found) [_ proctoring-support.microphone_not_found]
 set default_msg(microphone_not_readable) [_ proctoring-support.microphone_not_readable]
 set default_msg(camera_not_readable) [_ proctoring-support.camera_not_readable]
