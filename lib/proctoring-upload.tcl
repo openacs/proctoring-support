@@ -45,7 +45,7 @@ file rename -force -- ${file.tmpfile} $file_path
 # websocket. We should port it.
 # Notify a websocket about the upload so that e.g. a UI can be updated
 # in real time.
-if {$notifiy_p} {
+if {$notify_p} {
     set message [subst -nocommands {
         {
             "user_id": "$user_id",
