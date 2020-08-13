@@ -115,5 +115,6 @@
     var isMobile = @mobile_p;literal@;
     var nextLabel = "#acs-kernel.common_Next#";
     var submitLabel = "#proctoring-support.wizard_finish#";
+    var blackPictureSizeThreshold = 24000; // kbytes
   </script>
   <script src="/resources/proctoring-support/proctored-page.js"></script>

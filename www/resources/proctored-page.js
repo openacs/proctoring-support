@@ -76,7 +76,9 @@ function createPreview() {
 
 var uploadQueue = [];
 function scheduleUpload(name, type, blob) {
-    if (type == "image" && blob == null && blob.size <= 8000) {
+    if (type == "image" &&
+        blob == null &&
+        blob.size <= blackPictureSizeThreshold) {
         if (name == "camera") {
             modalAlert(blackPictureCameraMessage);
         } else {
@@ -235,7 +237,8 @@ if (hasProctoring) {
                 canvas.height = camvideo.videoHeight;
                 canvas.getContext("2d").drawImage(camvideo, 0, 0, camvideo.videoWidth, camvideo.videoHeight);
                 canvas.toBlob(function(blob) {
-                    if (blob == null || blob.size < 24000) {
+                    if (blob == null ||
+                        blob.size <= blackPictureSizeThreshold) {
                         var errmsg = blackPictureCameraMessage;
                         setError(errmsg);
                     }
