@@ -8,9 +8,16 @@ aa_register_case \
     proctoring_folder_test {
         Test ::proctoring::folder
     } {
+        # Make sure we never conflict with "real" object folders
+        set object_id [db_string get_object_id {
+            select min(object_id) - 100 from acs_objects
+        }]
+        set max_object_id [expr {$object_id + 5}]
+
         set object_dirs [list]
         set paths [list]
-        for {set object_id 0} {$object_id < 5} {incr object_id} {
+
+        while {$object_id < $max_object_id} {
             for {set user_id 0} {$user_id < 5} {incr user_id} {
                 set path [::proctoring::folder -object_id $object_id -user_id $user_id]
                 aa_log "Path is $path"
@@ -19,10 +26,13 @@ aa_register_case \
                 file delete -- $path
                 lappend object_dirs [file dirname $path]
             }
+            incr object_id
         }
+
         set object_dirs [lsort -unique $object_dirs]
         aa_log "Cleaning up $object_dirs"
         file delete -- {*}$object_dirs
+
         aa_true "Unique paths were generated" {[llength [lsort -unique $paths]] == 25}
     }
 
