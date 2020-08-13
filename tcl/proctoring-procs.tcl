@@ -14,6 +14,7 @@ ad_proc ::proctoring::folder {
     if {[info exists user_id]} {
         append folder /$user_id
     }
+    file mkdir $folder
     return $folder
 }
 

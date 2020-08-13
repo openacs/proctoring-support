@@ -11,7 +11,11 @@ aa_register_case \
         set paths [list]
         for {set object_id 0} {$object_id < 5} {incr object_id} {
             for {set user_id 0} {$user_id < 5} {incr user_id} {
-                lappend paths [::proctoring::folder -object_id $object_id -user_id $user_id]/content
+                set path [::proctoring::folder -object_id $object_id -user_id $user_id]
+                aa_log "Path is $path"
+                lappend paths $path
+                aa_log "...deleted."
+                file delete -- $path
             }
         }
         aa_true "Unique paths were generated" {[llength [lsort -unique $paths]] == 25}
