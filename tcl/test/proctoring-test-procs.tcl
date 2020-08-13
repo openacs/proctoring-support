@@ -8,6 +8,7 @@ aa_register_case \
     proctoring_folder_test {
         Test ::proctoring::folder
     } {
+        set object_dirs [list]
         set paths [list]
         for {set object_id 0} {$object_id < 5} {incr object_id} {
             for {set user_id 0} {$user_id < 5} {incr user_id} {
@@ -16,8 +17,12 @@ aa_register_case \
                 lappend paths $path
                 aa_log "...deleted."
                 file delete -- $path
+                lappend object_dirs [file dirname $path]
             }
         }
+        set object_dirs [lsort -unique $object_dirs]
+        aa_log "Cleaning up $object_dirs"
+        file delete -- {*}$object_dirs
         aa_true "Unique paths were generated" {[llength [lsort -unique $paths]] == 25}
     }
 
