@@ -251,8 +251,9 @@ class AutoAudioRecorder {
 
         // Audio frames we skip at the beginning when we check for
         // silence, as the audio stream might start with a silent
-        // interval due to initialization. We skip the first 5s
-        this.nSkipSilentFrames = 5000 / this.sampleInterval;
+        // interval due to initialization. We skip the first ~5s
+        this.NSKIPSILENTFRAMES = 5000 / this.sampleInterval;
+        this.nSkipSilentFrames = this.NSKIPSILENTFRAMES;
 
         // Create an audio recorder
         this.recorder = new MediaRecorder(this.stream, {
@@ -284,9 +285,10 @@ class AutoAudioRecorder {
         this.noise = (this.noise * (decay - 1) + max) / decay;
 
         if (this.nSkipSilentFrames == 0 &&
-            this.noise < 0.000001) {
+            this.noise < Math.pow(10, -10)) {
             if (typeof this.onmicrophonetoolow == "function") {
                 this.onmicrophonetoolow();
+                this.nSkipSilentFrames = this.NSKIPSILENTFRAMES;
             }
         } else if (this.nSkipSilentFrames > 0) {
             this.nSkipSilentFrames--;
