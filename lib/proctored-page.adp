@@ -107,11 +107,13 @@
     var cameraPermissionDeniedMessage = "@msg.camera_permission_denied;noquote@";
     var desktopPermissionDeniedMessage = "@msg.desktop_permission_denied;noquote@";
     var microphoneNotFoundMessage = "@msg.microphone_not_found;noquote@";
+    var cameraNotFoundMessage = "@msg.camera_not_found;noquote@";
     var microphoneNotReadableMessage = "@msg.microphone_not_readable;noquote@";
     var cameraNotReadableMessage = "@msg.camera_not_readable;noquote@";
     var wrongDisplaySurfaceSelectedMessage = "@msg.wrong_display_surface_selected;noquote@";
     var displaySurfaceNotSupportedMessage = "@msg.display_surface_not_supported;noquote@";
     var mobileDevicesUnsupportedMessage = "@msg.mobile_devices_not_supported@";
+    var microphoneTooLowMessage = "@msg.microphone_too_low;noquote@";
     var isMobile = @mobile_p;literal@;
     var nextLabel = "#acs-kernel.common_Next#";
     var submitLabel = "#proctoring-support.wizard_finish#";

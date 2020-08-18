@@ -248,6 +248,8 @@ if (hasProctoring) {
         }).catch(err => {
             if (err.name == "NotAllowedError") {
                 err = cameraPermissionDeniedMessage;
+            } else if (err.name == "NotFoundError") {
+ 	 	err = cameraNotFoundMessage;
             } else if (err.name == "NotReadableError") {
                 err = cameraNotReadableMessage;
             }
@@ -410,6 +412,9 @@ function startExam() {
             modalAlert(missingStreamMessage, function() {
                 location.reload();
             });
+        },
+        onMicrophoneTooLowHandler : function() {
+            modalAlert(microphoneTooLowMessage);
         },
         onReadyHandler: function() {
             createIframe();

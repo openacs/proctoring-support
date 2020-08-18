@@ -64,6 +64,8 @@ ad_include_contract {
     msg:array,optional
 }
 
+set system_name [ad_system_name]
+
 set default_msg(missing_stream) [_ proctoring-support.missing_stream_message]
 set default_msg(proctoring_accept) [_ proctoring-support.accept_message]
 set default_msg(exam_mode) [_ proctoring-support.Exam_mode_message]
@@ -76,11 +78,13 @@ set default_msg(audio_grabbing_not_supported) [_ proctoring-support.audio_grabbi
 set default_msg(camera_grabbing_not_supported) [_ proctoring-support.camera_grabbing_not_supported]
 set default_msg(desktop_grabbing_not_supported) [_ proctoring-support.desktop_grabbing_not_supported]
 set default_msg(your_microphone_is_muted) [_ proctoring-support.your_microphone_is_muted]
+set default_msg(microphone_too_low) [_ proctoring-support.microphone_volume_is_too_low]
 set default_msg(camera_permission_denied) [_ proctoring-support.camera_permission_denied]
 set default_msg(microphone_permission_denied) [_ proctoring-support.microphone_permission_denied]
 set default_msg(desktop_permission_denied) [_ proctoring-support.desktop_permission_denied]
 set default_msg(microphone_not_found) [_ proctoring-support.microphone_not_found]
 set default_msg(microphone_not_readable) [_ proctoring-support.microphone_not_readable]
+set default_msg(camera_not_found) [_ proctoring-support.camera_not_found]
 set default_msg(camera_not_readable) [_ proctoring-support.camera_not_readable]
 set default_msg(wrong_display_surface_selected) [_ proctoring-support.wrong_display_surface_selected]
 set default_msg(display_surface_not_supported) [_ proctoring-support.display_surface_not_supported]
