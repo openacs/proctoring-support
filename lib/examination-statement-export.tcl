@@ -30,4 +30,5 @@ close $f
 
 ns_set cput [ns_conn outputheaders] "Content-Disposition" "attachment; filename=\"export.csv\""
 ns_writer submitfile -headers $tmpfile
+file delete -- $tmpfile
 ad_script_abort
