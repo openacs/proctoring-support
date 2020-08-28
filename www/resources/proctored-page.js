@@ -174,9 +174,6 @@ var audio = document.querySelector('#audio');
 
 var streams = [];
 var handlers = [];
-if (hasExaminationStatement) {
-    handlers.push(approveStartExam);
-}
 if (hasProctoring) {
     handlers.push(function () {
         clearError();
@@ -290,16 +287,22 @@ if (hasProctoring) {
         });
     });
 }
+if (hasExaminationStatement) {
+    handlers.push(function () {
+        var acceptButton = document.getElementById("nextBtn");
+        acceptButton.innerHTML = acceptLabel;
+        var clickHandler = function(e) {
+            approveStartExam();
+            this.removeEventListener("click", clickHandler);
+        };
+        acceptButton.addEventListener("click", clickHandler);
+    });
+}
 
 function showTab(n) {
     // This function will display the specified tab of the form...
     var x = document.getElementsByClassName("tab");
     x[n].style.display = "block";
-    if (typeof handlers[n] == "function") {
-        handlers[n]();
-    } else {
-        valid = true;
-    }
     //... and fix the Previous/Next buttons:
     if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
@@ -312,7 +315,13 @@ function showTab(n) {
         document.getElementById("nextBtn").innerHTML = nextLabel;
     }
     //... and run a function that will display the correct step indicator:
-    fixStepIndicator(n)
+    fixStepIndicator(n);
+
+    if (typeof handlers[n] == "function") {
+        handlers[n]();
+    } else {
+        valid = true;
+    }
 }
 
 var errorEl = document.querySelector("#error-message");

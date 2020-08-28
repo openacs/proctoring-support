@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <message_catalog package_key="proctoring-support" locale="en_US" charset="ISO-8859-1">
 
+  <msg key="accept">Accept</msg>
   <msg key="accept_message">An automated exam-supervision is activated to detect any fraudulent examination performance. You, your screen and your microphone will be recorded. Your data will only be used for the stated purpose, will be stored securely and will not be passed on to third parties.</msg>
   <msg key="audio_grabbing_not_supported">You are working with a browser that does not support the automated exam-supervision. Please use the latest version of Google &lt;a href=&#39;https://www.google.com/chrome/&#39;&gt;Chrome&lt;/a&gt;.</msg>
   <msg key="banner_message">The examination mode is activated. Close your browser window after the exam.</msg>

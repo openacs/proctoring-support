@@ -25,11 +25,6 @@
     <h1>#xowf.menu-New-App-OnlineExam#</h1>
 
     <!-- One "tab" for each step in the form: -->
-    <if @examination_statement_p;literal@ true>
-      <div class="tab">
-        <div id="examination-statement">@msg.exam_mode;literal@</div>
-      </div>
-    </if>
     <if @proctoring_p;literal@ true>
       <div class="tab">
         <div>@msg.proctoring_accept@</div>
@@ -48,6 +43,11 @@
         <h3>#proctoring-support.grant_access_to_desktop_title#</h3>
         <div>#proctoring-support.grant_access_to_desktop_msg#</div>
         <video class="wizard-video" width="640" id="desktop" autoplay playsinline muted="false" volume=0></video>
+      </div>
+    </if>
+    <if @examination_statement_p;literal@ true>
+      <div class="tab">
+        <div id="examination-statement">@msg.exam_mode;literal@</div>
       </div>
     </if>
     <div id="error-message" class="text-danger"></div>
@@ -117,6 +117,7 @@
     var isMobile = @mobile_p;literal@;
     var nextLabel = "#acs-kernel.common_Next#";
     var submitLabel = "#proctoring-support.wizard_finish#";
+    var acceptLabel = "#proctoring-support.accept#";
     var blackPictureSizeThreshold = 24000; // kbytes
   </script>
   <script src="/resources/proctoring-support/proctored-page.js"></script>
