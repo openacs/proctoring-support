@@ -6,4 +6,5 @@ ad_page_contract {
     object_id:naturalnum,notnull
     file
     file.tmpfile
+    {check_active_p:boolean true}
 }
