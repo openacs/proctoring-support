@@ -3,6 +3,22 @@ ad_include_contract {
     Implements the upload backend for proctoring, which can be used as
     is or inside e.g. an object method.
 
+    @param notify_p enable websocket notifications on two
+                    subscriptions named proctoring-<object_id> and
+                    proctoring-<object_id>-<user_id>, notifying about
+                    uploads on the whole proctored object and on the
+                    single user respectively.
+    @param check_active_p when enabled, upload backend will use data
+                          stored in the proctoring datamodel to check
+                          if proctoring is still active on the
+                          object. If it is not, the include will
+                          return "OFF" as a res ponse, informing the
+                          client side that proctoring can be
+                          interrupted.
+
+    @return 200/OK on success, 500/KO on failure, 200/OFF on a correct
+            request when proctoring is not active anymore and the
+            check_active_p flag is enabled.
 } {
     name:oneof(camera|desktop),notnull
     type:oneof(image|audio),notnull
@@ -10,6 +26,7 @@ ad_include_contract {
     file
     file.tmpfile
     {notify_p:boolean false}
+    {check_active_p:boolean true}
 }
 
 auth::require_login
@@ -31,7 +48,7 @@ if {($type eq "image" && ![regexp {^image/(.*)$} $mime_type m extension]) ||
     ns_log warning "Proctoring: user $user_id uploaded a non-$type ($mime_type) file for object $object_id"
     ns_return 500 text/plain "KO"
     ad_script_abort
-} elseif {![::proctoring::active_p -object_id $object_id]} {
+} elseif {$check_active_p && ![::proctoring::active_p -object_id $object_id]} {
     ns_return 200 text/plain "OFF"
     ad_script_abort
 }
