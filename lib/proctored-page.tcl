@@ -19,6 +19,15 @@ ad_include_contract {
            longer than min_audio_duration is detected from the
            microphone, a recording will be started and terminated at
            the next silence, or once it reaches max_audio_duration
+    @param check_active_p detects if proctoring is not active anymore
+                          for this object and exit the proctored
+                          session. "active", is implemented by
+                          checking that the upload backed does not
+                          return something differ ent from the "OK"
+                          response. Using provided upload backend,
+                          this will be checked by querying proctoring
+                          object metadata stored in this package's
+                          datamodel.
     @param min_audio_duration minimum audio duration to start
            recording in seconds
     @param max_audio_duration max audio duration in seconds. Once
@@ -34,11 +43,11 @@ ad_include_contract {
            receive 'object_id' as query parameter.
     @param upload_url URL for the backend receiving and storing the
            collected snapshots. It will receive 'name' (device name,
-           either camera or desktop), item_id (exam_id), and the
-           file. Current default URL is that which becomes available
-           by default once proctoring-support package is mounted and
-           will store the pictures in the /proctoring folder under
-           acs_root_dir.
+           either camera or desktop), item_id (exam_id), the file and
+           the check_active_p flag. Current default URL is that which
+           becomes available by default once proctoring-support
+           package is mounted and will store the pictures in the
+           /proctoring folder under acs_root_dir.
     @param msg an array that can be used to customize UI labels with
            fields: 'missing_stream' (message to display in case
            proctoring fails due to a missing stream), 'accept' (label
@@ -58,6 +67,7 @@ ad_include_contract {
     {max_audio_duration:naturalnum 60}
     {preview_p:boolean false}
     {proctoring_p:boolean true}
+    {check_active_p:boolean true}
     {examination_statement_p:boolean true}
     {examination_statement_url:localurl "/proctoring/examination-statement-accept"}
     {upload_url:localurl "/proctoring/upload"}
@@ -97,5 +107,6 @@ foreach {key value} [array get default_msg] {
 }
 
 set mobile_p [ad_conn mobile_p]
+set check_active_p [expr {$check_active_p ? true : false}]
 set preview_p [expr {$preview_p ? true : false}]
 set proctoring_p [expr {$proctoring_p ? true : false}]

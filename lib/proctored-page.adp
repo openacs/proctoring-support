@@ -115,6 +115,7 @@
     var mobileDevicesUnsupportedMessage = "@msg.mobile_devices_not_supported@";
     var microphoneTooLowMessage = "@msg.microphone_too_low;noquote@";
     var isMobile = @mobile_p;literal@;
+    var checkActive = @check_active_p;literal@;
     var nextLabel = "#acs-kernel.common_Next#";
     var submitLabel = "#proctoring-support.wizard_finish#";
     var acceptLabel = "#proctoring-support.accept#";

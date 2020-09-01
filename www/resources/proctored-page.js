@@ -90,6 +90,7 @@ function scheduleUpload(name, type, blob) {
     formData.append("type", type);
     formData.append("object_id", objectId);
     formData.append("file", blob);
+    formData.append("check_active_p", checkActive);
     uploadQueue.push(formData);
 }
 
