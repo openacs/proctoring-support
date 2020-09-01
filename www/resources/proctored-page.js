@@ -51,7 +51,7 @@ function createIframe() {
         console.log("iframe loaded");
     });
     document.querySelector("#proctored-iframe-placeholder").appendChild(iframe);
-    iframe.src = objectURL
+    iframe.src = objectURL;
     console.log("iframe created");
 }
 
