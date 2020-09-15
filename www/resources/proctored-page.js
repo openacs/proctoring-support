@@ -77,8 +77,8 @@ function createPreview() {
 var uploadQueue = [];
 function scheduleUpload(name, type, blob) {
     if (type == "image" &&
-        blob == null &&
-        blob.size <= blackPictureSizeThreshold) {
+        (blob == null ||
+        blob.size <= blackPictureSizeThreshold)) {
         if (name == "camera") {
             modalAlert(blackPictureCameraMessage);
         } else {
