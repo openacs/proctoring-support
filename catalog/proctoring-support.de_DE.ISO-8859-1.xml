@@ -15,178 +15,85 @@
   <msg key="desktop_permission_denied">Ihr Bildschirm kann nicht aufgenommen werden, da Google Chrome keine Berechtigung dazu hat. Mögliche Ursachen sind: &lt;ul&gt; &lt;li&gt;&lt;b&gt;Die Bildschirmaufnahme ist durch ein Antivirenprogramm blockiert&lt;/b&gt;: Erlauben Sie Ihrem Antivirenprogramm bzw. der Antivirenschutzerweiterung in Google Chrome die Bildschirmaufnahme bzw. deaktivieren Sie alle Antivirusprogramme für die Dauer der Prüfung.&lt;/li&gt; &lt;li&gt;&lt;b&gt;Die Bildschirmaufnahme ist in den Systemeinstellungen ist blockiert (MacOS)&lt;/b&gt;: Gehen Sie unter \&#34;Systemeinstellungen\&#34; auf \&#34;Sicherheit\&#34; | \&#34;Datenschutz\&#34; und dann in der Seitenleiste auf \&#34;Bildschirmaufnahme\&#34;. Aktivieren Sie das Markierungsfeld neben Google Chrome. Starten Sie Google Chrome neu.&lt;/li&gt; &lt;/ul&gt;</msg>
   <msg key="display_surface_not_supported">Sie arbeiten mit einem Browser der die automatische Online-Aufsicht nicht unterstützt. Bitte verwenden Sie die neueste Version von &lt;a href=&#39;https://www.google.de/chrome&#39;&gt;Google Chrome&lt;/a&gt;.</msg>
   <msg key="Exam_mode">Prüfungsmodus</msg>
-  <msg key="Exam_mode_message">&lt;h4&gt;Prüfungserklärung: Wichtige Informationen
-zur Absolvierung von schriftlichen Online-Prüfungen&lt;/h4&gt;
+  <msg key="Exam_mode_message">&lt;h4&gt;Prüfungserklärung: Wichtige Informationen zur Absolvierung von schriftlichen Online-Prüfungen&lt;/h4&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
 &lt;h5&gt;1) Teilnahme an einer Prüfung&lt;/h5&gt;
-&lt;p&gt;Die Teilnahme an
-einer Prüfung ist ausnahmslos nur mit gültiger
-Lehrveranstaltungsanmeldung bzw. Prüfungsanmeldung in LPIS möglich.&lt;/p&gt;
+&lt;p&gt;Die Teilnahme an einer Prüfung ist ausnahmslos nur mit gültiger Lehrveranstaltungsanmeldung bzw. Prüfungsanmeldung in LPIS möglich.&lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;Eine Beurteilung der
-Prüfung erfolgt nur, wenn alle drei folgenden Bedingungen erfüllt
-sind:&lt;/p&gt;
+&lt;p&gt;Eine Beurteilung der Prüfung erfolgt nur, wenn alle drei folgenden Bedingungen erfüllt sind:&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;&lt;p&gt;Ein Foto zur
-	Identitätsfeststellung wurde, entsprechend den Vorgaben,
-	hochgeladen, sofern vom/von der Prüfungsverantwortlichen eine
-	solche Identitätsfeststellung für die entsprechende Prüfung
-	angekündigt wurde.&lt;/p&gt;
-	&lt;li&gt;&lt;p&gt;Der
-	automatisierten Online-Aufsicht wurde zugestimmt, sofern diese
-	vom/von der Prüfungsverantwortlichen für diese Prüfung
-	angekündigt wurde.&lt;/p&gt;
-	&lt;li&gt;&lt;p&gt;Die
-	Prüfungserklärung wurde bestätigt.&lt;/p&gt;
+	&lt;li&gt;Ein Foto zur Identitätsfeststellung wurde, entsprechend den Vorgaben, hochgeladen, sofern vom/von der Prüfungsverantwortlichen eine solche Identitätsfeststellung für die entsprechende Prüfung angekündigt wurde.&lt;/li&gt;
+	&lt;li&gt;Die Funktion der automatisierten Online-Aufsicht während der Prüfung gewährleistet war, sofern diese vom/von der Prüfungsverantwortlichen für diese Prüfung angekündigt wurde.&lt;/li&gt;
+	&lt;li&gt;Die Prüfungserklärung wurde bestätigt.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;Die Bestätigung der
-Prüfungserklärung entspricht der Entgegennahme der Prüfung. Haben
-Sie die Prüfung entgegengenommen, aber ggf. die
-&#34;Identitätsfeststellung&#34; und/oder ggf. die Zustimmung zur
-&#34;Online-Aufsicht&#34; nicht erfüllt, wird die Prüfung mit &#34;NICHTIG&#34;
-bewertet und der Antritt gezählt. Haben Sie die Prüfungserklärung
-nicht bestätigt, dann erhalten Sie keinen Zugang zur Prüfung, es
-erfolgt somit keine Beurteilung und der Antritt wird nicht gezählt 
+&lt;p&gt;Die Bestätigung der Prüfungserklärung entspricht der Entgegennahme der Prüfung. Haben Sie die Prüfung entgegengenommen, aber ggf. die &#34;Identitätsfeststellung&#34; und/oder ggf. die Funktion der Online-Aufsicht während der Prüfung nicht gewährleistet, wird die Prüfung mit &#34;NICHTIG&#34; bewertet und der Antritt gezählt. Haben Sie die Prüfungserklärung nicht bestätigt, dann erhalten Sie keinen Zugang zur Prüfung, es erfolgt somit keine Beurteilung und der Antritt wird nicht gezählt
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
 &lt;h5&gt;2) Technische Voraussetzungen für die Teilnahme&lt;/h5&gt;
-&lt;p&gt;Sie sind für eine
-störungsfreie Prüfungsumgebung und das Vorhandensein der vorab
-bekanntgegebenen, notwendigen technischen Voraussetzungen selbst
-verantwortlich (siehe &#34;Online-Prüfung&#34; bzw. &#34;Technik
-Checkliste&#34; in Ihrer Online-Prüfungsumgebung). Die WU kann die
-störungsfreie Absolvierung der Prüfung nicht für jeden/jede
-Studierende auf dem individuellen Endgerät garantieren. 
+&lt;p&gt;Sie sind für eine störungsfreie Prüfungsumgebung und das Vorhandensein der vorab bekanntgegebenen, notwendigen technischen Voraussetzungen selbst verantwortlich (siehe &#34;Informationen zur Online-Prüfung&#34; bzw. &#34;Technik Checkliste&#34; in Ihrer Online-Prüfungsumgebung). Die WU kann die störungsfreie Absolvierung der Prüfung nicht für jeden/jede Studierende auf dem individuellen Endgerät garantieren.
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
 &lt;h5&gt;3) Starten und Abbruch/Unterbrechung einer Prüfung&lt;/h5&gt;
-&lt;p&gt;Ihre Bestätigung
-dieser Prüfungserklärung gilt als Entgegennahme der Prüfung und
-ist somit ein Prüfungsantritt. Die Prüfung wird beurteilt und auf
-die Gesamtzahl der Wiederholungen angerechnet. Dies gilt auch bei
-vorzeitigem Abbruch der Prüfung bzw. wenn Sie die Prüfung nicht
-abgeben. 
+&lt;p&gt;Ihre Bestätigung dieser Prüfungserklärung gilt als Entgegennahme der Prüfung und ist somit ein Prüfungsantritt. Die Prüfung wird beurteilt und auf die Gesamtzahl der Wiederholungen angerechnet. Dies gilt auch bei vorzeitigem Abbruch der Prüfung bzw. wenn Sie die Prüfung nicht abgeben.
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;Müssen Sie aufgrund
-technischer Probleme (z.B. Ausfall Ihrer Internetverbindung) Ihre
-Prüfung abbrechen bzw. unterbrechen, dann wenden Sie sich bitte
-unverzüglich an Ihre/n Prüfungsverantwortliche/n.&lt;font size=&#34;1&#34;&gt;
-&lt;/font&gt;Nutzen Sie dazu den, von der/dem Prüfungsverantwortlichen
-vorab kommunizierten Kanal, z.B. via E-Mail oder Microsoft Teams.
-Melden Sie den Abbruch/die Unterbrechung der Prüfung inkl. folgender
-Angaben:&lt;/p&gt;
+&lt;p&gt;Müssen Sie aufgrund technischer Probleme (z.B. Ausfall Ihrer Internetverbindung) Ihre Prüfung abbrechen bzw. unterbrechen, dann wenden Sie sich bitte unverzüglich an Ihre/n Prüfungsverantwortliche/n. Nutzen Sie dazu den, von der/dem Prüfungsverantwortlichen vorab kommunizierten Kanal, z.B. via E-Mail oder Microsoft Teams. Melden Sie den Abbruch/die Unterbrechung der Prüfung inkl. folgender Angaben:&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;&lt;p&gt;Ihre
-	Matrikelnummer&lt;/p&gt;
-	&lt;li&gt;&lt;p&gt;Zeitpunkt des
-	Abbruchs bzw. der Unterbrechung&lt;/p&gt;
-	&lt;li&gt;&lt;p&gt;Ggf. Screenshot
-	der Fehlermeldung 
-	&lt;/p&gt;
+	&lt;li&gt;Ihre Matrikelnummer&lt;/li&gt;
+	&lt;li&gt;Zeitpunkt des Abbruchs bzw. der Unterbrechung&lt;/li&gt;
+	&lt;li&gt;Ggf. Screenshot der Fehlermeldung&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Sollte Ihnen eine
-Wiederaufnahme der Prüfung möglich sein, melden Sie dies ebenfalls
-mit der Nachricht &#34;Wiederaufnahme der Prüfung&#34;. Es empfiehlt
-sich für die Meldung ggf. vorab die passenden Apps auf mobile Geräte
-herunterzuladen, z.B. um die Meldung auch während eines Ausfalls der
-WLAN-Verbindung schicken zu können. 
+&lt;p&gt;Sollte Ihnen eine Wiederaufnahme der Prüfung möglich sein, melden Sie dies ebenfalls mit der Nachricht &#34;Wiederaufnahme der Prüfung&#34;. Es empfiehlt sich für die Meldung ggf. vorab die passenden Apps auf mobile Geräte herunterzuladen, z.B. um die Meldung auch während eines Ausfalls der WLAN-Verbindung schicken zu können.
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;In gemeldeten Fällen
-von Abbrüchen/Unterbrechungen aufgrund technischer Probleme während
-der Prüfung, die außerhalb Ihrer Verantwortung liegen, wird die
-Prüfung grundsätzlich nicht beurteilt und nicht auf die Gesamtzahl
-der Wiederholungen angerechnet. Wenn Sie trotzdem eine Beurteilung
-der Prüfung möchten, teilen Sie das bitte der/dem
-Prüfungsverantwortlichen gleich nach der Prüfung mit. Die
-Beurteilung erfolgt nur, wenn alle Bedingungen für eine Beurteilung
-erfüllt sind und beurteilt werden nur die Teile der Prüfung, die
-ohne technische Probleme absolviert wurden (z.B. nur bei
-funktionierender Online-Aufsicht).&lt;/p&gt;
+&lt;p&gt;In gemeldeten Fällen von Abbrüchen/Unterbrechungen aufgrund technischer Probleme während der Prüfung, die außerhalb Ihrer Verantwortung liegen, wird die Prüfung grundsätzlich nicht beurteilt und nicht auf die Gesamtzahl der Wiederholungen angerechnet. Wenn Sie trotzdem eine Beurteilung der Prüfung möchten, teilen Sie das bitte der/dem Prüfungsverantwortlichen gleich nach der Prüfung mit. Die Beurteilung erfolgt nur, wenn alle Bedingungen für eine Beurteilung erfüllt sind (z.B. nur bei funktionierender Online-Aufsicht, wenn vorgesehen) und beurteilt werden nur die Teile der Prüfung, die ohne Probleme absolviert wurden.&lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;h5&gt;4) Leistungserschleichung und
-Identitätsfeststellung&lt;/h5&gt;
-&lt;p&gt;Der Versuch die
-Beurteilung durch unerlaubte Hilfsmittel zu erschleichen (z.B.
-Mobiltelefone, Zuhilfenahme nicht erlaubter Lehrunterlagen, Absprache
-mit anderen Personen) führt dazu, dass die Prüfung mit &#34;NICHTIG&#34;
-bewertet wird und der Antritt gezählt wird. Zudem werden Sie für
-die Dauer von 4 Monaten ab dem Prüfungsdatum für weitere
-Anmeldungen zu der betreffenden Prüfung gesperrt. 
+&lt;h5&gt;4) Leistungserschleichung und Identitätsfeststellung&lt;/h5&gt;
+&lt;p&gt;Der Versuch die Beurteilung durch unerlaubte Hilfsmittel zu erschleichen (z.B. Mobiltelefone, Zuhilfenahme nicht erlaubter Lehrunterlagen, Absprache mit anderen Personen) führt dazu, dass die Prüfung mit &#34;NICHTIG&#34; bewertet wird und der Antritt gezählt wird. Zudem werden Sie für die Dauer von 4 Monaten ab dem Prüfungsdatum für weitere Anmeldungen zu der betreffenden Prüfung gesperrt.
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;Die Abfassung einer
-Prüfung für eine andere Person kann strafrechtliche Folgen nach
-sich ziehen und wird ausnahmslos bei der Staatsanwaltschaft
-angezeigt.&lt;/p&gt;
+&lt;p&gt;Die Abfassung einer Prüfung für eine andere Person kann strafrechtliche Folgen nach sich ziehen und wird ausnahmslos bei der Staatsanwaltschaft angezeigt.&lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;Während der
-gesamten Prüfungsdauer wird eine automatisierte Online-Aufsicht
-durchgeführt, sofern diese vom/von der Prüfungsverantwortlichen für
-diese Prüfung angekündigt wurde. Dazu werden während der Prüfung
-laufend Aufnahmen von Ihnen (Kamera und Ton) und Ihrem Bildschirm
-gemacht, die von den Prüfungsverantwortlichen eingesehen werden
-können. Für die Online-Aufsicht müssen Sie vorab ihr Zustimmung
-unter dem Punkt &#34;Zustimmung zur Online-Aufsicht&#34; gegeben haben.
-Beim Starten der Prüfung erteilen Sie Ihrem Browser die Erlaubnis
-den ganzen Bildschirm, die Kamera und den Ton aufzuzeichnen. Die
-Manipulation der Online-Aufsicht wird als Erschleichungsversuch
-gewertet.&lt;/p&gt;
+&lt;p&gt;Während der gesamten Prüfungsdauer wird eine automatisierte Online-Aufsicht durchgeführt, sofern diese vom/von der Prüfungsverantwortlichen für diese Prüfung angekündigt wurde. Dazu werden während der Prüfung laufend Aufnahmen von Ihnen (Kamera und Ton) und Ihrem Bildschirm gemacht, die von den Prüfungsverantwortlichen eingesehen werden können. Beim Starten der Prüfung erteilen Sie Ihrem Browser die Erlaubnis den ganzen Bildschirm, die Kamera und den Ton aufzuzeichnen. Die Manipulation der Online-Aufsicht wird als Erschleichungsversuch gewertet.&lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
 &lt;h5&gt;5) Erlaubte Hilfsmittel&lt;/h5&gt;
-&lt;p&gt;Es sind nur solche
-Hilfsmittel für die Bearbeitung dieser Prüfung erlaubt, die von den
-Prüfungsverantwortlichen in den Informationen zur Prüfung unter
-&#34;Online-Prüfung&#34; explizit aufgelistet wurden. Während der
-Prüfung dürfen sich grundsätzlich keine anderen Personen im selben
-Raum befinden. 
+&lt;p&gt;Es sind nur solche Hilfsmittel für die Bearbeitung dieser Prüfung erlaubt, die von den Prüfungsverantwortlichen in den Informationen zur konkreten Prüfung unter ?Online-Prüfung? explizit aufgelistet bzw. nicht ausgeschlossen wurden. Während der Prüfung dürfen sich grundsätzlich keine anderen Personen im selben Raum befinden.
 &lt;/p&gt;
-&lt;p&gt;&lt;/a&gt;
-
+&lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Kenntnisnahme der
-Informationen zur Absolvierung der Prüfung und Entgegennahme der
-Prüfung 
+&lt;p&gt;&lt;b&gt;Kenntnisnahme der Informationen zur Absolvierung der Prüfung und Entgegennahme der Prüfung 
 &lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;Ich bestätige
-hiermit, dass ich&lt;/p&gt;
+&lt;p&gt;Ich bestätige hiermit, dass ich&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;alle oben
-	genannten Informationen zur Absolvierung der schriftlichen
-	Online-Prüfung verstanden habe,
-	&lt;li&gt;alle genannten
-	Bedingungen für die Teilnahme an der Prüfung erfülle,
-	&lt;li&gt;die Prüfung
-	selbstständig und ohne unerlaubte Hilfsmittel absolvieren werde und
-	&lt;li&gt;die Prüfung
-	mit dieser Bestätigung entgegennehme, d.h. es erfolgt eine
-	Beurteilung und dieser Antritt wird auf die Gesamtzahl der
-	Wiederholungen angerechnet. 
+	&lt;li&gt;alle oben genannten Informationen zur Absolvierung der schriftlichen Online-Prüfung verstanden habe,&lt;/li&gt;
+	&lt;li&gt;alle genannten Bedingungen für die Teilnahme an der Prüfung erfülle,&lt;/li&gt;
+	&lt;li&gt;die Prüfung selbstständig und ohne unerlaubte Hilfsmittel absolvieren werde,&lt;/li&gt;
+	&lt;li&gt;die Informationen zur konkreten Prüfung unter &#34;Online-Prüfung&#34; gelesen habe und&lt;/li&gt;
+	&lt;li&gt;die Prüfung mit dieser Bestätigung entgegennehme, d.h. es erfolgt eine Beurteilung und dieser Antritt wird auf die Gesamtzahl der Wiederholungen angerechnet.
 &lt;/ul&gt;</msg>
   <msg key="Examination_Statement">Prüfungserklärung</msg>
   <msg key="grant_access_to_camera_msg">Erlauben Sie den Zugriff auf Ihre Kamera, wenn Ihr Browser Sie dazu auffordert. Haben Sie den Zugriff erlaubt, wird Ihnen eine Vorschau angezeigt. Stellen Sie sicher, dass ihr Gesicht im Vorschaubild gut zu erkennen ist</msg>

@@ -17,174 +17,85 @@
   <msg key="desktop_permission_denied">Your screen cannot be recorded because it has no permission to do so. Possible causes are: &lt;ul&gt; &lt;li&gt;&lt;b&gt;The screen recording is blocked by an antivirus program&lt;/b&gt;: Allow your antivirus program or the antivirus protection extension in Google Chrome to record the screen or deactivate all antivirus programs for the duration of the exam.&lt;/li&gt; &lt;li&gt;&lt;b&gt;The screen recording is blocked in the system settings (MacOS)&lt;/b&gt;: Go to \&#34;System settings\&#34; | \&#34;Security\&#34; | \&#34;Privacy\&#34; and then click on \&#34;Screen recording\&#34; in the sidebar. Activate the checkbox next to Google Chrome. Restart Google Chrome.&lt;/li&gt; &lt;/ul&gt;</msg>
   <msg key="display_surface_not_supported">You are working with a browser that does not support the automated exam-supervision. Please use the latest version of Google &lt;a href=&#39;https://www.google.com/chrome/&#39;&gt;Chrome&lt;/a&gt;.</msg>
   <msg key="Exam_mode">Exam mode</msg>
-  <msg key="Exam_mode_message">&lt;h4&gt;Examination statement: Important
-information for taking online examinations&lt;/h4&gt;
+  <msg key="Exam_mode_message">&lt;h4&gt;Examination statement: Important information for taking online examinations&lt;/h4&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
 &lt;h5&gt;1) Participation&lt;/h5&gt;
-&lt;p&gt;Without exception,
-only students who are officially registered for the course and/or the
-examination on LPIS will be allowed to take the exam.&lt;/p&gt;
+&lt;p&gt;Without exception, only students who are officially registered for the course and/or the examination on LPIS will be allowed to take the exam.&lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;The exam will only
-be graded if all 3 of the following conditions have been fulfilled:&lt;/p&gt;
+&lt;p&gt;The exam will only be graded if all 3 of the following conditions have been fulfilled:&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;&lt;p&gt;You have
-	uploaded a photo that fulfills the necessary criteria to confirm
-	your identity, if such an identification requirement was previously
-	announced for the examination in question by the person responsible
-	for the examination.&lt;/p&gt;
-	&lt;li&gt;&lt;p&gt;You have
-	consented to automated online supervision, if previously announced
-	for this examination&lt;/p&gt;
-	&lt;li&gt;&lt;p&gt;You have
-	confirmed that you have read and understood this examination
-	statement&lt;/p&gt;
+	&lt;li&gt;You have uploaded a photo that fulfills the necessary criteria to confirm your identity, if such an identification requirement was previously announced for the examination in question by the person responsible for the examination.&lt;/li&gt;
+	&lt;li&gt;The automated online supervision functioned properly during the examination, if previously announced for this examination&lt;/li&gt;
+	&lt;li&gt;You have confirmed that you have read and understood this examination statement&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;By confirming the
-examination statement, you also confirm receipt of the examination.
-If you have received the examination but not fulfilled the identity
-requirement and/or not confirmed your consent to online supervision
-(as applicable), the examination will be declared VOID and will count
-as an examination attempt. If you do not confirm the examination
-statement, you will not be given access to the exam. This means that
-the examination will not be graded and the examination attempt will
-not be counted. 
+&lt;p&gt;By confirming the examination statement, you also confirm receipt of the examination. If you have received the examination but not fulfilled the identity requirement and/or the automated online supervision did not function properly during the examination, the examination will be declared VOID and will count as an examination attempt. If you do not confirm the examination statement, you will not be given access to the exam. This means that the examination will not be graded and the examination attempt will not be counted.
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
 &lt;h5&gt;2) Technical requirements&lt;/h5&gt;
-&lt;p&gt;It is your
-responsibility to ensure that you will not be disturbed during the
-examination and that all technical requirements (as previously
-announced) are fulfilled (see &#34;Online Exam&#34;
-and/or &#34;Technical Checklist&#34; in your online exam environment). WU
-cannot guarantee a problem-free completion of the examination for
-every student working on their individual electronic device. 
+&lt;p&gt;It is your responsibility to ensure that you will not be disturbed during the examination and that all technical requirements (as previously announced) are fulfilled (see &#34;Information on this online examination&#34; and/or &#34;Technical checklist&#34; in your online exam environment). WU cannot guarantee a problem-free completion of the examination for every student working on their individual electronic device.
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;h5&gt;3) Starting and terminating/interrupting the
-examination&lt;/h5&gt;
-&lt;p&gt;By confirming that
-you have read and understood this examination statement, you also
-confirm receipt of the examination, and the attempt will be counted.
-The exam will be graded and counted towards your total number of
-permissible examination attempts. This applies even if you terminate
-the exam prematurely or do not submit your completed exam. 
+&lt;h5&gt;3) Starting and terminating/interrupting the examination&lt;/h5&gt;
+&lt;p&gt;By confirming that you have read and understood this examination statement, you also confirm receipt of the examination, and the attempt will be counted. The exam will be graded and counted towards your total number of permissible examination attempts. This applies even if you terminate the exam prematurely or do not submit your completed exam.
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;If you are forced to
-terminate the exam prematurely or interrupt the exam due to technical
-difficulties (e.g. loss of your internet connection), please contact
-the person responsible for the examination without delay. To do that,
-please use the communication channel previously announced for that
-purpose by the person responsible for the examination. When reporting
-the termination/interruption of your exam, be sure to include the
-following information:&lt;/p&gt;
+&lt;p&gt;If you are forced to terminate the exam prematurely or interrupt the exam due to technical difficulties (e.g. loss of your internet connection), please contact the person responsible for the examination without delay. To do that, please use the communication channel previously announced for that purpose by the person responsible for the examination. When reporting the termination/interruption of your exam, be sure to include the following information:&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;&lt;p&gt;Your student ID
-	number&lt;/p&gt;
-	&lt;li&gt;&lt;p&gt;Exact time of
-	termination/interruption&lt;/p&gt;
-	&lt;li&gt;&lt;p&gt;Screenshot of
-	the error message, if applicable 
-	&lt;/p&gt;
+	&lt;li&gt;Your student ID number&lt;/li&gt;
+	&lt;li&gt;Exact time of termination/interruption&lt;/li&gt;
+	&lt;li&gt;Screenshot of the error message, if applicable&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;If you are able to
-solve the problem and continue with the exam, please report this with
-the message &#34;Examination resumed.&#34; To be able to send such
-reports in the event of technical problems, it is recommended that
-you download the appropriate apps to your mobile devices before the
-start of the examination. In this way, you will for example be able
-to report the termination/interruption of the exam even if your Wi-Fi
-connection fails. 
+&lt;p&gt;If you are able to solve the problem and continue with the exam, please report this with the message &#34;Examination resumed.&#34; To be able to send such reports in the event of technical problems, it is recommended that you download the appropriate apps to your mobile devices before the start of the examination. In this way, you will for example be able to report the termination/interruption of the exam even if your Wi-Fi connection fails.
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;In cases where you
-report the termination/interruption of the exam due to technical
-problems beyond your control, as a general rule, the examination is
-not graded and the examination attempt not counted. If you would like
-to have your exam graded nonetheless, please contact the person
-responsible for the examination immediately after the exam and
-request that your exam be graded. The examination can only be graded
-if all the applicable requirements for grading are fulfilled. Only
-those parts of the exam will be graded that were completed without
-any technical problems (i.e. under active online exam supervision).&lt;/p&gt;
+&lt;p&gt;In cases where you report the termination/interruption of the exam due to technical problems beyond your control, as a general rule, the examination is not graded and the examination attempt not counted. If you would like to have your exam graded nonetheless, please contact the person responsible for the examination immediately after the exam and request that your exam be graded. The examination can only be graded if all the applicable requirements for grading are fulfilled (e.g. the automated online supervision worked properly, if applicable). Only those parts of the exam will be graded that were completed without any problems.&lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
 &lt;h5&gt;4) Cheating and identity confirmation&lt;/h5&gt;
-&lt;p&gt;Any attempt to cheat
-on the exam (e.g. cell phone, consulting forbidden materials,
-consulting other people) will result in the exam being declared VOID
-and the examination attempt counted. You will also be blocked from
-re-registering to repeat the examination for a period of 4 months
-starting from the examination date. 
+&lt;p&gt;Any attempt to cheat on the exam (e.g. cell phone, consulting forbidden materials, consulting other people) will result in the exam being declared VOID and the examination attempt counted. You will also be blocked from re-registering to repeat the examination for a period of 4 months starting from the examination date. 
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;Having someone else
-take your exam for you can constitute a criminal offense. Such
-instances of cheating will be reported to the public prosecutor&#39;s
-office, without exception.&lt;/p&gt;
+&lt;p&gt;Having someone else take your exam for you can constitute a criminal offense. Such instances of cheating will be reported to the public prosecutor?s office, without exception.&lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;If announced in
-advance by the person responsible for the exam, automated online
-examination supervision will be conducted for the duration of the
-exam. This means that you and your screen will be monitored by camera
-and microphone (video and audio) throughout the exam, and the
-examiner will be able to see and hear the recordings. You need to
-consent to this online supervision in advance under &#34;Online
-Supervision&#34;. As soon as you start the exam, you will need to give
-your browser permission to access your screen, webcam, and
-microphone. Any attempts to manipulate the online exam supervision
-will be considered attempts at cheating.&lt;/p&gt;
+&lt;p&gt;If announced in advance by the person responsible for the exam, automated online examination supervision will be conducted for the duration of the exam. This means that you and your screen will be monitored by camera and microphone (video and audio) throughout the exam, and the examiner will be able to see and hear the recordings. As soon as you start the exam, you will need to give your browser permission to access your screen, webcam, and microphone. Any attempts to manipulate the online exam supervision will be considered attempts at cheating.&lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
 &lt;h5&gt;5) Permissible aids&lt;/h5&gt;
-&lt;p&gt;When taking this
-examination, you may use only the aids explicitly listed by the
-person responsible for the examination in the exam information under
-&#34;Online exam.&#34; As a rule, no one else may be present in the same
-room with you while you are working on the exam. 
+&lt;p&gt;When taking this examination, you may use only the aids explicitly listed or not explicitly forbidden in the information on this specific exam under ?Online Exam? by the person responsible for the examination. As a rule, no one else may be present in the same room with you while you are working on the exam. 
 &lt;/p&gt;
 &lt;p&gt;
 
 &lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Acknowledgment of
-the information on receipt and completion of the examination 
+&lt;p&gt;&lt;b&gt;Acknowledgment of the information on receipt and completion of the examination
 &lt;/b&gt;&lt;/p&gt;
 &lt;p&gt;I confirm that&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;I have read and
-	understood the information given above on taking this written online
-	examination
-	&lt;li&gt;
-	I fulfill all the requirements for taking this examination
-	&lt;li&gt;I will complete
-	the examination independently and without consulting any forbidden
-	aids 
-	&lt;li&gt;I accept
-	receipt of this examination, i.e. I acknowledge that the exam will
-	be graded and will count towards my total number of examination
-	attempts
+	&lt;li&gt;I have read and understood the information given above on taking this written online examination&lt;/li&gt;
+	&lt;li&gt;I fulfill all the requirements for taking this examination&lt;/li&gt;
+	&lt;li&gt;I will complete the examination independently and without consulting any forbidden aids&lt;/li&gt;
+	&lt;li&gt;I have read and understood the information on this specific exam under &#34;Online examination&#34;&lt;/li&gt;
+	&lt;li&gt;I accept receipt of this examination, i.e. I acknowledge that the exam will be graded and will count towards my total number of examination attempts&lt;/li&gt;
 &lt;/ul&gt;</msg>
   <msg key="Examination_Statement">Examination Statement</msg>
   <msg key="grant_access_to_camera_msg">If your browser prompts you to give access to the camera, please do so. Once permission has been granted, a preview image will appear. Please make sure your face is clearly visible in the picture before proceeding.</msg>
