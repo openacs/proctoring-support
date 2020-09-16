@@ -80,7 +80,7 @@
 
 &lt;/p&gt;
 &lt;h5&gt;5) Erlaubte Hilfsmittel&lt;/h5&gt;
-&lt;p&gt;Es sind nur solche Hilfsmittel für die Bearbeitung dieser Prüfung erlaubt, die von den Prüfungsverantwortlichen in den Informationen zur konkreten Prüfung unter ?Online-Prüfung? explizit aufgelistet bzw. nicht ausgeschlossen wurden. Während der Prüfung dürfen sich grundsätzlich keine anderen Personen im selben Raum befinden.
+&lt;p&gt;Es sind nur solche Hilfsmittel für die Bearbeitung dieser Prüfung erlaubt, die von den Prüfungsverantwortlichen in den Informationen zur konkreten Prüfung unter &#34;Online-Prüfung&#34; explizit aufgelistet bzw. nicht ausgeschlossen wurden. Während der Prüfung dürfen sich grundsätzlich keine anderen Personen im selben Raum befinden. 
 &lt;/p&gt;
 &lt;p&gt;
 
@@ -93,7 +93,7 @@
 	&lt;li&gt;alle genannten Bedingungen für die Teilnahme an der Prüfung erfülle,&lt;/li&gt;
 	&lt;li&gt;die Prüfung selbstständig und ohne unerlaubte Hilfsmittel absolvieren werde,&lt;/li&gt;
 	&lt;li&gt;die Informationen zur konkreten Prüfung unter &#34;Online-Prüfung&#34; gelesen habe und&lt;/li&gt;
-	&lt;li&gt;die Prüfung mit dieser Bestätigung entgegennehme, d.h. es erfolgt eine Beurteilung und dieser Antritt wird auf die Gesamtzahl der Wiederholungen angerechnet.
+	&lt;li&gt;die Prüfung mit dieser Bestätigung entgegennehme, d.h. es erfolgt eine Beurteilung und dieser Antritt wird auf die Gesamtzahl der Wiederholungen angerechnet.&lt;/li&gt;
 &lt;/ul&gt;</msg>
   <msg key="Examination_Statement">Prüfungserklärung</msg>
   <msg key="grant_access_to_camera_msg">Erlauben Sie den Zugriff auf Ihre Kamera, wenn Ihr Browser Sie dazu auffordert. Haben Sie den Zugriff erlaubt, wird Ihnen eine Vorschau angezeigt. Stellen Sie sicher, dass ihr Gesicht im Vorschaubild gut zu erkennen ist</msg>
