@@ -119,6 +119,6 @@
     var nextLabel = "#acs-kernel.common_Next#";
     var submitLabel = "#proctoring-support.wizard_finish#";
     var acceptLabel = "#proctoring-support.accept#";
-    var blackPictureSizeThreshold = 4000; // kbytes
+    var blackPictureSizeThreshold = 5000; // kbytes
   </script>
   <script src="/resources/proctoring-support/proctored-page.js"></script>
