@@ -41,6 +41,9 @@ ad_include_contract {
     @param examination_statement_url URL we are calling in order to
            store acceptance of the examination statement. It will
            receive 'object_id' as query parameter.
+    @param upload_p decides if we want to skip the actual upload of
+           proctored files, useful to implement e.g. test pages or
+           when proctoring should only be used as a deterrent.
     @param upload_url URL for the backend receiving and storing the
            collected snapshots. It will receive 'name' (device name,
            either camera or desktop), item_id (exam_id), the file and
@@ -70,6 +73,7 @@ ad_include_contract {
     {check_active_p:boolean true}
     {examination_statement_p:boolean true}
     {examination_statement_url:localurl "/proctoring/examination-statement-accept"}
+    {upload_p:boolean true}
     {upload_url:localurl "/proctoring/upload"}
     msg:array,optional
 }
@@ -110,3 +114,4 @@ set mobile_p [ad_conn mobile_p]
 set check_active_p [expr {$check_active_p ? true : false}]
 set preview_p [expr {$preview_p ? true : false}]
 set proctoring_p [expr {$proctoring_p ? true : false}]
+set upload_p [expr {$upload_p ? true : false}]

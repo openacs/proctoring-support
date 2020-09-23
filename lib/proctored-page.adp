@@ -84,6 +84,7 @@
   <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
     var objectId = "@object_id;literal@";
     var objectURL = "@object_url;literal@";
+    var hasUpload = @upload_p;literal@;
     var uploadURL = "@upload_url;literal@";
     var hasExaminationStatement = @examination_statement_p;literal@;
     var examinationStatementURL = "@examination_statement_url;literal@";

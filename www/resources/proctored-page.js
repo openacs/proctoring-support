@@ -95,6 +95,10 @@ function scheduleUpload(name, type, blob) {
 }
 
 function upload() {
+    if (!hasUpload) {
+        uploadQueue = [];
+        console.log("Dummy upload");
+    }
     if (uploadQueue.length > 0) {
         var formData = uploadQueue.shift();
         var request = new XMLHttpRequest();
