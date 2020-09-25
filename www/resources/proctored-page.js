@@ -392,7 +392,9 @@ var cameraConstraints = {
         width: { max: 640 },
         height: { max: 480 }
     },
-    audio: true
+    audio: {
+        noiseSuppression: false
+    }
 };
 var desktopConstraints = {
     video: {
