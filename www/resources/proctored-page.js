@@ -107,7 +107,7 @@ function upload() {
             if (this.readyState == 4) {
                 if(this.status == 200) {
                     if (this.response == "OK") {
-                        setTimeout(upload);
+                        setTimeout(upload, 1000);
                     } else {
                         location.href = objectURL;
                     }
