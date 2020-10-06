@@ -425,7 +425,7 @@ function startExam() {
         minAudioDuration: minAudioDuration,
         maxAudioDuration: maxAudioDuration,
         onMissingStreamHandler : function(streamName, errMsg) {
-            modalAlert(missingStreamMessage, function() {
+            modalAlert(missingStreamMessage + "\"" + errMsg + "\"", function() {
                 location.reload();
             });
         },

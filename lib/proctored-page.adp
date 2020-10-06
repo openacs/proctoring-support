@@ -95,7 +95,7 @@
     var maxMsInterval = @max_ms_interval;literal@;
     var minAudioDuration = @min_audio_duration;literal@;
     var maxAudioDuration = @max_audio_duration;literal@;
-    var missingStreamMessage = "@msg.missing_stream@";
+    var missingStreamMessage = "@msg.missing_stream;noquote@";
     var blackPictureCameraMessage = "@msg.black_picture_camera;noquote@";
     var blackPictureDesktopMessage = "@msg.black_picture_desktop;noquote@";
     var requestFailedMessage = "@msg.request_failed@";
