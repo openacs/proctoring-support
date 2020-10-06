@@ -656,6 +656,14 @@ class Proctoring {
         return isMonochrome;
     }
 
+    cloneCanvas(canvas) {
+        var c = document.createElement("canvas");
+        c.width = canvas.width;
+        c.height = canvas.height;
+        c.getContext("2d").drawImage(canvas, 0, 0, c.width, c.height);
+        return c;
+    }
+
     areCanvasEquals(canvas1, canvas2) {
         var ctx1 = canvas1.getContext("2d");
         var imageData1 = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
@@ -713,7 +721,7 @@ class Proctoring {
                 this.onMissingStreamHandler(streamName, err);
                 return;
             }
-            this.prevPictures[i] = canvas;
+            this.prevPictures[i] = this.cloneCanvas(canvas);
 
             if (grayscale) {
                 this.canvasToGrayscale(canvas);
