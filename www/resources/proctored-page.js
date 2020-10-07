@@ -74,6 +74,7 @@ function createPreview() {
     }
 }
 
+var uploadHandle = null;
 var uploadQueue = [];
 function scheduleUpload(name, type, blob) {
     if (type == "image" &&
@@ -99,32 +100,45 @@ function upload() {
         uploadQueue = [];
         console.log("Dummy upload");
     }
+
+    function reschedule(ms) {
+        clearTimeout(uploadHandle);
+        uploadHandle = setTimeout(upload, ms);
+    }
+
     if (uploadQueue.length > 0) {
-        var formData = uploadQueue.shift();
-        var request = new XMLHttpRequest();
-        request.timeout = 10000;
-        request.addEventListener("readystatechange", function () {
+        function readyStateHandler() {
             if (this.readyState == 4) {
                 if(this.status == 200) {
                     if (this.response == "OK") {
-                        setTimeout(upload, 1000);
+                        reschedule(1000);
                     } else {
                         location.href = objectURL;
                     }
                 } else {
-                    uploadQueue.unshift(formData);
-                    setTimeout(upload, 10000);
+                    errorHandler();
                 }
             }
-        });
-        request.addEventListener("timeout", function () {
+        }
+        function errorHandler() {
             uploadQueue.unshift(formData);
-            setTimeout(upload, 10000);
-        });
+            reschedule(10000);
+        }
+
+        var formData = uploadQueue.shift();
+
+        var request = new XMLHttpRequest();
+        request.timeout = 10000;
+
+        request.addEventListener("readystatechange", readyStateHandler);
+        request.addEventListener("timeout", errorHandler);
+        request.addEventListener("error", errorHandler);
+
         request.open("POST", uploadURL);
+        // console.warn("we upload!");
         request.send(formData);
     } else {
-        setTimeout(upload, 1000);
+        reschedule(1000);
     }
 }
 
