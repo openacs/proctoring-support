@@ -530,11 +530,18 @@ class Proctoring {
             this.numCheckedStreams == this.numStreams) {
             for (var i = 0; i < this.streams.length; i++) {
                 var streamName = this.streamNames[i];
-                if (!this.checkStream(this.streams[i], streamName)) {
+                var video = this.videos[i];
+                try {
+                    if (!this.checkStream(this.streams[i], streamName)) {
+                        throw this.streamErrors[i];
+                    } else if (this.ready && video.paused) {
+                        throw "Video acquisition appears to have stopped.";
+                    }
+                } catch (e) {
+                    console.error(e);
                     this.isMissingStreams = true;
                     if (typeof this.onMissingStreamHandler == 'function') {
-                        var err = this.streamErrors[i];
-                        this.onMissingStreamHandler(streamName, err);
+                        this.onMissingStreamHandler(streamName, e.message);
                     }
                 }
             }
