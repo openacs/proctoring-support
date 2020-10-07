@@ -717,7 +717,7 @@ class Proctoring {
             if (streamName == "camera" &&
                 prevPicture != null &&
                 this.areCanvasEquals(canvas, prevPicture)) {
-                var err = "camera is stuck";
+                var err = "Camera is sending the same identical picture twice.";
                 this.onMissingStreamHandler(streamName, err);
                 return;
             }
