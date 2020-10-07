@@ -353,7 +353,7 @@ class Proctoring {
         this.onMissingStreamHandler = conf.onMissingStreamHandler;
         this.onMicrophoneTooLowHandler = conf.onMicrophoneTooLowHandler;
         this.isMissingStreams = false;
-        this.streamErrors = ["", ""];
+        this.streamErrors = [null, null];
 
         this.gifs = [null, null];
         this.imageHandlers = [null, null];
@@ -514,36 +514,38 @@ class Proctoring {
         return muted;
     }
 
-    checkStream(stream, streamName) {
-        if (stream == null ||
-            !stream.active ||
-            this.streamMuted(stream)) {
-            if (this.mediaConf[streamName].required) {
-                return false;
+    checkStream(i) {
+        var stream = this.streams[i];
+        var streamName = this.streamNames[i];
+        var video = this.videos[i];
+
+        if (this.mediaConf[streamName].required) {
+            try {
+	        if (this.streamErrors[i]) {
+                    throw this.streamErrors[i];
+	        } else if (stream == null) {
+                    throw "stream does not exist";
+                } else if (!stream.active) {
+                    throw "stream is not active";
+                } else if (this.streamMuted(stream)) {
+                    throw "stream is muted";
+	        } else if (this.ready && video.paused) {
+                    throw "video acquisition appears to have stopped";
+                }
+            } catch (e) {
+                this.isMissingStreams = true;
+                if (typeof this.onMissingStreamHandler == 'function') {
+		    this.onMissingStreamHandler(streamName, e);
+                }
             }
         }
-        return true;
     }
 
     checkMissingStreams() {
         if (!this.isMissingStreams &&
             this.numCheckedStreams == this.numStreams) {
             for (var i = 0; i < this.streams.length; i++) {
-                var streamName = this.streamNames[i];
-                var video = this.videos[i];
-                try {
-                    if (!this.checkStream(this.streams[i], streamName)) {
-                        throw this.streamErrors[i];
-                    } else if (this.ready && video.paused) {
-                        throw "Video acquisition appears to have stopped.";
-                    }
-                } catch (e) {
-                    console.error(e);
-                    this.isMissingStreams = true;
-                    if (typeof this.onMissingStreamHandler == 'function') {
-                        this.onMissingStreamHandler(streamName, e.message);
-                    }
-                }
+                this.checkStream(i);
             }
         }
 
