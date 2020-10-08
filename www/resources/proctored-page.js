@@ -40,13 +40,24 @@ function createIframe() {
     iframe.setAttribute("class", "embed-responsive-item");
     iframe.setAttribute("id", "proctored-iframe-" + objectId);
     iframe.addEventListener("load", function(e) {
-        // Prevent loops of iframes: bring the iframe to the
-        // start when we detect it would land on the very URL
-        // of this page
-        var parentURL = location.href + location.search;
-        var iframeURL = this.contentWindow.location.href + this.contentWindow.location.search;
-        if (parentURL == iframeURL) {
-            this.src = objectURL;
+        try {
+            // Prevent loops of iframes: bring the iframe to the
+            // start when we detect it would land on the very URL
+            // of this page.
+            var parentURL = location.href + location.search;
+            var iframeURL = this.contentWindow.location.href + this.contentWindow.location.search;
+            if (parentURL == iframeURL) {
+                this.src = objectURL;
+            }
+        } catch (e) {
+            // Accessing the properties of an iframe fetching from a
+            // cross-origin website is forbidden. This is fine in this
+            // case as the URL is most definitely not looping.
+            if (e.name === "SecurityError") {
+                console.log("iframe URL is most likely an external one");
+            } else {
+                console.error(e);
+            }
         }
         console.log("iframe loaded");
     });
