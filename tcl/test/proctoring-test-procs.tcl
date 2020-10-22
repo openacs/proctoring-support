@@ -101,7 +101,7 @@ aa_register_case \
             aa_false "Proctoring on $object_id is not active" [::proctoring::active_p -object_id $object_id]
 
             aa_log "Enable proctoring every day, one hour from now"
-            ::proctoring::configure -object_id $object_id -start_time "" -end_time "" -start_time $next_hour
+            ::proctoring::configure -object_id $object_id -start_date "" -end_date "" -start_time $next_hour
             set conf [::proctoring::get_configuration -object_id $object_id]
             aa_true "Conf was stored" {
                 [dict get $conf start_date] eq "" &&
