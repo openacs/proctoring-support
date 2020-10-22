@@ -71,17 +71,23 @@ function createPreview() {
     var e = document.querySelector("#preview-placeholder");
     style = !hasPreview ? "position:absolute;top:0;left:0;" : "";
     e.setAttribute("style", style);
-    var canvas = document.createElement("canvas");
-    style = hasPreview ? "height: 30px; width: 40px" : "height: 1px; width: 1px";
-    canvas.setAttribute("style", style);
-    canvas.setAttribute("id", "audio-preview");
-    e.appendChild(canvas);
-    new AudioWave(proctoring.streams[0], "#audio-preview");
-    for (var i = 0; i < proctoring.videos.length; i++) {
-        var video = proctoring.videos[i];
-        var width = hasPreview ? 30 : 1;
-        video.setAttribute("height", width);
-        e.appendChild(video);
+    for (stream of proctoring.streams) {
+        if (stream && stream.getAudioTracks().length > 0) {
+            var canvas = document.createElement("canvas");
+            style = hasPreview ? "height: 30px; width: 40px" : "height: 1px; width: 1px";
+            canvas.setAttribute("style", style);
+            canvas.setAttribute("id", "audio-preview");
+            e.appendChild(canvas);
+            new AudioWave(stream, "#audio-preview");
+            break;
+        }
+    }
+    for (video of proctoring.videos) {
+        if (video) {
+            var width = hasPreview ? 30 : 1;
+            video.setAttribute("height", width);
+            e.appendChild(video);
+        }
     }
 }
 
@@ -222,100 +228,105 @@ if (hasProctoring) {
             setError(errmsg);
         }
     });
-    handlers.push(function () {
-        valid = false;
-        clearError();
-        var constraints = {
-            audio: cameraConstraints.audio
-        };
-        navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-            if (streamMuted(stream)) {
-                throw yourMicrophoneIsMutedMessage;
-            } else {
-                camvideo.srcObject = stream;
-                new AudioWave(stream, "#audio");
-                valid = true;
-                streams[0] = stream;
-            }
-        }).catch(err => {
-            if (err.name == "NotAllowedError") {
-                err = microphonePermissionDeniedMessage;
-            } else if (err.name == "NotFoundError") {
-                err = microphoneNotFoundMessage;
-            } else if (err.name == "NotReadableError") {
-                err = microphoneNotReadableMessage;
-            }
-            setError(err);
-        });
-    });
-    handlers.push(function () {
-        valid = false;
-        clearError();
-        var constraints = {
-            video: cameraConstraints.video
-        };
-        navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-            camvideo.srcObject = stream;
-            camvideo.style.display = "block";
-            streams[1] = stream;
-            camvideo.addEventListener("play", function() {
-                var canvas = document.createElement("canvas");
-                canvas.width = camvideo.videoWidth;
-                canvas.height = camvideo.videoHeight;
-                canvas.getContext("2d").drawImage(camvideo, 0, 0, camvideo.videoWidth, camvideo.videoHeight);
-                canvas.toBlob(function(blob) {
-                    if (blob == null ||
-                        blob.size <= blackPictureSizeThreshold) {
-                        var errmsg = blackPictureCameraMessage;
-                        setError(errmsg);
-                    }
-                }, "image/jpeg");
-            });
-            valid = true;
-        }).catch(err => {
-            if (err.name == "NotAllowedError") {
-                err = cameraPermissionDeniedMessage;
-            } else if (err.name == "NotFoundError") {
- 	 	err = cameraNotFoundMessage;
-            } else if (err.name == "NotReadableError") {
-                err = cameraNotReadableMessage;
-            }
-            setError(err);
-        });
-    });
-    handlers.push(function () {
-        valid = false;
-        clearError();
-        var constraints = {
-            video: desktopConstraints.video
-        };
-        navigator.mediaDevices.getDisplayMedia(constraints).then(stream=> {
-            var requestedStream = constraints.video.displaySurface;
-            var selectedStream = stream.getVideoTracks()[0].getSettings().displaySurface;
-            // If user requested for a specific displaysurface
-            // and browser supports it, also check that the
-            // one selected is right.
-            if (requestedStream == undefined ||
-                (selectedStream != undefined &&
-                 requestedStream == selectedStream)) {
-                deskvideo.srcObject = stream;
-                deskvideo.style.display = "block";
-                valid = true;
-                streams[2] = stream;
-            } else {
-                if (selectedStream != undefined) {
-                    throw wrongDisplaySurfaceSelectedMessage;
+    if (hasAudio) {
+        handlers.push(function () {
+            valid = false;
+            clearError();
+            var constraints = {
+                audio: cameraConstraints.audio
+            };
+            navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+                if (streamMuted(stream)) {
+                    throw yourMicrophoneIsMutedMessage;
                 } else {
-                    throw displaySurfaceNotSupportedMessage;
+                    new AudioWave(stream, "#audio");
+                    valid = true;
+                    streams[0] = stream;
                 }
-            }
-        }).catch(err => {
-            if (err.name == "NotAllowedError") {
-                err = desktopPermissionDeniedMessage;
-            }
-            setError(err);
+            }).catch(err => {
+                if (err.name == "NotAllowedError") {
+                    err = microphonePermissionDeniedMessage;
+                } else if (err.name == "NotFoundError") {
+                    err = microphoneNotFoundMessage;
+                } else if (err.name == "NotReadableError") {
+                    err = microphoneNotReadableMessage;
+                }
+                setError(err);
+            });
         });
-    });
+    }
+    if (hasCamera) {
+        handlers.push(function () {
+            valid = false;
+            clearError();
+            var constraints = {
+                video: cameraConstraints.video
+            };
+            navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+                camvideo.srcObject = stream;
+                camvideo.style.display = "block";
+                streams[1] = stream;
+                camvideo.addEventListener("play", function() {
+                    var canvas = document.createElement("canvas");
+                    canvas.width = camvideo.videoWidth;
+                    canvas.height = camvideo.videoHeight;
+                    canvas.getContext("2d").drawImage(camvideo, 0, 0, camvideo.videoWidth, camvideo.videoHeight);
+                    canvas.toBlob(function(blob) {
+                        if (blob == null ||
+                            blob.size <= blackPictureSizeThreshold) {
+                            var errmsg = blackPictureCameraMessage;
+                            setError(errmsg);
+                        }
+                    }, "image/jpeg");
+                });
+                valid = true;
+            }).catch(err => {
+                if (err.name == "NotAllowedError") {
+                    err = cameraPermissionDeniedMessage;
+                } else if (err.name == "NotFoundError") {
+ 	 	    err = cameraNotFoundMessage;
+                } else if (err.name == "NotReadableError") {
+                    err = cameraNotReadableMessage;
+                }
+                setError(err);
+            });
+        });
+    }
+    if (hasDesktop) {
+        handlers.push(function () {
+            valid = false;
+            clearError();
+            var constraints = {
+                video: desktopConstraints.video
+            };
+            navigator.mediaDevices.getDisplayMedia(constraints).then(stream=> {
+                var requestedStream = constraints.video.displaySurface;
+                var selectedStream = stream.getVideoTracks()[0].getSettings().displaySurface;
+                // If user requested for a specific displaysurface
+                // and browser supports it, also check that the
+                // one selected is right.
+                if (requestedStream == undefined ||
+                    (selectedStream != undefined &&
+                     requestedStream == selectedStream)) {
+                    deskvideo.srcObject = stream;
+                    deskvideo.style.display = "block";
+                    valid = true;
+                    streams[2] = stream;
+                } else {
+                    if (selectedStream != undefined) {
+                        throw wrongDisplaySurfaceSelectedMessage;
+                    } else {
+                        throw displaySurfaceNotSupportedMessage;
+                    }
+                }
+            }).catch(err => {
+                if (err.name == "NotAllowedError") {
+                    err = desktopPermissionDeniedMessage;
+                }
+                setError(err);
+            });
+        });
+    }
 }
 if (hasExaminationStatement) {
     handlers.push(function () {
@@ -332,6 +343,7 @@ if (hasExaminationStatement) {
 function showTab(n) {
     // This function will display the specified tab of the form...
     var x = document.getElementsByClassName("tab");
+    if (x.length == 0) return;
     x[n].style.display = "block";
     //... and fix the Previous/Next buttons:
     if (n == 0) {
@@ -442,8 +454,48 @@ function startExam() {
     document.querySelector("#wizard").style.display = "none";
     document.querySelector("#proctoring").style.display = "block";
 
-    var cameraStream = embedAudioTrackFromStream(streams[0], streams[1]);
+    var mediaConf = {};
+    var cameraStream;
+    if (hasAudio && hasCamera) {
+        cameraStream = embedAudioTrackFromStream(streams[0], streams[1]);
+    } else if (hasAudio) {
+        cameraStream = streams[0];
+    } else if (hasCamera) {
+        cameraStream = streams[1];
+    }
+    if (hasAudio || hasCamera) {
+        mediaConf.camera = {
+            required: true,
+            grayscale: true,
+            width: 320,
+            height: 240,
+            imageHandlers: {
+                jpeg: {
+                    blob: function(blob) {
+                        scheduleUpload("camera", "image", blob);
+                    }
+                }
+            },
+            audioHandlers: audioHandlers,
+            stream: cameraStream
+        };
+    }
     var desktopStream = streams[2];
+    if (hasDesktop) {
+        mediaConf.desktop = {
+            required: true,
+            grayscale: false,
+            imageHandlers: {
+                jpeg: {
+                    blob: function(blob) {
+                        scheduleUpload("desktop", "image", blob);
+                    }
+                }
+            },
+            stream: desktopStream
+        };
+    }
+
     var conf = {
         minMsInterval: minMsInterval,
         maxMsInterval: maxMsInterval,
@@ -462,35 +514,7 @@ function startExam() {
             createIframe();
             createPreview();
         },
-        mediaConf: {
-            camera: {
-                required: true,
-                grayscale: true,
-                width: 320,
-                height: 240,
-                imageHandlers: {
-                    jpeg: {
-                        blob: function(blob) {
-                            scheduleUpload("camera", "image", blob);
-                        }
-                    }
-                },
-                audioHandlers: audioHandlers,
-                stream: cameraStream
-            },
-            desktop: {
-                required: true,
-                grayscale: false,
-                imageHandlers: {
-                    jpeg: {
-                        blob: function(blob) {
-                            scheduleUpload("desktop", "image", blob);
-                        }
-                    }
-                },
-                stream: desktopStream
-            }
-        }
+        mediaConf: mediaConf
     };
 
     if (hasProctoring) {

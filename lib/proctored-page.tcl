@@ -37,6 +37,10 @@ ad_include_contract {
                      be displayed to users during proctored session
     @param proctoring_p Do the actual proctoring. Can be disabled to
                         display just the exmaination statement
+    @param camera_p proctor the camera. If false, camera will not be
+                   recorded.
+    @param desktop_p proctor the desktop screen. If false, desktop
+                   screen will not be recorded.
     @param examination_statement_p Display the examination statement
     @param examination_statement_url URL we are calling in order to
            store acceptance of the examination statement. It will
@@ -70,6 +74,8 @@ ad_include_contract {
     {max_audio_duration:naturalnum 60}
     {preview_p:boolean false}
     {proctoring_p:boolean true}
+    {camera_p:boolean true}
+    {desktop_p:boolean true}
     {check_active_p:boolean true}
     {examination_statement_p:boolean true}
     {examination_statement_url:localurl "/proctoring/examination-statement-accept"}
@@ -113,5 +119,9 @@ foreach {key value} [array get default_msg] {
 set mobile_p [ad_conn mobile_p]
 set check_active_p [expr {$check_active_p ? true : false}]
 set preview_p [expr {$preview_p ? true : false}]
-set proctoring_p [expr {$proctoring_p ? true : false}]
+set proctoring_p [expr {$proctoring_p &&
+                        ($camera_p || $audio_p || $desktop_p) ? true : false}]
 set upload_p [expr {$upload_p ? true : false}]
+set audio_p [expr {$audio_p ? true : false}]
+set camera_p [expr {$camera_p ? true : false}]
+set desktop_p [expr {$desktop_p ? true : false}]

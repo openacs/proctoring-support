@@ -398,7 +398,9 @@ class Proctoring {
                                   this.maxAudioDuration).start();
         }
         this.streams[i] = stream;
-        this.videos[i] = this.createVideo(stream);
+        if (stream.getVideoTracks().length > 0) {
+            this.videos[i] = this.createVideo(stream);
+        }
         this.numActiveStreams++;
         this.numCheckedStreams++;
     }
@@ -529,7 +531,7 @@ class Proctoring {
                     throw "stream is not active";
                 } else if (this.streamMuted(stream)) {
                     throw "stream is muted";
-	        } else if (this.ready && video.paused) {
+	        } else if (this.ready && video && video.paused) {
                     throw "video acquisition appears to have stopped";
                 }
             } catch (e) {
@@ -794,9 +796,9 @@ class Proctoring {
                 }
                 this.ready = true;
             }
-            // For every configured stream, take a picture
+            // For every configured video stream, take a picture
             for (var i = 0; i < this.streams.length; i++) {
-                if (this.streams[i] != null) {
+                if (this.videos[i]) {
                     this.takeShot(this.streams[i], this.mediaConf[this.streamNames[i]].grayscale);
                 }
             }

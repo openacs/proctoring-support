@@ -29,21 +29,27 @@
       <div class="tab">
         <div>@msg.proctoring_accept@</div>
       </div>
-      <div class="tab">
-        <h3>#proctoring-support.grant_access_to_microphone_title#</h3>
-        <div>#proctoring-support.grant_access_to_microphone_msg#</div>
-        <canvas id="audio" style="height: 100px; width: 100%"></canvas>
-      </div>
-      <div class="tab">
-        <h3>#proctoring-support.grant_access_to_camera_title#</h3>
-        <div>#proctoring-support.grant_access_to_camera_msg#</div>
-        <video class="wizard-video" width="640" id="webcam" autoplay playsinline muted="false" volume=0></video>
-      </div>
-      <div class="tab">
-        <h3>#proctoring-support.grant_access_to_desktop_title#</h3>
-        <div>#proctoring-support.grant_access_to_desktop_msg#</div>
-        <video class="wizard-video" width="640" id="desktop" autoplay playsinline muted="false" volume=0></video>
-      </div>
+      <if @audio_p;literal@ true>
+        <div class="tab">
+          <h3>#proctoring-support.grant_access_to_microphone_title#</h3>
+          <div>#proctoring-support.grant_access_to_microphone_msg#</div>
+          <canvas id="audio" style="height: 100px; width: 100%"></canvas>
+        </div>
+      </if>
+      <if @camera_p;literal@ true>
+        <div class="tab">
+          <h3>#proctoring-support.grant_access_to_camera_title#</h3>
+          <div>#proctoring-support.grant_access_to_camera_msg#</div>
+          <video class="wizard-video" width="640" id="webcam" autoplay playsinline muted="false" volume=0></video>
+        </div>
+      </if>
+      <if @desktop_p;literal@ true>
+        <div class="tab">
+          <h3>#proctoring-support.grant_access_to_desktop_title#</h3>
+          <div>#proctoring-support.grant_access_to_desktop_msg#</div>
+          <video class="wizard-video" width="640" id="desktop" autoplay playsinline muted="false" volume=0></video>
+        </div>
+      </if>
     </if>
     <if @examination_statement_p;literal@ true>
       <div class="tab">
@@ -64,9 +70,15 @@
         <span class="step"></span>
       </if>
       <if @proctoring_p;literal@ true>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
+        <if @audio_p;literal@ true>
+          <span class="step"></span>
+        </if>
+        <if @camera_p;literal@ true>
+          <span class="step"></span>
+        </if>
+        <if @desktop_p;literal@ true>
+          <span class="step"></span>
+        </if>
         <span class="step"></span>
       </if>
     </div>
@@ -90,6 +102,8 @@
     var examinationStatementURL = "@examination_statement_url;literal@";
     var hasPreview = @preview_p;literal@;
     var hasProctoring = @proctoring_p;literal@;
+    var hasCamera = @camera_p;literal@;
+    var hasDesktop = @desktop_p;literal@;
     var hasAudio = @audio_p;literal@;
     var minMsInterval = @min_ms_interval;literal@;
     var maxMsInterval = @max_ms_interval;literal@;
