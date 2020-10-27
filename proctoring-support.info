@@ -10,7 +10,7 @@
     <inherit-templates-p>f</inherit-templates-p>
     <auto-mount>proctoring</auto-mount>
 
-    <version name="1.2.1" url="http://openacs.org/repository/download/apm/proctoring-support-1.2.1.apm">
+    <version name="1.2.2" url="http://openacs.org/repository/download/apm/proctoring-support-1.2.2.apm">
         <owner url="mailto:apisano@wu.ac.at">Antonio Pisano</owner>
         <summary>Set of tools to implement proctoring of user interaction</summary>
         <vendor url="https://www.wu.ac.at/">Wirtschaftsuniversität Wien</vendor>
@@ -21,7 +21,7 @@ The user is asked and guided in the process of granting access to microphone, ca
 No real UI is provided by the package itself. Other packages must integrate the provided includes.</description>
         <maturity>0</maturity>
 
-        <provides url="proctoring-support" version="1.2.1"/>
+        <provides url="proctoring-support" version="1.2.2"/>
         <requires url="xotcl-core" version="5.10.0d34"/>
 
         <callbacks>
