@@ -32,7 +32,7 @@ ad_proc ::proctoring::configure {
     Configures proctoring for specified object.
 
     @param enabled_p enable proctoring.
-    @param proctoring_p Do the actual proctoring. This allows to have
+    @param proctoring_p Do the actual proctoring. This allows one to have
                         only the examination statement, without
                         actually taking and uploading pixctures/sound.
     @param examination_statement_p Display the examination statement

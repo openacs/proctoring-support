@@ -13,7 +13,7 @@ ad_include_contract {
            an iframe.
     @param min_ms_interval miniumum time to the next snapshot in
            missliseconds
-    @param max_ms_interval maxiumum time to the next snapshot in
+    @param max_ms_interval maximum time to the next snapshot in
            milliseconds.
     @param audio_p decides if we record audio. Every time some input
            longer than min_audio_duration is detected from the
@@ -36,7 +36,7 @@ ad_include_contract {
     @param preview_p if specified, a preview of recorded inputs will
                      be displayed to users during proctored session
     @param proctoring_p Do the actual proctoring. Can be disabled to
-                        display just the exmaination statement
+                        display just the examination statement
     @param camera_p proctor the camera. If false, camera will not be
                    recorded.
     @param desktop_p proctor the desktop screen. If false, desktop
