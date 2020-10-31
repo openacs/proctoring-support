@@ -521,23 +521,23 @@ class Proctoring {
         var streamName = this.streamNames[i];
         var video = this.videos[i];
 
-        if (this.mediaConf[streamName].required) {
+        if (typeof streamName !== "undefined" && this.mediaConf[streamName].required) {
             try {
-	        if (this.streamErrors[i]) {
+                if (this.streamErrors[i]) {
                     throw this.streamErrors[i];
-	        } else if (stream == null) {
+                } else if (stream == null) {
                     throw "stream does not exist";
                 } else if (!stream.active) {
                     throw "stream is not active";
                 } else if (this.streamMuted(stream)) {
                     throw "stream is muted";
-	        } else if (this.ready && video && video.paused) {
+                } else if (this.ready && video && video.paused) {
                     throw "video acquisition appears to have stopped";
                 }
             } catch (e) {
                 this.isMissingStreams = true;
                 if (typeof this.onMissingStreamHandler == 'function') {
-		    this.onMissingStreamHandler(streamName, e);
+                    this.onMissingStreamHandler(streamName, e);
                 }
             }
         }
