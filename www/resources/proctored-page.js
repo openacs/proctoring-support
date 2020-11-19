@@ -162,8 +162,16 @@ function upload() {
 function approveStartExam() {
     valid = false;
     clearError();
+
+    var rescheduleHandle = null;
+    function reschedule(ms) {
+        clearTimeout(rescheduleHandle);
+        rescheduleHandle = setTimeout(approveStartExam, ms);
+    }
+
     var formData = new FormData();
     formData.append("object_id", objectId);
+
     var request = new XMLHttpRequest();
     request.timeout = 10000;
     request.addEventListener("readystatechange", function () {
@@ -175,16 +183,18 @@ function approveStartExam() {
                     location.href = objectURL;
                 }
             } else {
-                var errmsg = requestFailedMessage;
-                setError(errmsg);
-                setTimeout(approveStartExam, 10000);
+                setError(requestFailedMessage);
+                reschedule(10000);
             }
         }
     });
     request.addEventListener("timeout", function () {
-        var errmsg = requestTimedOutMessage;
-        setError(errmsg);
-        setTimeout(approveStartExam, 10000);
+        setError(requestTimedOutMessage);
+        reschedule(10000);
+    });
+    request.addEventListener("error", function () {
+        setError(requestFailedMessage);
+        reschedule(10000);
     });
     request.open("POST", examinationStatementURL);
     request.send(formData);
