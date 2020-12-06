@@ -125,3 +125,12 @@ set upload_p [expr {$upload_p ? true : false}]
 set audio_p [expr {$audio_p ? true : false}]
 set camera_p [expr {$camera_p ? true : false}]
 set desktop_p [expr {$desktop_p ? true : false}]
+
+#ns_log notice "PROCTORED PAGE sees desktop_p $desktop_p, camera_p $camera_p, examination_statement_p $examination_statement_p preview_p $preview_p"
+
+#
+# Local variables:
+#    mode: tcl
+#    tcl-indent-level: 4
+#    indent-tabs-mode: nil
+# End:
