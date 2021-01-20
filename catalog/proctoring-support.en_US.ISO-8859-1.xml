@@ -114,6 +114,8 @@
   <msg key="OnlineExam">Online Exam</msg>
   <msg key="preview_help_text">If enabled, a preview of recorded input will be displayed to users during the online supervision session.</msg>
   <msg key="Proctoring">Automated exam-supervision</msg>
+  <msg key="Record_camera">Record camera</msg>
+  <msg key="Record_desktop">Record desktop</msg>
   <msg key="recordings">Recordings</msg>
   <msg key="request_failed">Request to the server has failed. Retry in 10s...</msg>
   <msg key="request_timeout">Request to the server timed out. Retry in 10s...</msg>
