@@ -23,6 +23,7 @@ ad_proc ::proctoring::configure {
     {-enabled_p true}
     {-examination_statement_p true}
     {-proctoring_p true}
+    {-audio_p true}
     {-camera_p true}
     {-desktop_p true}
     {-preview_p false}
@@ -37,8 +38,8 @@ ad_proc ::proctoring::configure {
     @param proctoring_p Do the actual proctoring. This allows one to have
                         only the examination statement, without
                         actually taking and uploading pixctures/sound.
-    @param camera_p Record the camera. Currently, if this is set to
-                    false no audio will also be recorded.
+    @param audio_p Record audio.
+    @param camera_p Record the camera.
     @param desktop_p Record the desktop
     @param examination_statement_p Display the examination statement
     @param preview_p if specified, a preview of recorded inputs will
@@ -63,6 +64,7 @@ ad_proc ::proctoring::configure {
             start_time,
             end_time,
             preview_p,
+            audio_p,
             camera_p,
             desktop_p,
             proctoring_p,
@@ -75,9 +77,10 @@ ad_proc ::proctoring::configure {
             :start_time,
             :end_time,
             :preview_p,
+            :audio_p,
             :camera_p,
             :desktop_p,
-            ((:camera_p or :desktop_p) and :proctoring_p),
+            ((:audio_p or :camera_p or :desktop_p) and :proctoring_p),
             :examination_statement_p
           ) on conflict(object_id) do update set
             enabled_p  = :enabled_p,
@@ -86,9 +89,10 @@ ad_proc ::proctoring::configure {
             start_time = :start_time,
             end_time   = :end_time,
             preview_p  = :preview_p,
+            audio_p    = :audio_p,
             camera_p   = :camera_p,
             desktop_p  = :desktop_p,
-            proctoring_p = ((:camera_p or :desktop_p) and :proctoring_p),
+            proctoring_p = ((:audio_p or :camera_p or :desktop_p) and :proctoring_p),
             examination_statement_p = :examination_statement_p
     }
 }
@@ -108,6 +112,7 @@ ad_proc ::proctoring::get_configuration {
     set end_time ""
     set enabled_p false
     set preview_p true
+    set audio_p false
     set camera_p false
     set desktop_p false
     set proctoring_p false
@@ -119,6 +124,7 @@ ad_proc ::proctoring::get_configuration {
                to_char(start_time, 'HH24:MI:SS') as start_time,
                to_char(end_time, 'HH24:MI:SS') as end_time,
                case when preview_p then 'true' else 'false' end as preview_p,
+               case when audio_p then 'true' else 'false' end as audio_p,
                case when camera_p then 'true' else 'false' end as camera_p,
                case when desktop_p then 'true' else 'false' end as desktop_p,
                case when proctoring_p then 'true' else 'false' end as proctoring_p,
@@ -135,6 +141,7 @@ ad_proc ::proctoring::get_configuration {
                 start_time $start_time \
                 end_time   $end_time \
                 preview_p  $preview_p \
+                audio_p    $audio_p \
                 camera_p   $camera_p \
                 desktop_p  $desktop_p \
                 proctoring_p $proctoring_p \

@@ -64,6 +64,7 @@ aa_register_case \
                 start_time
                 end_time
                 preview_p
+                audio_p
                 camera_p
                 desktop_p
                 proctoring_p
@@ -122,7 +123,8 @@ aa_register_case \
             aa_true "Proctoring on $object_id is active" [::proctoring::active_p -object_id $object_id]
 
             aa_log "Disable camera and desktop"
-            ::proctoring::configure -object_id $object_id -proctoring_p true -camera_p false -desktop_p false
+            ::proctoring::configure -object_id $object_id \
+                -proctoring_p true -camera_p false -desktop_p false -audio_p false
             set conf [::proctoring::get_configuration -object_id $object_id]
             aa_false "No camera and no desktop means no proctoring" [dict get $conf proctoring_p]
 
