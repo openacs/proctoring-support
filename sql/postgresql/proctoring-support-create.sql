@@ -19,6 +19,8 @@ create table proctoring_objects (
                              -- closed for every day where proctoring
                              -- is enabled (e.g. 20:00)
        preview_p       boolean not null default false, -- display a preview of recording to proctored user
+       camera_p        boolean not null default true,   -- do we record the camera?
+       desktop_p       boolean not null default true,   -- do we record the desktop?
        proctoring_p    boolean not null default true,   -- do the actual proctoring
        examination_statement_p boolean not null default true   -- display the examination statement
 );

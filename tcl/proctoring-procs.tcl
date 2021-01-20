@@ -23,6 +23,8 @@ ad_proc ::proctoring::configure {
     {-enabled_p true}
     {-examination_statement_p true}
     {-proctoring_p true}
+    {-camera_p true}
+    {-desktop_p true}
     {-preview_p false}
     {-start_date ""}
     {-end_date ""}
@@ -35,6 +37,9 @@ ad_proc ::proctoring::configure {
     @param proctoring_p Do the actual proctoring. This allows one to have
                         only the examination statement, without
                         actually taking and uploading pixctures/sound.
+    @param camera_p Record the camera. Currently, if this is set to
+                    false no audio will also be recorded.
+    @param desktop_p Record the desktop
     @param examination_statement_p Display the examination statement
     @param preview_p if specified, a preview of recorded inputs will
                      be displayed to users during proctored session
@@ -58,6 +63,8 @@ ad_proc ::proctoring::configure {
             start_time,
             end_time,
             preview_p,
+            camera_p,
+            desktop_p,
             proctoring_p,
             examination_statement_p
           ) values (
@@ -68,7 +75,9 @@ ad_proc ::proctoring::configure {
             :start_time,
             :end_time,
             :preview_p,
-            :proctoring_p,
+            :camera_p,
+            :desktop_p,
+            ((:camera_p or :desktop_p) and :proctoring_p),
             :examination_statement_p
           ) on conflict(object_id) do update set
             enabled_p  = :enabled_p,
@@ -77,7 +86,9 @@ ad_proc ::proctoring::configure {
             start_time = :start_time,
             end_time   = :end_time,
             preview_p  = :preview_p,
-            proctoring_p = :proctoring_p,
+            camera_p   = :camera_p,
+            desktop_p  = :desktop_p,
+            proctoring_p = ((:camera_p or :desktop_p) and :proctoring_p),
             examination_statement_p = :examination_statement_p
     }
 }
@@ -88,8 +99,8 @@ ad_proc ::proctoring::get_configuration {
     Returns proctoring settings for specified object
 
     @return a dict with fields: enabled_p, start_date, end_date,
-              start_time, end_time, preview_p, proctoring_p,
-              examination_statement_p
+            start_time, end_time, preview_p, camera_p, desktop_p,
+            proctoring_p, examination_statement_p
 } {
     set start_date ""
     set end_date ""
@@ -97,14 +108,19 @@ ad_proc ::proctoring::get_configuration {
     set end_time ""
     set enabled_p false
     set preview_p true
+    set camera_p false
+    set desktop_p false
     set proctoring_p false
     set examination_statement_p false
+
     ::xo::dc 0or1row is_proctored {
         select to_char(start_date, 'YYYY-MM-DD') as start_date,
                to_char(end_date, 'YYYY-MM-DD') as end_date,
                to_char(start_time, 'HH24:MI:SS') as start_time,
                to_char(end_time, 'HH24:MI:SS') as end_time,
                case when preview_p then 'true' else 'false' end as preview_p,
+               case when camera_p then 'true' else 'false' end as camera_p,
+               case when desktop_p then 'true' else 'false' end as desktop_p,
                case when proctoring_p then 'true' else 'false' end as proctoring_p,
                case when enabled_p then 'true' else 'false' end as enabled_p,
                case when examination_statement_p then 'true' else 'false' end as examination_statement_p
@@ -119,6 +135,8 @@ ad_proc ::proctoring::get_configuration {
                 start_time $start_time \
                 end_time   $end_time \
                 preview_p  $preview_p \
+                camera_p   $camera_p \
+                desktop_p  $desktop_p \
                 proctoring_p $proctoring_p \
                 examination_statement_p $examination_statement_p]
 }

@@ -64,6 +64,8 @@ aa_register_case \
                 start_time
                 end_time
                 preview_p
+                camera_p
+                desktop_p
                 proctoring_p
                 examination_statement_p
             } {
@@ -118,6 +120,16 @@ aa_register_case \
                 [dict get $conf end_time] eq $next_hour
             }
             aa_true "Proctoring on $object_id is active" [::proctoring::active_p -object_id $object_id]
+
+            aa_log "Disable camera and desktop"
+            ::proctoring::configure -object_id $object_id -proctoring_p true -camera_p false -desktop_p false
+            set conf [::proctoring::get_configuration -object_id $object_id]
+            aa_false "No camera and no desktop means no proctoring" [dict get $conf proctoring_p]
+
+            aa_log "Enable camera"
+            ::proctoring::configure -object_id $object_id -camera_p true
+            set conf [::proctoring::get_configuration -object_id $object_id]
+            aa_true "Now proctoring appears to be on" [dict get $conf proctoring_p]
         }
     }
 
