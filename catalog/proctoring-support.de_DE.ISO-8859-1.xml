@@ -111,6 +111,7 @@
   <msg key="OnlineExam">Online-Prüfung</msg>
   <msg key="preview_help_text">Falls aktiviert, wird den Benutzern während der Online-Aufsichtssitzung eine Vorschau der aufgezeichneten Eingaben angezeigt.</msg>
   <msg key="Proctoring">Automatisierte Online-Aufsicht</msg>
+  <msg key="Record_audio">Ton aufnehmen</msg>
   <msg key="Record_camera">Kamera aufnehmen</msg>
   <msg key="Record_desktop">Desktop aufnehmen</msg>
   <msg key="recordings">Aufzeichnungen</msg>
