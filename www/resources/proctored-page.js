@@ -138,7 +138,11 @@ function upload() {
             }
         }
         function errorHandler() {
-            uploadQueue.unshift(formData);
+            // In the case of error + timeout, make sure we do not
+            // reinsert the failed picture twice.
+            if (!uploadQueue.includes(formData)) {
+                uploadQueue.unshift(formData);
+            }
             reschedule(10000);
         }
 
