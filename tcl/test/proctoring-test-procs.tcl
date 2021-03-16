@@ -4,7 +4,10 @@ ad_library {
 
 aa_register_case \
     -cats {api smoke} \
-    -procs {::proctoring::folder} \
+    -procs {
+        ::proctoring::folder
+        ::proctoring::delete
+    } \
     proctoring_folder_test {
         Test ::proctoring::folder
     } {
