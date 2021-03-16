@@ -9,29 +9,35 @@ aa_register_case \
         Test ::proctoring::folder
     } {
         # Make sure we never conflict with "real" object folders
-        set object_id [db_string get_object_id {
+        set min_object_id [db_string get_object_id {
             select min(object_id) - 100 from acs_objects
         }]
-        set max_object_id [expr {$object_id + 5}]
 
         set object_dirs [list]
         set paths [list]
 
-        while {$object_id < $max_object_id} {
+        aa_section "Creating and deleting proctoring folders"
+        for {set object_id $min_object_id} {$object_id < $min_object_id + 5} {incr object_id} {
             for {set user_id 0} {$user_id < 5} {incr user_id} {
+                # Here we require the proctoring folder and make sure it exists
                 set path [::proctoring::folder -object_id $object_id -user_id $user_id]
-                aa_log "Path is $path"
+                aa_true "'$path' is a directory" [file isdirectory $path]
+                aa_log "Deleting '$path'"
+                # Here we delete it just for the user
+                ::proctoring::delete -object_id $object_id -user_id $user_id
+                aa_false "'$path' does not exist anymore" [file isdirectory $path]
                 lappend paths $path
-                aa_log "...deleted."
-                file delete -- $path
-                lappend object_dirs [file dirname $path]
             }
-            incr object_id
+            set path [file dirname $path]
+            # Here we make sure that even when the user folders are
+            # deleted, the object folder remains
+            aa_true "'$path' still exists" [file isdirectory $path]
+            aa_log "Deleting '$path'"
+            # Here we delete the object folder as well and make sure
+            # it does not exist anymore
+            ::proctoring::delete -object_id $object_id
+            aa_false "'$path' does not exist anymore" [file isdirectory $path]
         }
-
-        set object_dirs [lsort -unique $object_dirs]
-        aa_log "Cleaning up $object_dirs"
-        file delete -- {*}$object_dirs
 
         aa_true "Unique paths were generated" {[llength [lsort -unique $paths]] == 25}
     }

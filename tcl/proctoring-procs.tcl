@@ -6,16 +6,31 @@ namespace eval ::proctoring {}
 
 ad_proc ::proctoring::folder {
     -object_id:required
-    -user_id
+    {-user_id ""}
 } {
     Returns the proctoring folder on the system
 } {
     set folder [acs_root_dir]/proctoring/$object_id
-    if {[info exists user_id]} {
+    if {[string is integer -strict $user_id]} {
         append folder /$user_id
     }
     file mkdir $folder
     return $folder
+}
+
+ad_proc ::proctoring::delete {
+    -object_id:required
+    {-user_id ""}
+} {
+    Deletes the proctoring folder. When no user is specified,
+    proctoring files for the whole object will be deleted.
+
+    @param user_id when specfied, only folder for this user will be
+                   deleted.
+} {
+    file delete -force -- [::proctoring::folder \
+                               -object_id $object_id \
+                               -user_id $user_id]
 }
 
 ad_proc ::proctoring::configure {
