@@ -11,7 +11,7 @@ ad_proc ::proctoring::folder {
     Returns the proctoring folder on the system
 } {
     set folder [acs_root_dir]/proctoring/$object_id
-    if {[string is integer -strict $user_id]} {
+    if {$user_id ne ""} {
         append folder /$user_id
     }
     file mkdir $folder
