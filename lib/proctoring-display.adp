@@ -160,7 +160,7 @@
 
                function getFileURL(e) {
                    var fileTokens = e.file.split("/");
-                   return "@this_url@&file=" + fileTokens[fileTokens.length - 1];
+                   return "@user_url@&file=" + fileTokens[fileTokens.length - 1];
                }
                function createEvent(e) {
                    var event = template.cloneNode(true);
@@ -328,7 +328,7 @@
                 }
             }
             oReq.addEventListener("load", reqListener);
-            oReq.open("POST", window.location.pathname);
+            oReq.open("POST", '@base_url@');
             oReq.send(formData);
         });
     }

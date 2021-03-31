@@ -33,6 +33,7 @@ ad_include_contract {
     file:optional
     {delete:boolean "[ns_queryget delete false]"}
     {master_p:boolean true}
+    {file "[ns_queryget file]"}
 } -validate {
     object_folder_exists -requires {object_id:naturalnum} {
         # in order to access the contents of the proctoring folder:
@@ -57,9 +58,9 @@ if {$swa_p} {
     set delete_p false
 }
 
-set this_url [export_vars -base [ad_conn url] -entire_form -no_empty]
+set base_url [export_vars -base [ad_conn url] -entire_form -no_empty -exclude {delete file object_id user_id}]
 set folder_exists_p [file isdirectory [::proctoring::folder -object_id $object_id]]
-set delete_url [export_vars -base [ad_conn url] -entire_form -no_empty {{delete true}}]
+set delete_url [export_vars -base $base_url {{delete true} user_id}]
 
 set host [util_current_location]
 set parsed_host [ns_parseurl $host]
@@ -76,8 +77,7 @@ if {$delete_p && [llength $user_id] >= 1} {
                         -object_id $object_id -user_id $u]
         file delete -force -- $folder
     }
-    set return_url [export_vars -base [ad_conn url] -entire_form -no_empty -exclude {delete user_id}]
-    ad_returnredirect $return_url
+    ad_returnredirect $base_url
     ad_script_abort
 } elseif {[llength $user_id] == 1} {
     set folder [::proctoring::folder \
@@ -86,7 +86,7 @@ if {$delete_p && [llength $user_id] >= 1} {
     set delete_label [_ xowiki.delete]
     set delete_confirm [_ xowiki.delete_confirm]
 
-    if {[info exists file]} {
+    if {$file ne ""} {
         # Returning the picture
         if {[file exists ${folder}/[ad_sanitize_filename ${file}]]} {
             ns_setexpires 864000 ;# 10 days
@@ -98,12 +98,14 @@ if {$delete_p && [llength $user_id] >= 1} {
     } else {
         # List of pictures for a particular user
 
+        set user_url [export_vars -base [ad_conn url] -entire_form -no_empty -exclude {delete file object_id}]
+
         set user_name [person::name -person_id $user_id]
         set first_names [::person::get -person_id $user_id -element first_names]
         set last_name [::person::get -person_id $user_id -element last_name]
         set portrait_url [export_vars -base "/shared/portrait-bits.tcl" {user_id {size x200}}]
 
-        set back_url [export_vars -base [ad_conn url] -entire_form -no_empty -exclude {user_id}]
+        set back_url $base_url
         set camera_pics [lsort -increasing -dictionary \
                              [glob -nocomplain -directory $folder camera-image-*.*]]
         set desktop_pics [lsort -increasing -dictionary \
@@ -116,7 +118,7 @@ if {$delete_p && [llength $user_id] >= 1} {
             if {$camera_pic ne ""} {
                 set camera_pic [file tail $camera_pic]
                 regexp {^camera-image-(\d+)\.\w+$} $camera_pic m camera_timestamp
-                dict set row camera_url [export_vars -base $this_url {{file $camera_pic}}]
+                dict set row camera_url [export_vars -base $user_url {{file $camera_pic}}]
             } else {
                 dict set row camera_url ""
             }
@@ -124,7 +126,7 @@ if {$delete_p && [llength $user_id] >= 1} {
             if {$desktop_pic ne ""} {
                 set desktop_pic [file tail $desktop_pic]
                 regexp {^desktop-image-(\d+)\.\w+$} $desktop_pic m desktop_timestamp
-                dict set row desktop_url [export_vars -base $this_url {{file $desktop_pic}}]
+                dict set row desktop_url [export_vars -base $user_url {{file $desktop_pic}}]
             } else {
                 dict set row desktop_url ""
             }
@@ -145,7 +147,7 @@ if {$delete_p && [llength $user_id] >= 1} {
             set row [dict create]
             set audio [file tail $audio]
             regexp {^\w+-audio-(\d+)\.\w+$} $audio m timestamp
-            dict set row audio_url [export_vars -base $this_url {{file $audio}}]
+            dict set row audio_url [export_vars -base $user_url {{file $audio}}]
             dict set row camera_url ""
             dict set row desktop_url ""
             dict set row timestamp $timestamp
@@ -168,7 +170,7 @@ if {$delete_p && [llength $user_id] >= 1} {
 
     if {$delete_p} {
         file delete -force -- $folder
-        ad_returnredirect [export_vars -base [ad_conn url] -entire_form -no_empty -exclude {delete}]
+        ad_returnredirect $base_url
         ad_script_abort
     }
 
@@ -187,7 +189,7 @@ if {$delete_p && [llength $user_id] >= 1} {
         dict set row user_id $proctored_user_id
         dict set row first_names $first_names
         dict set row last_name $last_name
-        dict set row proctoring_url [export_vars -base [ad_conn url] {{user_id $proctored_user_id} {object_id $object_id}}]
+        dict set row proctoring_url [export_vars -base $base_url {{user_id $proctored_user_id} {object_id $object_id}}]
         dict set row portrait_url /shared/portrait-bits.tcl?user_id=$proctored_user_id
         dict set row filter [string tolower "$last_name $first_names"]
         lappend rows $row
