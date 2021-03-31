@@ -10,10 +10,24 @@ ad_include_contract {
     Site wide admins can also delete the pictures collected for the
     whole object or for the single users.
 
+    @param object_id the proctored object id.
+    @param user_id the user to be displayed. If the page has been
+                   called with the 'delete' query paramet er, this can
+                   be a list of users, for which we want proctoring
+                   files to be deleted.
+    @param file when specified, the page will return the file as a
+                response (e.g. a proctored picture).  Must be a valid
+                filename belonging to the correct proctored and user
+                folder.
+    @param delete decides if this is a delete operation. If users are
+                  specified, only files for those users will be
+                  deleted, otherwise all the files for this proctored
+                  object will be. Only SWAs can delete files.
 } {
     object_id:naturalnum,notnull
     {user_id "[ns_querygetall user_id]"}
     file:optional
+    {delete:boolean "[ns_queryget delete false]"}
 } -validate {
     object_folder_exists -requires {object_id:naturalnum} {
         # in order to access the contents of the proctoring folder:
@@ -33,7 +47,7 @@ ad_include_contract {
 set swa_p [acs_user::site_wide_admin_p]
 
 if {$swa_p} {
-    set delete_p [string is true -strict [ns_queryget delete false]]
+    set delete_p $delete
 } else {
     set delete_p false
 }
