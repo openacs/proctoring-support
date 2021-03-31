@@ -23,11 +23,16 @@ ad_include_contract {
                   specified, only files for those users will be
                   deleted, otherwise all the files for this proctored
                   object will be. Only SWAs can delete files.
+    @param master_p decides if the include should provide a master or
+                    not. Choose false if you need to embed the UI
+                    inside other pages or true if you want a
+                    standalone page.
 } {
     object_id:naturalnum,notnull
     {user_id "[ns_querygetall user_id]"}
     file:optional
     {delete:boolean "[ns_queryget delete false]"}
+    {master_p:boolean true}
 } -validate {
     object_folder_exists -requires {object_id:naturalnum} {
         # in order to access the contents of the proctoring folder:

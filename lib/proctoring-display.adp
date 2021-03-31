@@ -1,3 +1,8 @@
+<if @master_p;literal@ true>
+  <master>
+    <property name="doc(title)">#proctoring-support.Proctoring#</property>
+</if>
+
 <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
     function initWS(URL, onMessage) {
         if ("WebSocket" in window) {
