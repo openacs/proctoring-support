@@ -53,8 +53,24 @@ if {($type eq "image" && ![regexp {^image/(.*)$} $mime_type m extension]) ||
     ad_script_abort
 }
 
+# A client-side timeout might still end up being processed by the
+# server. Here we make sure we do not process pictures twice for a
+# specific user.
+if {[::proctoring::picture_already_received_p \
+         -object_id $object_id \
+         -user_id $user_id \
+         -file ${file.tmpfile}]} {
+    # We do not tell anything to the client: for what they are
+    # concerned, file has been received and they should go on with
+    # their lives.
+    ns_log warning "Proctoring: user $user_id tried to upload content twice, skipping silently..."
+    ns_return 200 text/plain OK
+    ad_script_abort
+}
+
 set timestamp [clock seconds]
 set file_path $proctoring_dir/${name}-${type}-$timestamp.$extension
+
 file mkdir -- $proctoring_dir
 file rename -force -- ${file.tmpfile} $file_path
 
