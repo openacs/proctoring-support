@@ -11,7 +11,7 @@ ad_library {
 set cache_name proctoring_checksums_cache
 set cache_size 1MB ; # ~ 25000 40bytes sha1 entries
 set cache_timeout 1ms
-set cache_expires [expr {2 * 60 * 60}] ; # 2 hours
+set cache_expires 2h
 
 ns_cache_create \
     -timeout $cache_timeout \
