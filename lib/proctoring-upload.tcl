@@ -54,9 +54,9 @@ if {($type eq "image" && ![regexp {^image/(.*)$} $mime_type m extension]) ||
 }
 
 # A client-side timeout might still end up being processed by the
-# server. Here we make sure we do not process pictures twice for a
+# server. Here we make sure we do not process files twice for a
 # specific user.
-if {[::proctoring::picture_already_received_p \
+if {[::proctoring::file_already_received_p \
          -object_id $object_id \
          -user_id $user_id \
          -file ${file.tmpfile}]} {

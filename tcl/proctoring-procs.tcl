@@ -181,12 +181,12 @@ ad_proc ::proctoring::active_p {
     }]
 }
 
-ad_proc -private ::proctoring::picture_already_received_p {
+ad_proc ::proctoring::file_already_received_p {
     -object_id:required
     -user_id:required
     -file:required
 } {
-    Returns if the picture is the same the users sent the last time
+    Returns if the file is the same the users sent the last time
     they uploaded a proctoring file.
 
     @param object_id id of the proctored object

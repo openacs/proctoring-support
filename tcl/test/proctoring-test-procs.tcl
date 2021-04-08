@@ -144,6 +144,63 @@ aa_register_case \
         }
     }
 
+aa_register_case \
+    -cats {api smoke} \
+    -procs {
+        ::proctoring::file_already_received_p
+    } \
+    proctoring_file_already_received_test {
+        Test that the server side check for duplicated uploads works
+        as expected.
+    } {
+        set user1 1
+        set object1 1
+        set file1 [ad_tmpnam]
+        set wfd [open $file1 w]
+        puts $wfd abcd
+        close $wfd
+
+        set user2 2
+        set object2 2
+        set file2 [ad_tmpnam]
+        set wfd [open $file2 w]
+        puts $wfd efgh
+        close $wfd
+
+        try {
+            for {set o 1} {$o <= 2} {incr o} {
+                for {set u 1} {$u <= 2} {incr u} {
+                    set user [set user${u}]
+                    set object [set object${o}]
+                    aa_false "'$file1' for user '$user' and object '$object' IS NOT duplicated" \
+                        [::proctoring::file_already_received_p \
+                             -object_id $object \
+                             -user_id $user \
+                             -file $file1]
+
+                    aa_true "'$file1' for user '$user' and object '$object' IS duplicated" \
+                        [::proctoring::file_already_received_p \
+                             -object_id $object \
+                             -user_id $user \
+                             -file $file1]
+
+                    aa_false "'$file2' for user '$user' and object '$object' IS NOT duplicated" \
+                        [::proctoring::file_already_received_p \
+                             -object_id $object \
+                             -user_id $user \
+                             -file $file2]
+
+                    aa_false "'$file1' for user '$user' and object '$object' IS AGAIN NOT duplicated" \
+                        [::proctoring::file_already_received_p \
+                             -object_id $object \
+                             -user_id $user \
+                             -file $file1]
+                }
+            }
+        } finally {
+            file delete -- $file1 $file2
+        }
+    }
 # Local variables:
 #    mode: tcl
 #    tcl-indent-level: 4
