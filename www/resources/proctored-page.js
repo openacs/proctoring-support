@@ -121,44 +121,71 @@ function upload() {
     function reschedule(ms) {
         clearTimeout(uploadHandle);
         uploadHandle = setTimeout(upload, ms);
+        console.log('Rescheduling upload in ' + ms + 'ms');
     }
 
     if (uploadQueue.length > 0) {
-        function readyStateHandler() {
-            if (this.readyState == 4) {
-                if(this.status == 200) {
-                    if (this.response == "OK") {
-                        reschedule(1000);
-                    } else {
-                        location.href = objectURL;
-                    }
-                } else {
-                    errorHandler();
-                }
-            }
-        }
-        function errorHandler() {
-            // In the case of error + timeout, make sure we do not
-            // reinsert the failed picture twice.
-            if (!uploadQueue.includes(formData)) {
-                uploadQueue.unshift(formData);
-            }
-            reschedule(10000);
-        }
-
+        //
+        // There are files in the queue. Get the first element and
+        // prepare to send.
+        //
         var formData = uploadQueue.shift();
 
+        //
+        // Prepare the upload
+        //
         var request = new XMLHttpRequest();
-        request.timeout = 10000;
-
-        request.addEventListener("readystatechange", readyStateHandler);
-        request.addEventListener("timeout", errorHandler);
-        request.addEventListener("error", errorHandler);
-
+        request.addEventListener("loadend", function () {
+            if (this.status === 200) {
+                //
+                // Request completed successfully, however, the
+                // backend might have informed us that this proctoring
+                // session is over.
+                //
+                if (this.response == "OK") {
+                    //
+                    // Success: reschedule the upload 1s from now.
+                    //
+                    reschedule(1000);
+                } else {
+                    //
+                    // Proctoring is over: redirect to the unproctored
+                    // plain page.
+                    //
+                    location.href = objectURL;
+                }
+            } else if (this.status !== 400) {
+                //
+                // Any other error situation that is not a response
+                // code of 400: we will retry uploading the same file
+                // in 10s
+                //
+                console.warn('Server responded with a ' + this.status + ' status code and we will reschedule the upload!');
+                uploadQueue.unshift(formData);
+                reschedule(10000);
+            } else {
+                //
+                // Server returned a 400, which means invalid
+                // request. We are not supposed to resend the file
+                // with this kind of responses, as it is likely to be
+                // rejected again and block the queue indefinitely.
+                //
+                // TODO: do something e.g. eject the user from the
+                // proctored session.
+                //
+                console.error('We received a 400 and will not resend this file!');
+                reschedule(10000);
+            }
+        });
+        //
+        // Send the file
+        //
         request.open("POST", uploadURL);
-        // console.warn("we upload!");
         request.send(formData);
     } else {
+        //
+        // Queue is empty, recheck in 1s
+        //
         reschedule(1000);
     }
 }
