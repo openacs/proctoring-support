@@ -121,7 +121,7 @@ function upload() {
     function reschedule(ms) {
         clearTimeout(uploadHandle);
         uploadHandle = setTimeout(upload, ms);
-        console.log('Rescheduling upload in ' + ms + 'ms');
+        console.log('Upload rescheduled.');
     }
 
     if (uploadQueue.length > 0) {
