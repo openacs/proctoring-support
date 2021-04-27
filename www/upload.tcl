@@ -7,4 +7,5 @@ ad_page_contract {
     file
     file.tmpfile
     {check_active_p:boolean true}
+    {notify_p:boolean true}
 }

@@ -74,8 +74,6 @@ set file_path $proctoring_dir/${name}-${type}-$timestamp.$extension
 file mkdir -- $proctoring_dir
 file rename -force -- ${file.tmpfile} $file_path
 
-# TODO: downstream UI implements the receiving end of this
-# websocket. We should port it.
 # Notify a websocket about the upload so that e.g. a UI can be updated
 # in real time.
 if {$notify_p} {
