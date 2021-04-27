@@ -154,26 +154,13 @@ function upload() {
                     //
                     location.href = objectURL;
                 }
-            } else if (this.status !== 400) {
+            } else {
                 //
-                // Any other error situation that is not a response
-                // code of 400: we will retry uploading the same file
-                // in 10s
+                // Any other status is an error situation: we will
+                // retry uploading the same file in 10s
                 //
                 console.warn('Server responded with a ' + this.status + ' status code and we will reschedule the upload!');
                 uploadQueue.unshift(formData);
-                reschedule(10000);
-            } else {
-                //
-                // Server returned a 400, which means invalid
-                // request. We are not supposed to resend the file
-                // with this kind of responses, as it is likely to be
-                // rejected again and block the queue indefinitely.
-                //
-                // TODO: do something e.g. eject the user from the
-                // proctored session.
-                //
-                console.error('We received a 400 and will not resend this file!');
                 reschedule(10000);
             }
         });
