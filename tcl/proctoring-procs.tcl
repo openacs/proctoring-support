@@ -25,7 +25,7 @@ ad_proc ::proctoring::delete {
     Deletes the proctoring folder. When no user is specified,
     proctoring files for the whole object will be deleted.
 
-    @param user_id when specfied, only folder for this user will be
+    @param user_id when specified, only folder for this user will be
                    deleted.
 } {
     file delete -force -- [::proctoring::folder \

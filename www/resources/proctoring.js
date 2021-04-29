@@ -88,7 +88,7 @@
 //                  'jpeg' and 'gif'. The presence of one of such
 //                  attributes will enable the generation of an image
 //                  in that type whenever a new snapshot is
-//                  taken. Each attribue supports itself two possible
+//                  taken. Each attribute supports itself two possible
 //                  attributes defining the handler type, 'blob', or
 //                  'base64'. The value of each of those is a
 //                  javascript handler that expects to receive the
@@ -131,7 +131,7 @@
 //                    gif: {
 //                        base64: function(base64data) {
 //                            // this handler will be triggered
-//                            // everytime a new gif for this stream is
+//                            // every time a new gif for this stream is
 //                            // rendered and will receive the base64
 //                            // data in input
 //                            var input = document.querySelector('input[name="proctoring1"]');
@@ -163,7 +163,7 @@
 //                    gif: {
 //                        base64: function(base64data) {
 //                            // this handler will be triggered
-//                            // everytime a new gif for this stream is
+//                            // every time a new gif for this stream is
 //                            // rendered and will receive the base64
 //                            // data in input
 //                            var input = document.querySelector('input[name="proctoring1"]');
