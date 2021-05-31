@@ -195,6 +195,12 @@ aa_register_case \
                              -object_id $object \
                              -user_id $user \
                              -file $file1]
+
+                    # Trick to forget about file1 when re-running the test
+                    ::proctoring::file_already_received_p \
+                        -object_id $object \
+                        -user_id $user \
+                        -file $file2
                 }
             }
         } finally {
