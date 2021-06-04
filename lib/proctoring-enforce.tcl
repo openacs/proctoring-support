@@ -8,8 +8,14 @@ ad_include_contract {
 }
 
 if {[ns_conn isconnected]} {
-    set admin_p [permission::permission_p -object_id $object_id -party_id [ad_conn user_id] -privilege admin]
-    set read_p [permission::permission_p -object_id $object_id -party_id [ad_conn user_id] -privilege read]
+    set admin_p [permission::permission_p \
+                     -object_id $object_id \
+                     -party_id [ad_conn user_id] \
+                     -privilege admin]
+    set read_p [permission::permission_p \
+                    -object_id $object_id \
+                    -party_id [ad_conn user_id] \
+                    -privilege read]
 } else {
     set admin_p false
     set read_p false
