@@ -46,6 +46,9 @@ ad_proc ::proctoring::configure {
     {-end_date ""}
     {-start_time ""}
     {-end_time ""}
+    {-seb_p false}
+    {-seb_key ""}
+    {-seb_file ""}
 } {
     Configures proctoring for specified object.
 
@@ -69,6 +72,18 @@ ad_proc ::proctoring::configure {
                       executed. No time check when not specified.
     @param end_time Time of day since when proctoring is not
                     executed. No time check when not specified.
+    @param seb_p Does this object enforce the use of the Safe Exam
+                 Browser?
+    @param seb_key Key we checking against when enforcing the use of
+                   the Safe Exam Browser, created via the Safe Exam
+                   Browser configuration tool.
+    @param seb_file .seb file that holds the valid configuration for
+                    this exam. When provided, upon failing the check
+                    the user will be sent the file so that they can
+                    open it with the Safe Exam Browser and apply the
+                    configuration to their session. In case this is
+                    not provided, we are just going to reject clients
+                    that fail the check.
 } {
     ::xo::dc dml insert_proctoring {
         insert into proctoring_objects (
@@ -110,6 +125,19 @@ ad_proc ::proctoring::configure {
             proctoring_p = ((:audio_p or :camera_p or :desktop_p) and :proctoring_p),
             examination_statement_p = :examination_statement_p
     }
+
+    if {$seb_p} {
+        if {$seb_key ne "" &&
+            $seb_file ne ""} {
+            ::proctoring::seb::configure \
+                -object_id $object_id \
+                -key $seb_key \
+                -seb_file $seb_file
+        }
+    } else {
+        ::proctoring::seb::unconfigure \
+            -object_id $object_id
+    }
 }
 
 ad_proc ::proctoring::get_configuration {
@@ -119,7 +147,8 @@ ad_proc ::proctoring::get_configuration {
 
     @return a dict with fields: enabled_p, start_date, end_date,
             start_time, end_time, preview_p, camera_p, desktop_p,
-            proctoring_p, examination_statement_p
+            proctoring_p, examination_statement_p, seb_p, seb_key,
+            seb_file
 } {
     set start_date ""
     set end_date ""
@@ -132,6 +161,9 @@ ad_proc ::proctoring::get_configuration {
     set desktop_p false
     set proctoring_p false
     set examination_statement_p false
+    set seb_p false
+    set seb_key ""
+    set seb_file ""
 
     ::xo::dc 0or1row is_proctored {
         select to_char(start_date, 'YYYY-MM-DD') as start_date,
@@ -144,9 +176,14 @@ ad_proc ::proctoring::get_configuration {
                case when desktop_p then 'true' else 'false' end as desktop_p,
                case when proctoring_p then 'true' else 'false' end as proctoring_p,
                case when enabled_p then 'true' else 'false' end as enabled_p,
-               case when examination_statement_p then 'true' else 'false' end as examination_statement_p
-          from proctoring_objects
-        where object_id = :object_id
+               case when examination_statement_p then 'true' else 'false' end as examination_statement_p,
+               case when seb.object_id is not null then 'true' else 'false' end as seb_p,
+               seb.key as seb_key,
+               seb.seb_file
+          from proctoring_objects o
+               left join proctoring_safe_exam_browser_conf seb
+                    on seb.object_id = o.object_id
+        where o.object_id = :object_id
     }
 
     return [list \
@@ -160,7 +197,10 @@ ad_proc ::proctoring::get_configuration {
                 camera_p   $camera_p \
                 desktop_p  $desktop_p \
                 proctoring_p $proctoring_p \
-                examination_statement_p $examination_statement_p]
+                examination_statement_p $examination_statement_p \
+                seb_p      $seb_p \
+                seb_key    $seb_key \
+                seb_file   $seb_file]
 }
 
 ad_proc ::proctoring::active_p {

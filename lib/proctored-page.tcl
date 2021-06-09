@@ -84,6 +84,10 @@ ad_include_contract {
     msg:array,optional
 }
 
+::proctoring::seb::require_valid_access \
+    -object_url $object_url \
+    -object_id $object_id
+
 set system_name [ad_system_name]
 
 set default_msg(missing_stream) [_ proctoring-support.missing_stream_message]

@@ -1,3 +1,4 @@
 
 drop table proctoring_objects;
 drop table proctoring_examination_statement_acceptance;
+drop table proctoring_safe_exam_browser_conf;

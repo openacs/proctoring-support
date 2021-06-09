@@ -120,6 +120,11 @@
   <msg key="recordings">Recordings</msg>
   <msg key="request_failed">Request to the server has failed. Retry in 10s...</msg>
   <msg key="request_timeout">Request to the server timed out. Retry in 10s...</msg>
+  <msg key="Safe_Exam_Browser">Safe Exam Browser</msg>
+  <msg key="Safe_Exam_Browser_File">Safe Exam Browser .seb file</msg>
+  <msg key="Safe_Exam_Browser_File_help_text">.seb file generated via the Safe Exam Browser configuration tool that holds the restriction applied to this exam session.</msg>
+  <msg key="Safe_Exam_Browser_Key">Safe Exam Browser key</msg>
+  <msg key="Safe_Exam_Browser_Key_help_text">Encryption key generated via the Safe Exam Browser configuration tool that will be used to ensure students are applying supplied configuration to their exam session.</msg>
   <msg key="user_photo">Photo</msg>
   <msg key="wizard_finish">Finish</msg>
   <msg key="wrong_display_surface_selected">The screen cannot be recorded because you selected the wrong screen area. Select \&#34;Your Entire Screen\&#34; by clicking on the screen and then on \&#34;Share\&#34;.</msg>
