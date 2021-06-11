@@ -189,7 +189,7 @@ if {$delete_p && [llength $user_id] >= 1} {
         dict set row user_id $proctored_user_id
         dict set row first_names $first_names
         dict set row last_name $last_name
-        dict set row proctoring_url [export_vars -base $base_url {{user_id $proctored_user_id} {object_id $object_id}}]
+        dict set row proctoring_url [export_vars -no_base_encode -base $base_url {{user_id $proctored_user_id} {object_id $object_id}}]
         dict set row portrait_url /shared/portrait-bits.tcl?user_id=$proctored_user_id
         dict set row filter [string tolower "$last_name $first_names"]
         lappend rows $row
