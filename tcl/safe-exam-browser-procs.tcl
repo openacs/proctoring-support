@@ -103,6 +103,7 @@ ad_proc -private ::proctoring::seb::require_valid_access {
 
     if {!$valid_access_p} {
         if {[file exists $seb_file]} {
+            ns_set cput [ns_conn outputheaders] Content-Disposition "attachment; filename=Config.seb"
             ns_writer submitfile -headers $seb_file
         } else {
             ns_returnunauthorized
