@@ -63,22 +63,39 @@ ad_proc -private ::proctoring::seb::unconfigure {
     }
 }
 
-ad_proc -private ::proctoring::seb::valid_key_p {
-    -object_id:required
-    -object_url:required
+ad_proc -private ::proctoring::seb::valid_hash_p {
     -key:required
+    -hash:required
+    -url:required
 } {
-    Validates a Safe Exam Browser key
+    Validates a Safe Exam Browser hash.
+
+    The hash is generated based on:
+      - the SEB configuration
+      - (optionally) the SEB version and platform
+      - the currently requested URL
 
     @return boolean
 } {
-    set header [ns_set get [ns_conn headers] X-SafeExamBrowser-RequestHash]
-    return [expr {[ns_md string -digest sha256 ${object_url}${key}] eq $header}]
+    return [expr {[ns_md string -digest sha256 ${url}${key}] eq $hash}]
+}
+
+ad_proc -private ::proctoring::this_url {} {
+    Computes the currently requested URL, used to match against the
+    hash provided by the browser.
+
+    @return fully qualified URL
+} {
+    set url [util_current_location][ns_conn url]
+    if {[ns_conn query] ne ""} {
+        append url ?[ns_conn query]
+    }
+
+    return $url
 }
 
 ad_proc -private ::proctoring::seb::require_valid_access {
     -object_id:required
-    -object_url:required
 } {
     Validates the proctored session using the Safe Exam Broswer keys
     configured for the object. If the client does not comply, will
@@ -93,10 +110,12 @@ ad_proc -private ::proctoring::seb::require_valid_access {
     }]
 
     if {$seb_p} {
-        set valid_access_p [::proctoring::seb::valid_key_p \
-                                -object_id $object_id \
-                                -object_url $object_url \
-                                -key $key]
+        set hash [ns_set get [ns_conn headers] X-SafeExamBrowser-RequestHash]
+        set url [::proctoring::this_url]
+        set valid_access_p [::proctoring::seb::valid_hash_p \
+                                -hash $hash \
+                                -url  $url \
+                                -key  $key]
     } else {
         set valid_access_p true
     }

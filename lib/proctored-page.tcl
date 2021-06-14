@@ -85,7 +85,6 @@ ad_include_contract {
 }
 
 ::proctoring::seb::require_valid_access \
-    -object_url $object_url \
     -object_id $object_id
 
 set system_name [ad_system_name]
