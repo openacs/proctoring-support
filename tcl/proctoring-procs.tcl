@@ -47,7 +47,7 @@ ad_proc ::proctoring::configure {
     {-start_time ""}
     {-end_time ""}
     {-seb_p false}
-    {-seb_key ""}
+    {-seb_keys ""}
     {-seb_file ""}
 } {
     Configures proctoring for specified object.
@@ -74,9 +74,12 @@ ad_proc ::proctoring::configure {
                     executed. No time check when not specified.
     @param seb_p Does this object enforce the use of the Safe Exam
                  Browser?
-    @param seb_key Key we checking against when enforcing the use of
-                   the Safe Exam Browser, created via the Safe Exam
-                   Browser configuration tool.
+    @param seb_keys Keys we check against when enforcing the use of
+                    the Safe Exam Browser, created via the Safe Exam
+                    Browser configuration tool. These can be a
+                    ConfigKeyHash, just validating the browser's
+                    configuration or a RequestHash, also validating
+                    the platform-specific version of SEB in use.
     @param seb_file .seb file that holds the valid configuration for
                     this exam. When provided, upon failing the check
                     the user will be sent the file so that they can
@@ -127,11 +130,10 @@ ad_proc ::proctoring::configure {
     }
 
     if {$seb_p} {
-        if {$seb_key ne "" &&
-            $seb_file ne ""} {
+        if {$seb_keys ne ""} {
             ::proctoring::seb::configure \
                 -object_id $object_id \
-                -key $seb_key \
+                -allowed_keys $seb_keys \
                 -seb_file $seb_file
         }
     } else {
@@ -162,7 +164,7 @@ ad_proc ::proctoring::get_configuration {
     set proctoring_p false
     set examination_statement_p false
     set seb_p false
-    set seb_key ""
+    set seb_keys {}
     set seb_file ""
 
     ::xo::dc 0or1row is_proctored {
@@ -178,7 +180,7 @@ ad_proc ::proctoring::get_configuration {
                case when enabled_p then 'true' else 'false' end as enabled_p,
                case when examination_statement_p then 'true' else 'false' end as examination_statement_p,
                case when seb.object_id is not null then 'true' else 'false' end as seb_p,
-               seb.key as seb_key,
+               seb.allowed_keys as seb_keys,
                seb.seb_file
           from proctoring_objects o
                left join proctoring_safe_exam_browser_conf seb
@@ -199,7 +201,7 @@ ad_proc ::proctoring::get_configuration {
                 proctoring_p $proctoring_p \
                 examination_statement_p $examination_statement_p \
                 seb_p      $seb_p \
-                seb_key    $seb_key \
+                seb_keys   $seb_keys \
                 seb_file   $seb_file]
 }
 

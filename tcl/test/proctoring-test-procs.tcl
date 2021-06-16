@@ -51,6 +51,7 @@ aa_register_case \
         ::proctoring::configure
         ::proctoring::get_configuration
         ::proctoring::active_p
+        ::proctoring::seb::valid_hash_p
     } \
     proctoring_conf_test {
         Test proctoring configuration api
@@ -78,6 +79,9 @@ aa_register_case \
                 desktop_p
                 proctoring_p
                 examination_statement_p
+                seb_p
+                seb_file
+                seb_keys
             } {
                 aa_true "Field $field exists in dict" [dict exists $conf $field]
             }
@@ -141,6 +145,58 @@ aa_register_case \
             ::proctoring::configure -object_id $object_id -camera_p true
             set conf [::proctoring::get_configuration -object_id $object_id]
             aa_true "Now proctoring appears to be on" [dict get $conf proctoring_p]
+
+            aa_log "Storing SEB configuration"
+            set key a3e85dcad0cd6a6e2f55e77399e4c9caf47807d760402d6b740017a9f0b2a197
+            set hash 6f3edc0ef5a56879eba206a7debb3fb0585ebb1f2423ebc10a1afce991edfbcd
+            set url https://learn-a.wu.ac.at:8081/dotlrn/classes/tlf/testkurs.17s/
+            set conf_file [ad_tmpnam]
+            set wfd [open $conf_file w]
+            puts $wfd abcd
+            close $wfd
+            set conf_file_hash [ns_md file $conf_file]
+
+            ::proctoring::configure \
+                -object_id $object_id \
+                -seb_p true \
+                -seb_keys $key
+            set conf [::proctoring::get_configuration -object_id $object_id]
+            aa_equals "Conf file is empty" [dict get $conf seb_file] ""
+            aa_equals "Key has been stored" [dict get $conf seb_keys] $key
+
+            set keys [list $key ${key}-2 ${key}-3]
+            ::proctoring::configure \
+                -object_id $object_id \
+                -seb_p true \
+                -seb_keys $keys
+            set conf [::proctoring::get_configuration -object_id $object_id]
+            aa_equals "Same number of keys are stored" [llength $keys] [llength [dict get $conf seb_keys]]
+            aa_equals "Exactly the same keys are stored" [lsort $keys] [lsort [dict get $conf seb_keys]]
+
+            ::proctoring::configure \
+                -object_id $object_id \
+                -seb_keys ${key}abcd
+            set conf [::proctoring::get_configuration -object_id $object_id]
+            aa_equals "Seb confs are deleted when the seb_p flag is false" \
+                "" [dict get $conf seb_keys]
+
+            ::proctoring::configure \
+                -object_id $object_id \
+                -seb_p true \
+                -seb_keys $key \
+                -seb_file $conf_file
+
+            set conf [::proctoring::get_configuration -object_id $object_id]
+            aa_equals "Conf file was stored correctly" \
+                [ns_md file [dict get $conf seb_file]] $conf_file_hash
+            aa_equals "Key was stored correctly" \
+                [dict get $conf seb_keys] $key
+
+            aa_true "Data has been stored correctly and the hash can be computed as expected" \
+                [::proctoring::seb::valid_hash_p \
+                     -key [lindex [dict get $conf seb_keys] 0] \
+                     -hash $hash \
+                     -url $url]
         }
     }
 
@@ -207,6 +263,7 @@ aa_register_case \
             file delete -- $file1 $file2
         }
     }
+
 # Local variables:
 #    mode: tcl
 #    tcl-indent-level: 4
