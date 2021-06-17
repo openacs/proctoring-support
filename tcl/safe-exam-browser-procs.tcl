@@ -170,7 +170,7 @@ ad_proc -private ::proctoring::seb::require_valid_access {
                 Content-Disposition "attachment; filename=[file tail $seb_file]"
             ns_writer submitfile -headers $seb_file
         } else {
-            ns_returnunauthorized
+            ns_returnforbidden
         }
         ad_script_abort
     }
