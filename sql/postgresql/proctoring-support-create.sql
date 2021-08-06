@@ -1,3 +1,4 @@
+begin;
 
 -- Table of objects where proctoring is enabled
 create table proctoring_objects (
@@ -55,12 +56,14 @@ create index proctoring_examination_statement_acceptance_user_id_idx on
 
 create table proctoring_safe_exam_browser_conf (
        object_id       integer primary key references acs_objects(object_id) on delete cascade,
-       seb_file        text           -- the file created via the SEB
+       seb_file        text,          -- the file created via the SEB
                                       -- exam configuration that will
                                       -- configure the clients
                                       -- accessing this proctored
                                       -- object
-       allowed_keys    text not null, -- the keys generated during the SEB
+       allowed_keys    text not null  -- the keys generated during the SEB
                                       -- configuration that have been allowed
                                       -- access to this exam
 );
+
+end;
