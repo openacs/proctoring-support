@@ -14,6 +14,7 @@
   <msg key="desktop_grabbing_not_supported">Sie arbeiten mit einem Browser der die automatische Online-Aufsicht nicht unterstützt. Bitte verwenden Sie die neueste Version von &lt;a href=&#39;https://www.google.de/chrome&#39;&gt;Google Chrome&lt;/a&gt;.</msg>
   <msg key="desktop_permission_denied">Ihr Bildschirm kann nicht aufgenommen werden, da Google Chrome keine Berechtigung dazu hat. Mögliche Ursachen sind: &lt;ul&gt; &lt;li&gt;&lt;b&gt;Die Bildschirmaufnahme ist durch ein Antivirenprogramm blockiert&lt;/b&gt;: Erlauben Sie Ihrem Antivirenprogramm bzw. der Antivirenschutzerweiterung in Google Chrome die Bildschirmaufnahme bzw. deaktivieren Sie alle Antivirusprogramme für die Dauer der Prüfung.&lt;/li&gt; &lt;li&gt;&lt;b&gt;Die Bildschirmaufnahme ist in den Systemeinstellungen ist blockiert (macOS)&lt;/b&gt;: Gehen Sie unter \&#34;Systemeinstellungen\&#34; auf \&#34;Sicherheit\&#34; | \&#34;Datenschutz\&#34; und dann in der Seitenleiste auf \&#34;Bildschirmaufnahme\&#34;. Aktivieren Sie das Markierungsfeld neben Google Chrome. Starten Sie Google Chrome neu.&lt;/li&gt; &lt;/ul&gt;</msg>
   <msg key="display_surface_not_supported">Sie arbeiten mit einem Browser der die automatische Online-Aufsicht nicht unterstützt. Bitte verwenden Sie die neueste Version von &lt;a href=&#39;https://www.google.de/chrome&#39;&gt;Google Chrome&lt;/a&gt;.</msg>
+  <msg key="End_date">Enddatum</msg>
   <msg key="Exam_mode">Prüfungsmodus</msg>
   <msg key="Exam_mode_message">&lt;h4&gt;Prüfungserklärung: Wichtige Informationen zur Absolvierung von schriftlichen Online-Prüfungen&lt;/h4&gt;
 &lt;p&gt;
@@ -109,12 +110,14 @@
   <msg key="missing_stream_message">Die Online-Aufsicht wurde beendet, ist für diese Prüfung aber noch aktiviert. Bitte schließen Sie Google Chrome, um die Prüfungsumgebung ganz zu verlassen, oder starten Sie die automatisierte Online-Aufsicht wieder mit einem Klick auf \&#34;OK\&#34;. Damit betreten Sie die Prüfungsumgebung erneut.&lt;br&gt;&lt;br&gt;Wenn Sie über dieses Problem melden, inkludieren Sie bitte folgenden Text: </msg>
   <msg key="mobile_devices_are_unsupported">Mobile Geräte werden nicht unterstützt.</msg>
   <msg key="OnlineExam">Online-Prüfung</msg>
+  <msg key="Preview">Vorschau</msg>
   <msg key="preview_help_text">Falls aktiviert, wird den Benutzern während der Online-Aufsichtssitzung eine Vorschau der aufgezeichneten Eingaben angezeigt.</msg>
   <msg key="Proctoring">Automatisierte Online-Aufsicht</msg>
   <msg key="Record_audio">Ton aufnehmen</msg>
   <msg key="Record_camera">Kamera aufnehmen</msg>
   <msg key="Record_desktop">Desktop aufnehmen</msg>
   <msg key="recordings">Aufzeichnungen</msg>
+  <msg key="Start_date">Anfangsdatum</msg>
   <msg key="user_photo">Foto</msg>
   <msg key="wizard_finish">Abschließen</msg>
   <msg key="wrong_display_surface_selected">Der Desktop kann nicht aufgezeichnet werden, da Sie den falschen Bildschirmausschnitt ausgewählt haben. Wählen Sie \&#34;gesamter Bildschirm\&#34; aus, klicken Sie auf den Bildschirm und wählen Sie dann \&#34;Teilen\&#34;.</msg>

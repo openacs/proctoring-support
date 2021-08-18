@@ -16,6 +16,7 @@
   <msg key="desktop_grabbing_not_supported">You are working with a browser that does not support the automated exam-supervision. Please use the latest version of Google &lt;a href=&#39;https://www.google.com/chrome/&#39;&gt;Chrome&lt;/a&gt;.</msg>
   <msg key="desktop_permission_denied">Your screen cannot be recorded because it has no permission to do so. Possible causes are: &lt;ul&gt; &lt;li&gt;&lt;b&gt;The screen recording is blocked by an antivirus program&lt;/b&gt;: Allow your antivirus program or the antivirus protection extension in Google Chrome to record the screen or deactivate all antivirus programs for the duration of the exam.&lt;/li&gt; &lt;li&gt;&lt;b&gt;The screen recording is blocked in the system settings (macOS)&lt;/b&gt;: Go to \&#34;System settings\&#34; | \&#34;Security\&#34; | \&#34;Privacy\&#34; and then click on \&#34;Screen recording\&#34; in the sidebar. Activate the checkbox next to Google Chrome. Restart Google Chrome.&lt;/li&gt; &lt;/ul&gt;</msg>
   <msg key="display_surface_not_supported">You are working with a browser that does not support the automated exam-supervision. Please use the latest version of Google &lt;a href=&#39;https://www.google.com/chrome/&#39;&gt;Chrome&lt;/a&gt;.</msg>
+  <msg key="End_date">End date</msg>
   <msg key="Exam_mode">Exam mode</msg>
   <msg key="Exam_mode_message">&lt;h4&gt;Examination statement: Important information for taking online examinations&lt;/h4&gt;
 &lt;p&gt;
@@ -112,6 +113,7 @@
   <msg key="missing_stream_message">Online Supervision has ended. However, it is still activated for this exam. Please close Google Chrome to completely exit the exam environment. Alternatively, you can restart the automated online supervision: By clicking \&#34;OK\&#34;, you are re-entering the exam environment.&lt;br&gt;&lt;br&gt;When reporting this issue, please mention the following message: </msg>
   <msg key="mobile_devices_are_unsupported">Mobile devices are unsupported.</msg>
   <msg key="OnlineExam">Online Exam</msg>
+  <msg key="Preview">Preview</msg>
   <msg key="preview_help_text">If enabled, a preview of recorded input will be displayed to users during the online supervision session.</msg>
   <msg key="Proctoring">Automated exam-supervision</msg>
   <msg key="Record_audio">Record audio</msg>
@@ -125,6 +127,7 @@
   <msg key="Safe_Exam_Browser_File_help_text">.seb file generated via the Safe Exam Browser configuration tool that holds the restriction applied to this exam session.</msg>
   <msg key="Safe_Exam_Browser_Key">Safe Exam Browser key</msg>
   <msg key="Safe_Exam_Browser_Key_help_text">Encryption key generated via the Safe Exam Browser configuration tool that will be used to ensure students are applying supplied configuration to their exam session.</msg>
+  <msg key="Start_date">Start date</msg>
   <msg key="user_photo">Photo</msg>
   <msg key="wizard_finish">Finish</msg>
   <msg key="wrong_display_surface_selected">The screen cannot be recorded because you selected the wrong screen area. Select \&#34;Your Entire Screen\&#34; by clicking on the screen and then on \&#34;Share\&#34;.</msg>
