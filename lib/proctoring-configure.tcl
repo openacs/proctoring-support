@@ -3,6 +3,7 @@ ad_include_contract {
     User Interface to configure proctoring for an object.
 
     @param object_id id of the ACS Object to be proctored
+    @param return_url optionally, return to this URL after submit
 
 } {
     object_id:naturalnum,notnull
@@ -42,11 +43,9 @@ ad_form \
         }
         {proctoring_start_time:h5time,optional
             {label "[_ acs-admin.Start_time]"}
-            {format "HH24:MI"}
         }
         {proctoring_end_time:h5time,optional
             {label "[_ acs-admin.End_time]"}
-            {format "HH24:MI"}
         }
     } -on_request {
 
