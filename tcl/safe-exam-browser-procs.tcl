@@ -145,7 +145,7 @@ ad_proc -private ::proctoring::seb::valid_access_p {
 ad_proc -private ::proctoring::seb::require_valid_access {
     -object_id:required
 } {
-    Validates the proctored session using the Safe Exam Broswer keys
+    Validates the proctored session using the Safe Exam Browser keys
     configured for the object. If the client does not comply, will
     stop page execution and return the .seb configuration file as
     response. If no .seb file was cofigured, will just return a 403
