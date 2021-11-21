@@ -7,5 +7,7 @@ ad_page_contract {
     file
     file.tmpfile
     {check_active_p:boolean true}
-    {notify_p:boolean true}
+    {notify_p:boolean false}
+    {record_p:boolean true}
 }
+#ns_log notice "UPLOAD called with notify_p $notify_p record_p $record_p"

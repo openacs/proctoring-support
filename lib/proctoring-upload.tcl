@@ -27,75 +27,87 @@ ad_include_contract {
     file.tmpfile
     {notify_p:boolean false}
     {check_active_p:boolean true}
+    {record_p:boolean true}
 }
 
-auth::require_login
+ns_log notice "LIB PROCTORING_UPLOAD called with record_p $record_p, notify_p $notify_p"
 
-set user_id [ad_conn user_id]
+if {!$record_p} {
+    ad_file delete ${file.tmpfile}
+    ns_log notice "proctoring-support: do not save uploaded content"
 
-set proctoring_dir [::proctoring::folder \
-                        -object_id $object_id -user_id $user_id]
-
-if {$type eq "audio"} {
-    # set mime_type [exec [util::which file] --mime-type -b ${file.tmpfile}]
-    set mime_type video/webm
 } else {
-    set mime_type [ns_imgmime ${file.tmpfile}]
-}
-if {($type eq "image" && ![regexp {^image/(.*)$} $mime_type m extension]) ||
-    ($type eq "audio" && ![regexp {^video/(.*)$} $mime_type m extension])
-} {
-    ns_log warning "Proctoring: user $user_id uploaded a non-$type ($mime_type) file for object $object_id"
-    ns_return 500 text/plain "KO"
-    ad_script_abort
-} elseif {$check_active_p && ![::proctoring::active_p -object_id $object_id]} {
-    ns_return 200 text/plain "OFF"
-    ad_script_abort
-}
+    auth::require_login
 
-# A client-side timeout might still end up being processed by the
-# server. Here we make sure we do not process files twice for a
-# specific user.
-if {[::proctoring::file_already_received_p \
-         -object_id $object_id \
-         -user_id $user_id \
-         -file ${file.tmpfile}]} {
-    # We do not tell anything to the client: for what they are
-    # concerned, file has been received and they should go on with
-    # their lives.
-    ns_log warning "Proctoring: user $user_id tried to upload content twice, skipping silently..."
-    ns_return 200 text/plain OK
-    ad_script_abort
-}
+    set user_id [ad_conn user_id]
 
-set timestamp [clock seconds]
-set file_path $proctoring_dir/${name}-${type}-$timestamp.$extension
+    set proctoring_dir [::proctoring::folder \
+                            -object_id $object_id -user_id $user_id]
 
-file mkdir -- $proctoring_dir
-file rename -force -- ${file.tmpfile} $file_path
+    if {$type eq "audio"} {
+        # set mime_type [exec [util::which file] --mime-type -b ${file.tmpfile}]
+        set mime_type video/webm
+    } else {
+        set mime_type [ns_imgmime ${file.tmpfile}]
+    }
+    if {($type eq "image" && ![regexp {^image/(.*)$} $mime_type m extension]) ||
+        ($type eq "audio" && ![regexp {^video/(.*)$} $mime_type m extension])
+    } {
+        ns_log warning "Proctoring: user $user_id uploaded a non-$type ($mime_type) file for object $object_id"
+        ns_return 500 text/plain "KO"
+        ad_script_abort
+    } elseif {$check_active_p && ![::proctoring::active_p -object_id $object_id]} {
+        ns_return 200 text/plain "OFF"
+        ad_script_abort
+    }
 
-# Notify a websocket about the upload so that e.g. a UI can be updated
-# in real time.
-if {$notify_p} {
-    set message [subst -nocommands {
-        {
-            "user_id": "$user_id",
-            "name": "$name",
-            "type": "$type",
-            "timestamp": "$timestamp",
-            "file": "$file_path"
+    # A client-side timeout might still end up being processed by the
+    # server. Here we make sure we do not process files twice for a
+    # specific user.
+    if {[::proctoring::file_already_received_p \
+             -object_id $object_id \
+             -user_id $user_id \
+             -file ${file.tmpfile}]} {
+        # We do not tell anything to the client: for what they are
+        # concerned, file has been received and they should go on with
+        # their lives.
+        ns_log warning "Proctoring: user $user_id tried to upload content twice, skipping silently..."
+        ns_return 200 text/plain OK
+        ad_script_abort
+    }
+
+    set timestamp [clock seconds]
+    set file_path $proctoring_dir/${name}-${type}-$timestamp.$extension
+
+    file mkdir -- $proctoring_dir
+    file rename -force -- ${file.tmpfile} $file_path
+
+    # Notify a websocket about the upload so that e.g. a UI can be updated
+    # in real time.
+    if {$notify_p} {
+        if {[info commands "::ws::build_msg"] eq ""} {
+            ns_log warning "proctoring-upload: notify was requested, but websockets are NOT configured"
+        } else {
+            set message [subst -nocommands {
+                {
+                    "user_id": "$user_id",
+                    "name": "$name",
+                    "type": "$type",
+                    "timestamp": "$timestamp",
+                    "file": "$file_path"
+                }
+            }]
+
+            set message [::ws::build_msg $message]
+
+            set chat proctoring-${object_id}
+            #ns_log warning "Sending to chat $chat"
+            ::ws::multicast $chat $message
+
+            set chat proctoring-${object_id}-${user_id}
+            #ns_log warning "Sending to chat $chat"
+            ::ws::multicast $chat $message
         }
-    }]
-
-    set message [::ws::build_msg $message]
-
-    set chat proctoring-${object_id}
-    #ns_log warning "Sending to chat $chat"
-    ::ws::multicast $chat $message
-
-    set chat proctoring-${object_id}-${user_id}
-    #ns_log warning "Sending to chat $chat"
-    ::ws::multicast $chat $message
+    }
 }
-
 ns_return 200 text/plain OK

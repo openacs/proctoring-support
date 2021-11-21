@@ -64,6 +64,10 @@ ad_include_contract {
            proctoring will happen), 'proctoring_banner' (message in
            the red proctoring banner). Any of those fields can be
            omitted and will default to message keys in this package.
+    @param record_p should requested proctoring content (audio, images) be
+           recorded (default true). This flag is useful to turn off
+           recording of proctored content for e.g. mock exams to avoid
+           privacy issues.
 } {
     object_url:localurl
     object_id:naturalnum,notnull
@@ -80,6 +84,7 @@ ad_include_contract {
     {examination_statement_p:boolean true}
     {examination_statement_url:localurl "/proctoring/examination-statement-accept"}
     {upload_p:boolean true}
+    {record_p:boolean true}
     {upload_url:localurl "/proctoring/upload"}
     msg:array,optional
 }
@@ -128,8 +133,9 @@ set upload_p [expr {$upload_p ? true : false}]
 set audio_p [expr {$audio_p ? true : false}]
 set camera_p [expr {$camera_p ? true : false}]
 set desktop_p [expr {$desktop_p ? true : false}]
+set record_p [expr {$record_p ? true : false}]
 
-#ns_log notice "PROCTORED PAGE sees desktop_p $desktop_p, camera_p $camera_p, examination_statement_p $examination_statement_p preview_p $preview_p"
+#ns_log notice "PROCTORED PAGE sees desktop_p $desktop_p, camera_p $camera_p, examination_statement_p $examination_statement_p preview_p $preview_p record_p $record_p"
 
 #
 # Local variables:

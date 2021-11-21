@@ -6,4 +6,5 @@
   &="object_id"
   &="check_active_p"
   &="notify_p"
+  &="record_p"
   >
