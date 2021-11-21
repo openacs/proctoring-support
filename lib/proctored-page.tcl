@@ -11,7 +11,7 @@ ad_include_contract {
            exam object.
     @param exam_url URL of the actual exam, which will be included in
            an iframe.
-    @param min_ms_interval miniumum time to the next snapshot in
+    @param min_ms_interval minimum time to the next snapshot in
            missliseconds
     @param max_ms_interval maximum time to the next snapshot in
            milliseconds.
