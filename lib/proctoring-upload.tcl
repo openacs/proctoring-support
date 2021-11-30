@@ -30,7 +30,7 @@ ad_include_contract {
     {record_p:boolean true}
 }
 
-ns_log notice "LIB PROCTORING_UPLOAD called with record_p $record_p, notify_p $notify_p"
+#ns_log notice "LIB PROCTORING_UPLOAD called with record_p $record_p, notify_p $notify_p"
 
 if {!$record_p} {
     ad_file delete ${file.tmpfile}
