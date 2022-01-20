@@ -718,9 +718,7 @@ class Proctoring {
 
             // In the future we might be stricter about black pictures...
             // if (this.isCanvasMonochrome(canvas)) {
-            //     var err = "canvas is monochrome";
-            //     this.onMissingStreamHandler(streamName, err);
-            //     return;
+            //     throw "canvas is monochrome";
             // }
 
             // Check that camera does not keep sending the same
@@ -728,9 +726,7 @@ class Proctoring {
             if (streamName == "camera" &&
                 prevPicture != null &&
                 this.areCanvasEquals(canvas, prevPicture)) {
-                var err = "Camera is sending the same identical picture twice.";
-                this.onMissingStreamHandler(streamName, err);
-                return;
+                throw "Camera is sending the same identical picture twice.";
             }
             this.prevPictures[i] = this.cloneCanvas(canvas);
 
@@ -798,8 +794,14 @@ class Proctoring {
             }
             // For every configured video stream, take a picture
             for (var i = 0; i < this.streams.length; i++) {
-                if (this.videos[i]) {
-                    this.takeShot(this.streams[i], this.mediaConf[this.streamNames[i]].grayscale);
+                try {
+                    if (this.videos[i]) {
+                        this.takeShot(this.streams[i],
+                                      this.mediaConf[this.streamNames[i]].grayscale);
+                    }
+                } catch (e) {
+                    this.onMissingStreamHandler(this.streamNames[i], e);
+                    return;
                 }
             }
             // Set the time to the next snapshot to a random interval
