@@ -98,7 +98,16 @@ if {!$record_p} {
                 }
             }]
 
-            set message [::ws::build_msg $message]
+            # Transitional code for NaviServer versions that do not
+            # implement the wsencode subcommand. ::ws::build_msg would
+            # return a warning on those versions, so we first try the
+            # more modern idiom and fallback on the old api.
+            try {
+                set message [ns_connchan wsencode \
+                                 -opcode text $message]
+            } on error {errmsg} {
+                set message [::ws::build_msg $message]
+            }
 
             set chat proctoring-${object_id}
             #ns_log warning "Sending to chat $chat"
