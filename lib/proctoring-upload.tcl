@@ -85,7 +85,7 @@ if {!$record_p} {
     # Notify a websocket about the upload so that e.g. a UI can be updated
     # in real time.
     if {$notify_p} {
-        if {[info commands "::ws::build_msg"] eq ""} {
+        if {[namespace which ::ws::multicast] eq ""} {
             ns_log warning "proctoring-upload: notify was requested, but websockets are NOT configured"
         } else {
             set message [subst -nocommands {
