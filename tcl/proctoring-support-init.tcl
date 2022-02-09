@@ -17,3 +17,6 @@ ns_cache_create \
     -timeout $cache_timeout \
     -expires $cache_expires -- $cache_name $cache_size
 
+foreach m {GET POST} {
+    ns_register_filter -- postauth $m * ::proctoring::enforce_filter
+}
