@@ -1,5 +1,5 @@
 ad_library {
-    Proctoring API
+    Proctoring callback hooks
 }
 
 namespace eval ::proctoring {}
