@@ -242,11 +242,12 @@ ad_proc ::proctoring::file_already_received_p {
     # Make sure the checksum of current file is not the same as the
     # one we have in the cache.
     set checksum [ns_md file -digest sha1 $file]
-    set already_received_p false
-    if {[ns_cache_get $cache_name ${object_id}_${user_id} cached_checksum]} {
-        if {$checksum eq $cached_checksum} {
-            set already_received_p true
-        }
+    if {[ns_cache_get $cache_name ${object_id}_${user_id} cached_checksum] &&
+        $checksum eq $cached_checksum
+    } {
+        set already_received_p true
+    } else {
+        set already_received_p false
     }
 
     # Update in any case the cache to renew the expiration
