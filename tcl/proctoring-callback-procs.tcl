@@ -52,8 +52,9 @@ ad_proc -private ::proctoring::enforce_filter args {
         if {[llength $enforcings] > 1} {
             ad_log warning "Multiple proctoring callbacks apply to this URL: '$enforcings'. Only '$data' was enforced."
         }
-        return filter_ok
+        break
     }
+    return filter_ok
 }
 
 ad_proc -public -callback ::proctoring::enforce {} {
