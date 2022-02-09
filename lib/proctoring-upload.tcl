@@ -37,9 +37,7 @@ if {!$record_p} {
     ns_log notice "proctoring-support: do not save uploaded content"
 
 } else {
-    auth::require_login
-
-    set user_id [ad_conn user_id]
+    set user_id [auth::require_login]
 
     set proctoring_dir [::proctoring::folder \
                             -object_id $object_id -user_id $user_id]
