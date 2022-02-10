@@ -127,7 +127,7 @@
         <ul class="list-group" id="event-list">
             <multiple name="events">
               <li class="list-group-item" >
-                <h3 name="title">@events.timestamp_pretty@</h3>
+                <h3 name="title">@events.timestamp@</h3>
 
                 <div name="data">
                     <if @events.camera_url@ ne "">
@@ -165,7 +165,16 @@
                function createEvent(e) {
                    var event = template.cloneNode(true);
                    var title = event.querySelector("[name=title]");
-                   var timestamp = new Date(e.timestamp * 1000).toISOString().substring(0, 19).replace("T", " ");
+                   var timestamp = new Date(e.timestamp * 1000);
+                   // Compute the local ISO date. toISOString would
+                   // return the UTC time...
+                   timestamp =
+                       (timestamp.getFullYear() + '').padStart(4, '0') + '-' +
+                       ((timestamp.getMonth() + 1) + '').padStart(2, '0') + '-' +
+                       (timestamp.getDate() + '').padStart(2, '0') + ' ' +
+                       (timestamp.getHours() + '').padStart(2, '0') + ':' +
+                       (timestamp.getMinutes() + '').padStart(2, '0') + ':' +
+                       (timestamp.getSeconds() + '').padStart(2, '0');
                    title.textContent = timestamp;
                    eventList.appendChild(event);
                    return event;

@@ -73,6 +73,11 @@ set ws_url $ws_proto://${host}/[export_vars -base proctoring-websocket -no_empty
 
 if {$delete_p && [llength $user_id] >= 1} {
     foreach u $user_id {
+        ::xo::dc dml -prepare {integer integer} delete_artifacts {
+            delete from proctoring_object_artifacts
+            where object_id = :object_id
+              and user_id = :u
+        }
         set folder [::proctoring::folder \
                         -object_id $object_id -user_id $u]
         file delete -force -- $folder
@@ -106,58 +111,64 @@ if {$delete_p && [llength $user_id] >= 1} {
         set portrait_url [export_vars -base "/shared/portrait-bits.tcl" {user_id {size x200}}]
 
         set back_url $base_url
-        set camera_pics [lsort -increasing -dictionary \
-                             [glob -nocomplain -directory $folder camera-image-*.*]]
-        set desktop_pics [lsort -increasing -dictionary \
-                              [glob -nocomplain -directory $folder desktop-image-*.*]]
-        set rows [list]
-        foreach camera_pic $camera_pics desktop_pic $desktop_pics {
-            set row [dict create \
-                        audio_url ""]
 
-            if {$camera_pic ne ""} {
-                set camera_pic [file tail $camera_pic]
-                regexp {^camera-image-(\d+)\.\w+$} $camera_pic m camera_timestamp
-                dict set row camera_url [export_vars -base $user_url {{file $camera_pic}}]
-            } else {
-                dict set row camera_url ""
+        db_multirow events get_artifacts {
+            select camera.file as camera_url,
+                   desktop.file as desktop_url,
+                   coalesce(camera.timestamp,
+                            desktop.timestamp) as timestamp,
+                   null as audio_url
+              from (select timestamp,
+                           file,
+                           rank() over (
+                                        partition by object_id, user_id
+                                        order by timestamp asc
+                                         ) as order
+                      from proctoring_object_artifacts
+                    where object_id = :object_id
+                    and user_id = :user_id
+                    and type = 'image'
+                    and name = 'camera') camera
+                   join
+                   (select timestamp,
+                           file,
+                           rank() over (
+                                        partition by object_id, user_id
+                                        order by timestamp asc
+                                         ) as order
+                      from proctoring_object_artifacts
+                    where object_id = :object_id
+                    and user_id = :user_id
+                    and type = 'image'
+                    and name = 'desktop') desktop
+                   on camera.order = desktop.order
+
+            union
+
+            select null as camera_url,
+                   null as desktop_url,
+                   timestamp,
+                   file as audio_url
+              from proctoring_object_artifacts
+             where object_id = :object_id
+               and user_id = :user_id
+               and type = 'audio'
+
+            order by timestamp asc
+        } {
+            if {$camera_url ne ""} {
+                set camera_url [file tail $camera_url]
+                set camera_url [export_vars -base $user_url {{file $camera_url}}]
             }
-
-            if {$desktop_pic ne ""} {
-                set desktop_pic [file tail $desktop_pic]
-                regexp {^desktop-image-(\d+)\.\w+$} $desktop_pic m desktop_timestamp
-                dict set row desktop_url [export_vars -base $user_url {{file $desktop_pic}}]
-            } else {
-                dict set row desktop_url ""
+            if {$desktop_url ne ""} {
+                set desktop_url [file tail $desktop_url]
+                set desktop_url [export_vars -base $user_url {{file $desktop_url}}]
             }
-
-            if {[info exists camera_timestamp]} {
-                set timestamp $camera_timestamp
-            } else {
-                set timestamp $desktop_timestamp
+            if {$audio_url ne ""} {
+                set audio_url [file tail $audio_url]
+                set audio_url [export_vars -base $user_url {{file $audio_url}}]
             }
-            dict set row timestamp $timestamp
-            dict set row timestamp_pretty [clock format $timestamp -format "%y-%m-%d %H:%M:%S"]
-
-            lappend rows $row
         }
-
-        set audios [glob -nocomplain -directory $folder *-audio-*.*]
-        foreach audio $audios {
-            set row [dict create]
-            set audio [file tail $audio]
-            regexp {^\w+-audio-(\d+)\.\w+$} $audio m timestamp
-            dict set row audio_url [export_vars -base $user_url {{file $audio}}]
-            dict set row camera_url ""
-            dict set row desktop_url ""
-            dict set row timestamp $timestamp
-            dict set row timestamp_pretty [clock format $timestamp -format "%y-%m-%d %H:%M:%S"]
-
-            lappend rows $row
-        }
-
-        template::util::list_to_multirow events $rows
-        template::multirow sort events timestamp
     }
 } else {
     # List of proctored users
@@ -169,32 +180,34 @@ if {$delete_p && [llength $user_id] >= 1} {
     set delete_confirm [_ xowiki.delete_all_confirm]
 
     if {$delete_p} {
+        ::xo::dc dml -prepare integer delete_artifacts {
+            delete from proctoring_object_artifacts
+            where object_id = :object_id
+        }
         file delete -force -- $folder
         ad_returnredirect $base_url
         ad_script_abort
     }
 
-    set rows [list]
-    foreach user_folder [glob -type d -nocomplain -directory $folder *] {
-        set row [dict create]
-        set proctored_user_id [file tail $user_folder]
-        dict set row user_id $proctored_user_id
+    db_multirow -extend {
+        student_id
+        proctoring_url
+        portrait_url
+        filter
+    } -unclobber users get_users {
+        select distinct a.user_id,
+                        p.first_names,
+                        p.last_name
+        from proctoring_object_artifacts a,
+             persons p
+        where object_id = :object_id
+          and a.user_id = p.person_id
+        order by last_name asc, first_names asc
+    } {
+        set student_id [::party::email -party_id $user_id]
 
-        set user [acs_user::get -user_id $proctored_user_id]
-        if {$user eq ""} {continue}
-
-        set first_names [dict get $user first_names]
-        set last_name [dict get $user last_name]
-
-        dict set row user_id $proctored_user_id
-        dict set row first_names $first_names
-        dict set row last_name $last_name
-        dict set row proctoring_url [export_vars -no_base_encode -base $base_url {{user_id $proctored_user_id} {object_id $object_id}}]
-        dict set row portrait_url /shared/portrait-bits.tcl?user_id=$proctored_user_id
-        dict set row filter [string tolower "$last_name $first_names"]
-        lappend rows $row
+        set proctoring_url [export_vars -no_base_encode -base $base_url { user_id object_id }]
+        set portrait_url /shared/portrait-bits.tcl?user_id=$user_id
+        set filter [string tolower "$last_name $first_names $student_id"]
     }
-    template::util::list_to_multirow users $rows
-    template::multirow sort users first_names
-    template::multirow sort users last_name
 }
