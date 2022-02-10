@@ -268,6 +268,7 @@ aa_register_case \
     -cats {api smoke} \
     -procs {
         ::proctoring::artifact::store
+        ::proctoring::artifact::delete
     } \
     proctoring_artifact_store {
         Test ::proctoring::artifact::store
@@ -277,25 +278,47 @@ aa_register_case \
         puts $wfd 1234
         close $wfd
 
-        set object_id [::xo::dc get_value get_object_id {
-            select max(object_id) from acs_objects
+        for {set i 2} {$i <= 4} {incr i} {
+            set file${i} [ad_tmpnam].test
+            file copy $file [set file${i}]
+        }
+
+        # A new test user is at the same time a safe user and a safe
+        # object to test on.
+        set user_info [::acs::test::user::create]
+        set user_id [dict get $user_info user_id]
+        set object_id $user_id
+
+        set another_user_id [::xo::dc get_value get_user_id {
+            select min(user_id) from users
         }]
-        set user_id [::xo::dc get_value get_user_id {
-            select max(user_id) from users
-        }]
+
         set name test
         set type code
         set timestamp [clock scan "2016-09-07" -format %Y-%m-%d]
 
-        aa_section "Initial cleanup"
-        ::xo::dc dml cleanup {
-            delete from proctoring_object_artifacts
-            where name = :name
-              and type = :type
-              and timestamp = to_timestamp(:timestamp)
-              and user_id = :user_id
-              and object_id = :object_id
-        }
+        aa_section "Test full cleanup"
+        ::proctoring::artifact::store \
+            -object_id $object_id \
+            -user_id $user_id \
+            -timestamp $timestamp \
+            -name $name \
+            -type $type \
+            -file $file3
+        ::proctoring::artifact::store \
+            -object_id $object_id \
+            -user_id $another_user_id \
+            -timestamp $timestamp \
+            -name $name \
+            -type $type \
+            -file $file4
+        ::proctoring::artifact::delete \
+            -object_id $object_id
+        aa_false "No artifacts for object '$object_id'" [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where object_id = :object_id
+            fetch first 1 rows only
+        }]
 
         aa_section "Storing an artifact correctly"
         set artifact [::proctoring::artifact::store \
@@ -321,14 +344,48 @@ aa_register_case \
         aa_true "File exists" [file exists $file]
         aa_equals "File has the original extension" .test [file extension $file]
 
+        aa_section "Storing another artifact for a different user"
+        set artifact2 [::proctoring::artifact::store \
+                           -object_id $object_id \
+                           -user_id $another_user_id \
+                           -timestamp $timestamp \
+                           -name $name \
+                           -type $type \
+                           -file $file2]
+        aa_true "Entry for '$another_user_id' was created" [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where object_id = :object_id
+              and user_id = :another_user_id
+            fetch first 1 rows only
+        }]
+
         aa_section "Cleanup"
-        ::xo::dc dml cleanup {
-            delete from proctoring_object_artifacts
-            where artifact_id = :artifact_id
-        }
-        aa_equals "Row was deleted" [db_resultrows] 1
-        file delete -- $file
-        aa_false "File was removed" [file exists $file]
+        ::proctoring::artifact::delete \
+            -object_id $object_id \
+            -user_id $user_id
+        aa_false "No entry for '$user_id' anymore" [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where object_id = :object_id
+              and user_id = :user_id
+            fetch first 1 rows only
+        }]
+        aa_false "File '$file' was removed" [file exists $file]
+        aa_true "Still entry for '$another_user_id'" [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where object_id = :object_id
+              and user_id = :another_user_id
+            fetch first 1 rows only
+        }]
+        aa_true "Still file for '$another_user_id'" [file exists [dict get $artifact2 file]]
+        ::proctoring::artifact::delete \
+            -object_id $object_id \
+            -user_id $another_user_id
+        aa_false "Also artifacts for '$another_user_id' deleted." [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where object_id = :object_id
+            fetch first 1 rows only
+        }]
+        aa_false "File also delete for '$another_user_id'" [file exists [dict get $artifact2 file]]
 
         aa_section "Try to store for an invalid object"
         set broken_object_id [::xo::dc get_value get_broken_object_id {

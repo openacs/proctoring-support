@@ -73,14 +73,8 @@ set ws_url $ws_proto://${host}/[export_vars -base proctoring-websocket -no_empty
 
 if {$delete_p && [llength $user_id] >= 1} {
     foreach u $user_id {
-        ::xo::dc dml -prepare {integer integer} delete_artifacts {
-            delete from proctoring_object_artifacts
-            where object_id = :object_id
-              and user_id = :u
-        }
-        set folder [::proctoring::folder \
-                        -object_id $object_id -user_id $u]
-        file delete -force -- $folder
+        ::proctoring::artifact::delete \
+            -object_id $object_id -user_id $u
     }
     ad_returnredirect $base_url
     ad_script_abort
@@ -180,11 +174,7 @@ if {$delete_p && [llength $user_id] >= 1} {
     set delete_confirm [_ xowiki.delete_all_confirm]
 
     if {$delete_p} {
-        ::xo::dc dml -prepare integer delete_artifacts {
-            delete from proctoring_object_artifacts
-            where object_id = :object_id
-        }
-        file delete -force -- $folder
+        ::proctoring::artifact::delete -object_id $object_id
         ad_returnredirect $base_url
         ad_script_abort
     }

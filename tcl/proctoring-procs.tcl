@@ -337,3 +337,24 @@ ad_proc ::proctoring::artifact::store {
                 artifact_id $artifact_id \
                 file $file_path]
 }
+
+ad_proc ::proctoring::artifact::delete {
+    -object_id:required
+    {-user_id ""}
+} {
+    Delete proctoring artifacts.
+
+    @param object_id proctored object id
+    @param user_id user the artifact was collected for.
+} {
+    ::xo::dc dml -prepare {
+        integer text integer
+    } delete {
+        delete from proctoring_object_artifacts
+        where object_id = :object_id
+          and (coalesce(:user_id, '') = '' or user_id = :user_id)
+    }
+    ::proctoring::delete \
+        -object_id $object_id \
+        -user_id $user_id
+}
