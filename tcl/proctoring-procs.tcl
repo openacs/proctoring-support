@@ -267,7 +267,7 @@ ad_proc ::proctoring::artifact::store {
     -type:required
     -file:required
 } {
-    Stores a file as a new artifacts and invoke the postprocessing
+    Stores a file as a new artifact and invoke the postprocessing
     callbacks.
 
     @param object_id id of the proctored object
