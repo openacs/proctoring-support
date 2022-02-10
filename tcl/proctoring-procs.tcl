@@ -256,3 +256,84 @@ ad_proc ::proctoring::file_already_received_p {
     return $already_received_p
 }
 
+namespace eval ::proctoring {}
+namespace eval ::proctoring::artifact {}
+
+ad_proc ::proctoring::artifact::store {
+    -object_id:required
+    -user_id:required
+    -timestamp
+    -name:required
+    -type:required
+    -file:required
+} {
+    Stores a file as a new artifacts and invoke the postprocessing
+    callbacks.
+
+    @param object_id id of the proctored object
+    @param user_id id of the user this artifact was created for
+    @param timestamp epoch in seconds. Defaults to clock seconds when
+                     not specified
+    @param name name of the source for this artifact (e.g. 'camera' or 'desktop')
+    @param type type of artifact (e.g. 'image' or 'audio')
+    @param file absolute path to the artifact file. The file will be
+                moved inside of the proctoring folde r, so this can be
+                a tempfile from a request.
+
+    @return dict of fields 'artifact_id' and 'file'. File is the final
+            path of the file in the proctoring folder.
+} {
+    if {![file exists $file]} {
+        error "File does not exist"
+    }
+
+    if {![info exists timestamp]} {
+        set timestamp [clock seconds]
+    }
+
+    set proctoring_dir [::proctoring::folder \
+                            -object_id $object_id \
+                            -user_id $user_id]
+
+    set file_path $proctoring_dir/${name}-${type}-${timestamp}[file extension $file]
+    file rename -force -- $file $file_path
+
+    # Create an entry in the database for the file we have just
+    # collected, so that we can further enrich it with metadata in
+    # later postprocessing phases.
+    set artifact_id [::xo::dc get_value -prepare {
+        integer integer integer text text text
+    } store {
+        with insert as (
+          insert into proctoring_object_artifacts
+          (
+           artifact_id,
+           object_id,
+           user_id,
+           timestamp,
+           name,
+           type,
+           file
+           )
+          values
+          (
+           default,
+           :object_id,
+           :user_id,
+           to_timestamp(:timestamp),
+           :name,
+           :type,
+           :file_path
+           )
+          returning artifact_id
+        )
+        select artifact_id from insert
+    }]
+
+    callback ::proctoring::callback::artifact::postprocess \
+        -artifact_id $artifact_id
+
+    return [list \
+                artifact_id $artifact_id \
+                file $file_path]
+}

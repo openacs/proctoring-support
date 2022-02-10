@@ -67,3 +67,20 @@ ad_proc -public -callback ::proctoring::enforce {} {
 
     @return dict with fields 'object_id' and 'object_url'
 } -
+
+namespace eval ::proctoring::callback {}
+namespace eval ::proctoring::callback::artifact {}
+
+ad_proc -public -callback ::proctoring::callback::artifact::postprocess {
+    -artifact_id:required
+} {
+    Implementations of this hook can apply custom postprocessing to a
+    proctoring artifact.
+
+    Be aware that this callback is invoked as soon as the artifact is
+    created, for instance, at upload. Every callback implementation
+    should defer to background processing every operation that would
+    block a connection thread for a long time.
+
+    @param artifact_id id of the artifact
+} -

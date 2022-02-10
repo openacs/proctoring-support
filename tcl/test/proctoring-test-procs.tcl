@@ -264,6 +264,130 @@ aa_register_case \
         }
     }
 
+aa_register_case \
+    -cats {api smoke} \
+    -procs {
+        ::proctoring::artifact::store
+    } \
+    proctoring_artifact_store {
+        Test ::proctoring::artifact::store
+    } {
+        set file [ad_tmpnam].test
+        set wfd [open $file w]
+        puts $wfd 1234
+        close $wfd
+
+        set object_id [::xo::dc get_value get_object_id {
+            select max(object_id) from acs_objects
+        }]
+        set user_id [::xo::dc get_value get_user_id {
+            select max(user_id) from users
+        }]
+        set name test
+        set type code
+        set timestamp [clock scan "2016-09-07" -format %Y-%m-%d]
+
+        aa_section "Initial cleanup"
+        ::xo::dc dml cleanup {
+            delete from proctoring_object_artifacts
+            where name = :name
+              and type = :type
+              and timestamp = to_timestamp(:timestamp)
+              and user_id = :user_id
+              and object_id = :object_id
+        }
+
+        aa_section "Storing an artifact correctly"
+        set artifact [::proctoring::artifact::store \
+                          -object_id $object_id \
+                          -user_id $user_id \
+                          -timestamp $timestamp \
+                          -name $name \
+                          -type $type \
+                          -file $file]
+
+        set artifact_id [dict get $artifact artifact_id]
+        set file [dict get $artifact file]
+        aa_true "Artifact '$artifact_id' on file '$file' was created" [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where artifact_id = :artifact_id
+              and file = :file
+              and name = :name
+              and type = :type
+              and timestamp = to_timestamp(:timestamp)
+              and user_id = :user_id
+              and object_id = :object_id
+        }]
+        aa_true "File exists" [file exists $file]
+        aa_equals "File has the original extension" .test [file extension $file]
+
+        aa_section "Cleanup"
+        ::xo::dc dml cleanup {
+            delete from proctoring_object_artifacts
+            where artifact_id = :artifact_id
+        }
+        aa_equals "Row was deleted" [db_resultrows] 1
+        file delete -- $file
+        aa_false "File was removed" [file exists $file]
+
+        aa_section "Try to store for an invalid object"
+        set broken_object_id [::xo::dc get_value get_broken_object_id {
+            select min(object_id) - 1 from acs_objects
+        }]
+        aa_true "Saving for an invalid object fails" [catch {
+            ::proctoring::artifact::store \
+                -object_id $broken_object_id \
+                -user_id $user_id \
+                -timestamp $timestamp \
+                -name $name \
+                -type $type \
+                -file $file
+        }]
+        aa_false "No row can be found for broken object '$broken_object_id'" [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where object_id = :broken_object_id
+            fetch first 1 rows only
+        }]
+
+        aa_section "Try to store for an invalid user"
+        set broken_user_id [::xo::dc get_value get_broken_user_id {
+            select min(user_id) - 1 from users
+        }]
+        aa_true "Saving for an invalid user fails" [catch {
+            ::proctoring::artifact::store \
+                -object_id $object_id \
+                -user_id $broken_user_id \
+                -timestamp $timestamp \
+                -name $name \
+                -type $type \
+                -file $file
+        }]
+        aa_false "No row can be found for broken user '$broken_user_id'" [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where user_id = :broken_user_id
+            fetch first 1 rows only
+        }]
+
+        aa_section "Try to store a non-existing file"
+        set broken_file [ad_tmpnam]
+        aa_true "Saving a non-existing file fails" [catch {
+            ::proctoring::artifact::store \
+                -object_id $object_id \
+                -user_id $user_id \
+                -timestamp $timestamp \
+                -name $name \
+                -type $type \
+                -file $broken_file
+        }]
+        aa_false "No row can be found for non-existing file '$broken_file'" [::xo::dc 0or1row check {
+            select 1 from proctoring_object_artifacts
+            where file = :broken_file
+              and object_id = :object_id
+              and user_id = :user_id
+            fetch first 1 rows only
+        }]
+    }
+
 # Local variables:
 #    mode: tcl
 #    tcl-indent-level: 4

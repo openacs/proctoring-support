@@ -75,20 +75,14 @@ if {!$record_p} {
     }
 
     set timestamp [clock seconds]
-    set file_path $proctoring_dir/${name}-${type}-$timestamp.$extension
 
-    file mkdir -- $proctoring_dir
-    file rename -force -- ${file.tmpfile} $file_path
-
-    # Create an entry in the database for the file we have just
-    # collected, so that we can further enrich it with metadata in
-    # later postprocessing phases.
-    ::xo::dc dml -prepare {integer integer integer text text text} init_artifact {
-        insert into proctoring_object_artifacts
-        (object_id, user_id, timestamp, name, type, file)
-        values
-        (:object_id, :user_id, to_timestamp(:timestamp), :name, :type, :file_path)
-    }
+    set artifact [::proctoring::artifact::store \
+                      -object_id $object_id \
+                      -user_id $user_id \
+                      -timestamp $timestamp \
+                      -name $name \
+                      -type $type \
+                      -file ${file.tmpfile}]
 
     # Notify a websocket about the upload so that e.g. a UI can be updated
     # in real time.
@@ -102,7 +96,7 @@ if {!$record_p} {
                     "name": "$name",
                     "type": "$type",
                     "timestamp": "$timestamp",
-                    "file": "$file_path"
+                    "file": "[dict get $artifact file]"
                 }
             }]
 
