@@ -277,7 +277,7 @@ ad_proc ::proctoring::artifact::store {
     @param name name of the source for this artifact (e.g. 'camera' or 'desktop')
     @param type type of artifact (e.g. 'image' or 'audio')
     @param file absolute path to the artifact file. The file will be
-                moved inside of the proctoring folde r, so this can be
+                moved inside of the proctoring folder, so this can be
                 a tempfile from a request.
 
     @return dict of fields 'artifact_id' and 'file'. File is the final
