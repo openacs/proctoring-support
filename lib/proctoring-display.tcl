@@ -114,6 +114,14 @@ if {$delete_p && [llength $user_id] >= 1} {
 
         set back_url $base_url
 
+        # Desktop and camera pictures are produced at the same time,
+        # even if they might not have the same timestamp, so they are
+        # put together in a single row, based on the order in which
+        # they have arrived (e.g. first camera picture together with
+        # first desktop picture and so on). The audio files are put in
+        # a row of their own because they are produced, if ever, at
+        # their own pace. The rows so produced are then sorted by
+        # timestamp, so that the "events" are chronologically sorted.
         db_multirow events get_artifacts {
             select camera.file as camera_url,
                    desktop.file as desktop_url,
