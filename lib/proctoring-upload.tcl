@@ -92,13 +92,14 @@ if {!$record_p} {
         if {[namespace which ::ws::multicast] eq ""} {
             ns_log warning "proctoring-upload: notify was requested, but websockets are NOT configured"
         } else {
-            set message [subst -nocommands {
+            set message [subst {
                 {
                     "user_id": "$user_id",
                     "name": "$name",
                     "type": "$type",
                     "timestamp": "$timestamp",
-                    "file": "[dict get $artifact file]"
+                    "file": "[dict get $artifact file]",
+                    "id": "[dict get $artifact artifact_id]"
                 }
             }]
 
