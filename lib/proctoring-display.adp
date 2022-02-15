@@ -125,23 +125,25 @@
         <h3 style="margin-top:1em;">#proctoring-support.recordings#</h3>
 
         <ul class="list-group" id="event-list">
-            <multiple name="events">
-              <li class="list-group-item" >
-                <h3 name="title">@events.timestamp@</h3>
+          <multiple name="events">
+            <li class="list-group-item" >
+              <h3 name="title">@events.timestamp@</h3>
 
-                <div name="data">
-                    <if @events.camera_url@ ne "">
-                        <span name="camera"><img class="lazy" data-src="@events.camera_url@"></span>
-                    </if>
-                    <if @events.desktop_url@ ne "">
-                        <span name="desktop"><img class="lazy" data-src="@events.desktop_url@"></span>
-                    </if>
-                    <if @events.audio_url@ ne "">
-                        <span name="audio"><audio class="lazy" data-src="@events.audio_url@" controls></span>
-                    </if>
-                </div>
-              </li>
-            </multiple>
+              <div name="data">
+                <if @events.camera_url@ ne "">
+                  <span name="camera"><img class="lazy" data-src="@events.camera_url@"></span>
+                </if>
+                <if @events.desktop_url@ ne "">
+                  <span name="desktop"><img class="lazy" data-src="@events.desktop_url@"></span>
+                </if>
+                <if @events.audio_url@ ne "">
+                  <span name="audio"><audio class="lazy" data-src="@events.audio_url@" controls></span>
+                </if>
+                <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
+                </script>
+              </div>
+            </li>
+          </multiple>
         </ul>
         <div id="template" style="display:none;">
           <li class="list-group-item" >
