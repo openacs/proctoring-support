@@ -73,7 +73,7 @@ set ws_url $ws_proto://${host}/[export_vars -base proctoring-websocket -no_empty
 
 if {$delete_p && [llength $user_id] >= 1} {
     #
-    # Deletion of specific users via bulk-actions
+    # Deletion of artifacts for specific users via bulk-actions
     #
     foreach u $user_id {
         ::proctoring::artifact::delete \
