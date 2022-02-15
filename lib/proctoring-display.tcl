@@ -90,7 +90,9 @@ if {$delete_p && [llength $user_id] >= 1} {
 
     if {$file ne ""} {
         #
-        # Display a specific artifact file
+        # Display a specific artifact file: this branch of the script
+        # is self referenced when showing the artifacts list for a
+        # user.
         #
         if {[file exists ${folder}/[ad_sanitize_filename ${file}]]} {
             ns_setexpires 864000 ;# 10 days
