@@ -18,7 +18,25 @@ ad_proc -private ::proctoring::apm::after_upgrade {
         -to_version_name $to_version_name \
         -spec {
             3.0.0 3.1.0 {
-                ::proctoring::apm::upgrade_to_3_1_0 -apm
+                if {[namespace which ::xowf::atjob] ne ""} {
+                    #
+                    # We can use xowf atjobs: as this upgrade can
+                    # potentially take a long time on busy systems, we
+                    # schedule it to run at the next server restart by
+                    # setting the atjob time in the past.
+                    #
+                    set cmd [list eval [list ::proctoring::apm::upgrade_to_3_1_0]]
+                    set j [::xowf::atjob new \
+                               -cmd $cmd \
+                               -time [::xowf::atjob ansi_time 0]]
+                    $j persist
+                } else {
+                    #
+                    # No atjobs, the upgrade will run during the
+                    # upgrade process.
+                    #
+                    ::proctoring::apm::upgrade_to_3_1_0 -apm
+                }
             }
         }
 }
@@ -38,10 +56,15 @@ ad_proc -private ::proctoring::apm::upgrade_to_3_1_0 {
                             -type d *]
 
     set msg "::proctoring::apm::upgrade_to_3_1_0 START\n"
-    append msg "Creating entries in the artifacts table. [llength $object_folders] to inspect..."
     ns_log warning $msg
     if {$apm_p} {
-        apm_ns_write_callback $msg
+        apm_ns_write_callback $msg<br>
+    }
+
+    set msg "Creating entries in the artifacts table. [llength $object_folders] to inspect..."
+    ns_log warning $msg
+    if {$apm_p} {
+        apm_ns_write_callback $msg<br>
     }
 
     # ...for each object folder...
@@ -59,7 +82,7 @@ ad_proc -private ::proctoring::apm::upgrade_to_3_1_0 {
         set msg "...object '$object_id' has [llength $user_folders] user folders..."
         ns_log warning $msg
         if {$apm_p} {
-            apm_ns_write_callback $msg
+            apm_ns_write_callback $msg<br>
         }
 
         # ...foreach user folder...
@@ -76,7 +99,7 @@ ad_proc -private ::proctoring::apm::upgrade_to_3_1_0 {
             set msg "......for object '$object_id', user '$user_id' has [llength $files] files..."
             ns_log warning $msg
             if {$apm_p} {
-                apm_ns_write_callback $msg
+                apm_ns_write_callback $msg<br>
             }
 
             # ...foreach file...
@@ -99,7 +122,7 @@ ad_proc -private ::proctoring::apm::upgrade_to_3_1_0 {
                 }
                 ns_log warning $msg
                 if {$apm_p} {
-                    apm_ns_write_callback $msg
+                    apm_ns_write_callback $msg<br>
                 }
             }
         }
@@ -108,6 +131,6 @@ ad_proc -private ::proctoring::apm::upgrade_to_3_1_0 {
     set msg "::proctoring::apm::upgrade_to_3_1_0 FINISH\n"
     ns_log warning $msg
     if {$apm_p} {
-        apm_ns_write_callback $msg
+        apm_ns_write_callback $msg<br>
     }
 }
