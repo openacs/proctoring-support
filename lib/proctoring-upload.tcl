@@ -76,13 +76,15 @@ if {!$record_p} {
 
     set timestamp [clock seconds]
 
+    set file ${file.tmpfile}.${extension}
+    file rename -- ${file.tmpfile} $file
     set artifact [::proctoring::artifact::store \
                       -object_id $object_id \
                       -user_id $user_id \
                       -timestamp $timestamp \
                       -name $name \
                       -type $type \
-                      -file ${file.tmpfile}.${extension}]
+                      -file $file]
 
     # Notify a websocket about the upload so that e.g. a UI can be updated
     # in real time.
