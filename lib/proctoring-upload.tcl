@@ -82,7 +82,7 @@ if {!$record_p} {
                       -timestamp $timestamp \
                       -name $name \
                       -type $type \
-                      -file ${file.tmpfile}]
+                      -file ${file.tmpfile}.${extension}]
 
     # Notify a websocket about the upload so that e.g. a UI can be updated
     # in real time.
