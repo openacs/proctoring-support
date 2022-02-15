@@ -36,8 +36,8 @@ ad_include_contract {
     {file "[ns_queryget file]"}
 } -validate {
     object_folder_exists -requires {object_id:naturalnum} {
-        # in order to access the contents of the proctoring folder:
-        # a) the user should have admin permissions for this object and
+        # In order to access the contents of the proctoring folder,
+        # the user should have admin permissions for this object.
         permission::require_permission -object_id $object_id -privilege "admin"
     }
     user_id_valid -requires {user_id} {
@@ -72,6 +72,9 @@ set ws_proto  [expr {$proto eq "https" ? "wss" : "ws"}]
 set ws_url $ws_proto://${host}/[export_vars -base proctoring-websocket -no_empty {user_id object_id}]
 
 if {$delete_p && [llength $user_id] >= 1} {
+    #
+    # Deletion of specific users via bulk-actions
+    #
     foreach u $user_id {
         ::proctoring::artifact::delete \
             -object_id $object_id -user_id $u
@@ -86,7 +89,9 @@ if {$delete_p && [llength $user_id] >= 1} {
     set delete_confirm [_ xowiki.delete_confirm]
 
     if {$file ne ""} {
-        # Returning the picture
+        #
+        # Display a specific artifact file
+        #
         if {[file exists ${folder}/[ad_sanitize_filename ${file}]]} {
             ns_setexpires 864000 ;# 10 days
             ns_writer submitfile -headers ${folder}/[ad_sanitize_filename ${file}]
@@ -95,8 +100,9 @@ if {$delete_p && [llength $user_id] >= 1} {
         }
         ad_script_abort
     } else {
-        # List of pictures for a particular user
-
+        #
+        # Display all of the artifacts for a specific user
+        #
         set user_url [export_vars -base [ad_conn url] -entire_form -no_empty -exclude {delete file object_id}]
 
         set user_name [person::name -person_id $user_id]
@@ -165,8 +171,6 @@ if {$delete_p && [llength $user_id] >= 1} {
         }
     }
 } else {
-    # List of proctored users
-
     set folder [::proctoring::folder \
                     -object_id $object_id]
 
@@ -174,11 +178,18 @@ if {$delete_p && [llength $user_id] >= 1} {
     set delete_confirm [_ xowiki.delete_all_confirm]
 
     if {$delete_p} {
+        #
+        # Delete all of the artifacts for this proctored object
+        #
         ::proctoring::artifact::delete -object_id $object_id
         ad_returnredirect $base_url
         ad_script_abort
     }
 
+    #
+    # Display the list of proctored users for this object for whom
+    # artifacts exist
+    #
     db_multirow -extend {
         student_id
         proctoring_url
