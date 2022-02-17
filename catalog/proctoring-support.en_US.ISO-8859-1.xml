@@ -99,6 +99,8 @@
 	&lt;li&gt;I accept receipt of this examination, i.e. I acknowledge that the exam will be graded and will count towards my total number of examination attempts&lt;/li&gt;
 &lt;/ul&gt;</msg>
   <msg key="Examination_Statement">Examination Statement</msg>
+  <msg key="flag_artifact_label">Flag for review</msg>
+  <msg key="flagged_label">Flagged</msg>
   <msg key="grant_access_to_camera_msg">If your browser prompts you to give access to the camera, please do so. Once permission has been granted, a preview image will appear. Please make sure your face is clearly visible in the picture before proceeding.</msg>
   <msg key="grant_access_to_camera_title">Grant access to your camera</msg>
   <msg key="grant_access_to_desktop_msg">You are being prompted to give access to your desktop. Please first select &#34;Your Entire Screen&#34; and grant the access thereafter by clicking the button &#34;Share&#34;. On success you should see a preview of your desktop on the page.</msg>
@@ -112,6 +114,7 @@
   <msg key="microphone_volume_is_too_low">The microphone&#39;s sound recording is insufficient. Possible causes are:&lt;ul&gt;&lt;li&gt;&lt;b&gt;The volume of the microphone is set too low&lt;/b&gt;: Turn up the input volume. (Windows) Open your computer&#39;s control panel and go to \&#34;Sound\&#34; | \&#34;Input\&#34; | \&#34;Device properties\&#34;. Adjust the volume here. (macOS) Click on \&#34;System Preferences\&#34; | \&#34;Sound\&#34; and open the \&#34;Input\&#34; tab.Adjust the input volume on your microphone.&lt;/li&gt;&lt;li&gt;&lt;b&gt;The microphone is muted&lt;/b&gt;: Unmute it. Check the corresponding keyboard commands and all hardware settings such as the mute function directly in the sound settings or on the microphone / headset itself.&lt;/li&gt;&lt;/ul&gt;</msg>
   <msg key="missing_stream_message">Online Supervision has ended. However, it is still activated for this exam. Please close Google Chrome to completely exit the exam environment. Alternatively, you can restart the automated online supervision: By clicking \&#34;OK\&#34;, you are re-entering the exam environment.&lt;br&gt;&lt;br&gt;When reporting this issue, please mention the following message: </msg>
   <msg key="mobile_devices_are_unsupported">Mobile devices are unsupported.</msg>
+  <msg key="not_reviewed_label">Not reviewed</msg>
   <msg key="OnlineExam">Online Exam</msg>
   <msg key="Preview">Preview</msg>
   <msg key="preview_help_text">If enabled, a preview of recorded input will be displayed to users during the online supervision session.</msg>
@@ -122,12 +125,17 @@
   <msg key="recordings">Recordings</msg>
   <msg key="request_failed">Request to the server has failed. Retry in 10s...</msg>
   <msg key="request_timeout">Request to the server timed out. Retry in 10s...</msg>
+  <msg key="reviewed_label">Reviewed</msg>
   <msg key="Safe_Exam_Browser">Safe Exam Browser</msg>
   <msg key="Safe_Exam_Browser_File">Safe Exam Browser .seb file</msg>
   <msg key="Safe_Exam_Browser_File_help_text">.seb file generated via the Safe Exam Browser configuration tool that holds the restriction applied to this exam session.</msg>
   <msg key="Safe_Exam_Browser_Key">Safe Exam Browser key</msg>
   <msg key="Safe_Exam_Browser_Key_help_text">Encryption key generated via the Safe Exam Browser configuration tool that will be used to ensure students are applying supplied configuration to their exam session.</msg>
   <msg key="Start_date">Start date</msg>
+  <msg key="unflag_artifact_label">Confirm OK</msg>
+  <msg key="unflagged_label">Confirmed OK</msg>
+  <msg key="user_has_flagged_this_artifact_msg">This artifact has been flagged for revision</msg>
+  <msg key="user_has_unflagged_this_artifact_msg">This artifact has been confirmed OK</msg>
   <msg key="user_photo">Photo</msg>
   <msg key="wizard_finish">Finish</msg>
   <msg key="wrong_display_surface_selected">The screen cannot be recorded because you selected the wrong screen area. Select \&#34;Your Entire Screen\&#34; by clicking on the screen and then on \&#34;Share\&#34;.</msg>

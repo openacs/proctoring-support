@@ -124,30 +124,37 @@ if {$delete_p && [llength $user_id] >= 1} {
         # their own pace. The rows so produced are then sorted by
         # timestamp, so that the "events" are chronologically sorted.
         db_multirow events get_artifacts {
-            select camera.file as camera_url,
+            select coalesce(camera.artifact_id,
+                            desktop.artifact_id) as artifact_id,
+                   camera.file as camera_url,
                    desktop.file as desktop_url,
                    coalesce(camera.timestamp,
                             desktop.timestamp) as timestamp,
-                   null as audio_url
-              from (select timestamp,
+                   null as audio_url,
+                   camera.revisions || desktop.revisions as revisions
+            from (select artifact_id,
+                           timestamp,
                            file,
                            rank() over (
                                         partition by object_id, user_id
                                         order by timestamp asc
-                                         ) as order
-                      from proctoring_object_artifacts
+                                         ) as order,
+                           coalesce(metadata->'revisions', '[]') as revisions
+                  from proctoring_object_artifacts
                     where object_id = :object_id
                     and user_id = :user_id
                     and type = 'image'
                     and name = 'camera') camera
                    join
-                   (select timestamp,
+                   (select artifact_id,
+                           timestamp,
                            file,
                            rank() over (
                                         partition by object_id, user_id
                                         order by timestamp asc
-                                         ) as order
-                      from proctoring_object_artifacts
+                                         ) as order,
+                           coalesce(metadata->'revisions', '[]') as revisions
+                     from proctoring_object_artifacts
                     where object_id = :object_id
                     and user_id = :user_id
                     and type = 'image'
@@ -156,10 +163,12 @@ if {$delete_p && [llength $user_id] >= 1} {
 
             union
 
-            select null as camera_url,
+            select artifact_id,
+                   null as camera_url,
                    null as desktop_url,
                    timestamp,
-                   file as audio_url
+                   file as audio_url,
+                   metadata->'revisions' as revisions
               from proctoring_object_artifacts
              where object_id = :object_id
                and user_id = :user_id
@@ -180,6 +189,8 @@ if {$delete_p && [llength $user_id] >= 1} {
                 set audio_url [export_vars -base $user_url {{file $audio_url}}]
             }
         }
+
+        set total [::template::multirow size events]
     }
 } else {
     set folder [::proctoring::folder \

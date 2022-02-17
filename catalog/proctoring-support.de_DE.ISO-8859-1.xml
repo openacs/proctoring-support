@@ -97,6 +97,8 @@
 	&lt;li&gt;die Prüfung mit dieser Bestätigung entgegennehme, d.h. es erfolgt eine Beurteilung und dieser Antritt wird auf die Gesamtzahl der Wiederholungen angerechnet.&lt;/li&gt;
 &lt;/ul&gt;</msg>
   <msg key="Examination_Statement">Prüfungserklärung</msg>
+  <msg key="flag_artifact_label">Zur Überprüfung markieren</msg>
+  <msg key="flagged_label">Markiert</msg>
   <msg key="grant_access_to_camera_msg">Erlauben Sie den Zugriff auf Ihre Kamera, wenn Ihr Browser Sie dazu auffordert. Haben Sie den Zugriff erlaubt, wird Ihnen eine Vorschau angezeigt. Stellen Sie sicher, dass ihr Gesicht im Vorschaubild gut zu erkennen ist</msg>
   <msg key="grant_access_to_camera_title">Zugriff auf Ihre Kamera erlauben</msg>
   <msg key="grant_access_to_desktop_msg">Sie werden von Ihrem Browser aufgefordert, den Zugriff auf Ihren Bildschirm zu erlauben. Bitte wählen Sie zuerst den gesamten Bildschirm aus und bestätigen Sie die Erlaubnis über den Button &#34;Teilen&#34;. Ihnen wird eine Vorschau Ihres Bildschirms angezeigt.</msg>
@@ -109,6 +111,7 @@
   <msg key="microphone_volume_is_too_low">Die Tonaufnahme des Mikrofons ist unzureichend. Mögliche Ursachen sind:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Die Lautstärke des Mikrofons ist zu leise eingestellt&lt;/b&gt;: Schalten Sie die Eingangslautstärke lauter. (Windows) Öffnen Sie die Systemsteuerung Ihres Computers und gehen Sie zu\&#34;Sound\&#34; | \&#34;Eingabe\&#34; | \&#34;Geräteeigenschaften\&#34;. Passen Sie hier die Lautstärke an. (macOS)Klicken Sie auf \&#34;Systemeinstellungen\&#34; | \&#34;Ton\&#34; und öffnen Sie den Reiter \&#34;Eingabe\&#34;. Passen Sie bei Ihrem Mikrofon die Eingangslautstärke an.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Das Mikrofon ist stummgeschaltet&lt;/b&gt;: Heben Sie die Stummschaltung auf. Kontrollieren Sie die entsprechenden Tastaturbefehle und alle hardwareseitigen Einstellungen wie z.B. die Stummschaltung direkt in den Soundeinstellungen oder am Mikrofon/Headset selbst.&lt;/li&gt;&lt;/ul&gt;</msg>
   <msg key="missing_stream_message">Die Online-Aufsicht wurde beendet, ist für diese Prüfung aber noch aktiviert. Bitte schließen Sie Google Chrome, um die Prüfungsumgebung ganz zu verlassen, oder starten Sie die automatisierte Online-Aufsicht wieder mit einem Klick auf \&#34;OK\&#34;. Damit betreten Sie die Prüfungsumgebung erneut.&lt;br&gt;&lt;br&gt;Wenn Sie über dieses Problem melden, inkludieren Sie bitte folgenden Text: </msg>
   <msg key="mobile_devices_are_unsupported">Mobile Geräte werden nicht unterstützt.</msg>
+  <msg key="not_reviewed_label">Nicht überprüft</msg>
   <msg key="OnlineExam">Online-Prüfung</msg>
   <msg key="Preview">Vorschau</msg>
   <msg key="preview_help_text">Falls aktiviert, wird den Benutzern während der Online-Aufsichtssitzung eine Vorschau der aufgezeichneten Eingaben angezeigt.</msg>
@@ -117,7 +120,12 @@
   <msg key="Record_camera">Kamera aufnehmen</msg>
   <msg key="Record_desktop">Desktop aufnehmen</msg>
   <msg key="recordings">Aufzeichnungen</msg>
+  <msg key="reviewed_label">Überprüft</msg>
   <msg key="Start_date">Anfangsdatum</msg>
+  <msg key="unflag_artifact_label">Als OK bestätigen</msg>
+  <msg key="unflagged_label">Bestätigt OK</msg>
+  <msg key="user_has_flagged_this_artifact_msg">Dieses Objekt wurde zur Überprüfung vorgemerkt</msg>
+  <msg key="user_has_unflagged_this_artifact_msg">Dieses Objekt wurde bestätigt</msg>
   <msg key="user_photo">Foto</msg>
   <msg key="wizard_finish">Abschließen</msg>
   <msg key="wrong_display_surface_selected">Der Desktop kann nicht aufgezeichnet werden, da Sie den falschen Bildschirmausschnitt ausgewählt haben. Wählen Sie \&#34;gesamter Bildschirm\&#34; aus, klicken Sie auf den Bildschirm und wählen Sie dann \&#34;Teilen\&#34;.</msg>
