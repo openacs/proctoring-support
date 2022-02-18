@@ -12,6 +12,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  max-width:100%;
   background-size: contain;
   background-repeat: no-repeat no-repeat;
   background-position: center center;
