@@ -4,6 +4,20 @@
 </if>
 
 <style>
+#fullpage {
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: contain;
+  background-repeat: no-repeat no-repeat;
+  background-position: center center;
+  background-color: black;
+}
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -385,7 +399,26 @@
             </div>
           </multiple>
         </div>
+
+        <div id="fullpage"></div>
+
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
+          var fullPage = document.querySelector("#fullpage");
+          fullPage.addEventListener("click", function(e) {
+              this.style.display = "none";
+          });
+          function clickToEnlargeImage(e) {
+              if (e.target.src) {
+                  fullPage.style.backgroundImage = 'url(' + e.target.src + ')';
+                  fullPage.style.left = window.pageXOffset + "px";
+                  fullPage.style.top = window.pageYOffset + "px";
+                  fullPage.style.display = 'block';
+              }
+          }
+          for (img of document.querySelectorAll("img.lazy")) {
+              img.addEventListener("click", clickToEnlargeImage);
+          }
+
           function updateArtifactComments(artifactId, data) {
               var button = document.
                   querySelector(".comment[data-artifact-id='" + artifactId + "']");
@@ -603,6 +636,7 @@
                        place = event.querySelector("[name='" + e.name + "']");
                        element = place.querySelector("img");
                        element.setAttribute("data-src", getFileURL(e));
+                       element.addEventListener("click", clickToEnlargeImage);
                    }
                    place.style.display = null;
                    imageObserver.observe(element);
