@@ -140,9 +140,11 @@
         var form = this;
         request.addEventListener("loadend", function () {
             if (this.status === 200) {
-                updateArtifactComments(modalIdElement.value, this.response);
+                var artifactId = modalIdElement.value;
+                updateArtifactComments(artifactId, this.response);
                 form.reset();
                 closeModal();
+                document.querySelector(".comment[data-artifact-id='" + artifactId + "']")?.focus();
             } else {
                 alert(this.response);
             }
@@ -158,6 +160,7 @@
         var artifactId = this.getAttribute('data-artifact-id');
         modalIdElement.value = artifactId;
         modal.style.display = "block";
+        modal.querySelector("#comment").focus();
     };
 
     // When the user clicks on <span> (x), close the modal
