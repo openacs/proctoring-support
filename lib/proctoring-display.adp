@@ -300,16 +300,23 @@
                       filterValue = r.value;
                   }
               }
+              // Hide/show artifacts according to the filter:
               for (e of document.querySelectorAll("#event-list [name='data']")) {
                   if (filterValue === 'all') {
+                      // - every artifact
                       e.style.display = null;
                   } else if (filterValue === 'flagged') {
+                      // - flagged artifacts
                       e.style.display = e.classList.contains('flagged') ? null : 'none';
                   } else if (filterValue === 'unflagged') {
-                      e.style.display = e.classList.contains('flagged') ? 'none': null;
+                      // - artifacts with a comment that have not been flagged
+                      e.style.display = e.querySelector("[data-msg]") &&
+                          !e.classList.contains('flagged') ? null : 'none';
                   } else if (filterValue === 'reviewed') {
+                      // - artifacts with a comment
                       e.style.display = e.querySelector("[data-msg]") ? null : 'none';
                   } else if (filterValue === 'not-reviewed') {
+                      // - artifacts without a comment
                       e.style.display = e.querySelector("[data-msg]") ? 'none' : null;
                   }
                   total++;
