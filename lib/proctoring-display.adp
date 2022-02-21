@@ -68,6 +68,9 @@
     flex-wrap: wrap;
     padding: 10px;
     margin-bottom:10px;
+}
+
+.flex-container[name='data'] {
     border: 2px #eee solid;
     border-radius: 8px;
 }
@@ -291,50 +294,83 @@
         <p><a href="@back_url@" class="btn btn-default">#xowiki.back#</a></p>
 
         <h3 style="margin-top:1em;">#proctoring-support.recordings#</h3>
-        <div class="radio">
-           <label><input type="radio" name="only" value="reviewed">#proctoring-support.reviewed_label#</label>
-           <label><input type="radio" name="only" value="not-reviewed">#proctoring-support.not_reviewed_label#</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="only" value="flagged">#proctoring-support.flagged_label#</label>
-          <label><input type="radio" name="only" value="unflagged">#proctoring-support.unflagged_label#</label>
-        </div>
-        <div class="radio">
-          <label><input type="radio" name="only" value="all" checked>#proctoring-support.all_artifacts_label#</label>
+        <div class="flex-container" name="filters">
+          <div class="flex-6">
+            <div>
+              <input type="radio" name="only" value="reviewed"> #proctoring-support.reviewed_label#
+              <input type="radio" name="only" value="not-reviewed"> #proctoring-support.not_reviewed_label#
+            </div>
+            <div>
+              <input type="radio" name="only" value="flagged"> #proctoring-support.flagged_label#
+              <input type="radio" name="only" value="unflagged"> #proctoring-support.unflagged_label#
+            </div>
+            <div>
+              <input type="radio" name="only" value="all" checked> #proctoring-support.all_artifacts_label#
+            </div>
+          </div>
+          <div class="flex-3">
+            <input type="date" name="start_date"><input type="time" name="start_time"> #acs-admin.Start_time#
+          </div>
+          <div class="flex-3">
+            <input type="date" name="end_date"><input type="time" name="end_time"> #acs-admin.End_time#
+          </div>
         </div>
         <div>
           <span id="total-shown">@total@</span>/<span id="total">@total@</span>
         </div>
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
+          var dateFilters = document.querySelectorAll("[name=start_date], [name=end_date], [name=start_time], [name=end_time]");
           var radioFilters = document.querySelectorAll("[name='only']");
+          function isFiltered(e, filters) {
+              if (filters.status === 'flagged' && !e.classList.contains('flagged')) {
+                  // - flagged artifacts
+                  return true;
+              } else if (filters.status === 'unflagged' && !e.classList.contains('unflagged')) {
+                  // - unflagged artifacts
+                  return true;
+              } else if (filters.status === 'reviewed' && !e.querySelector("[data-msg]")) {
+                  // - artifacts with a comment
+                  return true;
+              } else if (filters.status === 'not-reviewed' && e.querySelector("[data-msg]")) {
+                  // - artifacts without a comment
+                  return true;
+              }
+              var timestamp = e.querySelector("[name=title]").textContent;
+              if (filters.start_date !== "") {
+                  var startTime = filters.start_date;
+                  if (filters.start_time !== "") {
+                      startTime+= " " + filters.start_time;
+                  }
+                  if (startTime > timestamp) {
+                      return true;
+                  }
+              }
+              if (filters.end_date !== "") {
+                  var endTime = filters.end_date;
+                  if (filters.end_time !== "") {
+                      endTime+= " " + filters.end_time;
+                  }
+                  if (endTime > timestamp) {
+                      return true;
+                  }
+              }
+              return false;
+          }
           function hideFiltered() {
               var total = 0;
               var totalShown = 0;
-              var filterValue = 'all';
+              var filters = {"status": "all"};
               for (r of radioFilters) {
                   if (r.checked) {
-                      filterValue = r.value;
+                      filters.status = r.value;
                   }
+              }
+              for (d of dateFilters) {
+                  filters[d.name] = d.value;
               }
               // Hide/show artifacts according to the filter:
               for (e of document.querySelectorAll("#event-list [name='data']")) {
-                  if (filterValue === 'all') {
-                      // - every artifact
-                      e.style.display = null;
-                  } else if (filterValue === 'flagged') {
-                      // - flagged artifacts
-                      e.style.display = e.classList.contains('flagged') ? null : 'none';
-                  } else if (filterValue === 'unflagged') {
-                      // - artifacts with a comment that have not been flagged
-                      e.style.display = e.querySelector("[data-msg]") &&
-                          !e.classList.contains('flagged') ? null : 'none';
-                  } else if (filterValue === 'reviewed') {
-                      // - artifacts with a comment
-                      e.style.display = e.querySelector("[data-msg]") ? null : 'none';
-                  } else if (filterValue === 'not-reviewed') {
-                      // - artifacts without a comment
-                      e.style.display = e.querySelector("[data-msg]") ? 'none' : null;
-                  }
+                  e.style.display = isFiltered(e, filters) ? 'none' : null;
                   total++;
                   if (!e.style.display) {
                       totalShown++;
@@ -343,11 +379,9 @@
               document.querySelector("#total").textContent = total;
               document.querySelector("#total-shown").textContent = totalShown;
           }
-          for (r of radioFilters) {
-              r.addEventListener('change', function(e) {
-                  if (this.checked) {
-                      hideFiltered();
-                  }
+          for (f of document.querySelectorAll("[name=filters] input")) {
+              f.addEventListener('change', function(e) {
+                  hideFiltered();
               });
           }
         </script>
