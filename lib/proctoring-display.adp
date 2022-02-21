@@ -499,7 +499,7 @@
                       comment.style.display = null;
                       comment.textContent = r.comment;
 
-                      if (r.flag !== 'false') {
+                      if (r.flag) {
                           isFlagged = true;
                       }
 
