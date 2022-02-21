@@ -6,7 +6,7 @@
 <style>
 #fullpage {
   display: none;
-  position: absolute;
+  position: sticky;
   z-index: 9999;
   top: 0;
   left: 0;
@@ -127,7 +127,6 @@
     </form>
   </div>
 </div>
-
 <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
 
     // Get references to the modal
@@ -413,9 +412,9 @@
           });
           function clickToEnlargeImage(e) {
               if (e.target.src) {
+                  fullPage.parentElement.removeChild(fullPage);
+                  document.body.insertBefore(fullPage, document.body.firstElementChild);
                   fullPage.style.backgroundImage = 'url(' + e.target.src + ')';
-                  fullPage.style.left = window.pageXOffset + "px";
-                  fullPage.style.top = window.pageYOffset + "px";
                   fullPage.style.display = 'block';
               }
           }
