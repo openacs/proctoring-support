@@ -76,8 +76,8 @@
     border-color: #a94442;
 }
 
-[name='revision'].flagged {
-    color: #a94442;
+.flex-container.unflagged {
+    border-color: #3c763d;
 }
 
 .flex-container img {
@@ -357,16 +357,6 @@
               <div class="flex-12">
                 <h3 name="title">@events.timestamp@</h3>
               </div>
-              <div class="flex-12">
-                <button class="flag-all btn btn-danger"
-                        data-artifact-id="@events.artifact_id@">
-                  #proctoring-support.flag_artifact_label#
-                </button>
-                <button class="unflag-all btn btn-success"
-                        data-artifact-id="@events.artifact_id@">
-                  #proctoring-support.unflag_artifact_label#
-                </button>
-              </div>
               <if @events.camera_url@ ne "">
                 <span name="camera" class="flex-3">
                   <img class="lazy" data-src="@events.camera_url@">
@@ -397,6 +387,16 @@
                 <button class="comment btn btn-default"
                         data-artifact-id="@events.artifact_id@">
                   #acs-subsite.Comment#
+                </button>
+              </div>
+              <div class="flex-12">
+                <button class="unflag-all btn btn-success"
+                        data-artifact-id="@events.artifact_id@">
+                  #proctoring-support.unflag_artifact_label#
+                </button>
+                <button class="flag-all btn btn-danger"
+                        data-artifact-id="@events.artifact_id@">
+                  #proctoring-support.flag_artifact_label#
                 </button>
               </div>
             </div>
@@ -480,6 +480,7 @@
               }
               var revisions = e.getAttribute('data-revisions');
               var isFlagged = false;
+              var isUnflagged = false;
               if (revisions !== '') {
                   for (r of JSON.parse(decodeURIComponent(revisions))) {
 
@@ -501,6 +502,8 @@
 
                       if (r.flag === 'true') {
                           isFlagged = true;
+                      } else if (r.flag === 'false') {
+                          isUnflagged = true;
                       }
 
                       var deleteButton = revision.querySelector(".delete");
@@ -515,6 +518,11 @@
               } else {
                   e.parentElement.classList.remove("flagged");
               }
+              if (isUnflagged) {
+                  e.parentElement.classList.add("unflagged");
+              } else {
+                  e.parentElement.classList.remove("unflagged");
+              }
               hideFiltered();
           }
           for (e of document.querySelectorAll("[name='revisions']")) {
@@ -525,16 +533,6 @@
           <div name="data" class="flex-container">
             <div class="flex-12">
               <h3 name="title"></h3>
-            </div>
-            <div class="flex-12">
-              <button class="flag-all btn btn-danger"
-                      data-artifact-id="">
-                #proctoring-support.flag_artifact_label#
-              </button>
-              <button class="unflag-all btn btn-success"
-                      data-artifact-id="">
-                #proctoring-support.unflag_artifact_label#
-              </button>
             </div>
             <span name="camera" class="flex-3">
               <img class="lazy" data-src="">
@@ -559,6 +557,16 @@
               <button class="comment btn btn-default"
                       style="display:none;"
                       data-artifact-id="">#acs-subsite.Comment#</button>
+            </div>
+            <div class="flex-12">
+              <button class="flag-all btn btn-danger"
+                      data-artifact-id="">
+                #proctoring-support.flag_artifact_label#
+              </button>
+              <button class="unflag-all btn btn-success"
+                      data-artifact-id="">
+                #proctoring-support.unflag_artifact_label#
+              </button>
             </div>
           </div>
         </div>
