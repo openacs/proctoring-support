@@ -29,6 +29,10 @@ if {$deleted_record eq "" && $comment eq ""} {
     }
 }
 
+if {$flag ne ""} {
+    set flag [expr {$flag ? "true" : "false"}]
+}
+
 try {
     set revisions [::xo::dc get_value update_comments {
         with
