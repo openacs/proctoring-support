@@ -3,6 +3,7 @@
 
   <msg key="accept">Accetta</msg>
   <msg key="accept_message">Una supervisione automatica dell&#39;esame è attiva per individuare ogni tentativo di frode. Tu, il tuo schermo e il to microfono saranno registrati. I tuoi dati saranno usati solo per gli scopi indicati, saranno conservati in modo sicuro e non saranno passati a terze parti.</msg>
+  <msg key="all_artifacts_label">Tutte</msg>
   <msg key="audio_grabbing_not_supported">Stai lavorando con un browser che non supporta la supervisione automatica dell&#39;esame. Usa per favore la versione più recente di Google &lt;a href=&#39;https://www.google.com/chrome/&#39;&gt;Chrome&lt;/a&gt;</msg>
   <msg key="banner_message">La modalità esame è attiva. Chiudi la finestra del browser al termine dell&#39;esame.</msg>
   <msg key="camera_cannot_be_recorded_because">La telecamera non può essere registrata. L&#39;errore riportato è: </msg>
@@ -46,7 +47,7 @@
   <msg key="recordings">Registrazioni</msg>
   <msg key="request_failed">La richiesta al server è fallita. Nuovo tentativo in 10s...</msg>
   <msg key="request_timeout">La richiesta al server è andata in timeout. Nuovo tentativo in 10s...</msg>
-  <msg key="reviewed">Verificati</msg>
+  <msg key="reviewed_label">Verificati</msg>
   <msg key="Safe_Exam_Browser">Safe Exam Browser</msg>
   <msg key="Safe_Exam_Browser_File">File .seb per Safe Exam Browser</msg>
   <msg key="Safe_Exam_Browser_File_help_text">File .seb generato tramite lo strumento di configurazione del Safe Exam Browser che contiene i vincoli applicati a questa sessione d&#39;esame.</msg>

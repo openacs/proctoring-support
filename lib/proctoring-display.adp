@@ -300,7 +300,7 @@
           <label><input type="radio" name="only" value="unflagged">#proctoring-support.unflagged_label#</label>
         </div>
         <div class="radio">
-          <label><input type="radio" name="only" value="all" checked>#acs-kernel.common_All#</label>
+          <label><input type="radio" name="only" value="all" checked>#proctoring-support.all_artifacts_label#</label>
         </div>
         <div>
           <span id="total-shown">@total@</span>/<span id="total">@total@</span>

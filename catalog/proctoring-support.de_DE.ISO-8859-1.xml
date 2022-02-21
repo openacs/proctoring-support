@@ -3,6 +3,7 @@
 
   <msg key="accept">Bestätigen</msg>
   <msg key="accept_message">Zur Erkennung einer &#34;Erschleichung der Prüfungsleistung&#34; findet eine automatisierte Online-Aufsicht statt. Dabei werden Sie, Ihr Bildschirm und Ihr Mikrofon aufgezeichnet. Ihre Daten werden nur zum angegebenen Zweck verwendet, sicher verwahrt und nicht an Dritte weitergegeben.</msg>
+  <msg key="all_artifacts_label">Alle</msg>
   <msg key="audio_grabbing_not_supported">Sie arbeiten mit einem Browser der die automatische Online-Aufsicht nicht unterstützt. Bitte verwenden Sie die neueste Version von &lt;a href=&#39;https://www.google.de/chrome&#39;&gt;Google Chrome&lt;/a&gt;.</msg>
   <msg key="banner_message">Der Prüfungsmodus läuft. Schließen Sie das Browserfenster daher erst nach Beendigung der Prüfung.</msg>
   <msg key="camera_grabbing_not_supported">Sie arbeiten mit einem Browser der die automatische Online-Aufsicht nicht unterstützt. Bitte verwenden Sie die neueste Version von &lt;a href=&#39;https://www.google.de/chrome&#39;&gt;Google Chrome&lt;/a&gt;.</msg>
