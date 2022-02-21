@@ -384,9 +384,9 @@
               </if>
               <div class="flex-12" name="revisions" data-revisions="@events.revisions@">
                 <div name="revision" class="flex-12" style="display:none;">
-                  <button class="delete btn btn-warning"
+                  <button class="delete"
                           data-artifact-id="@events.artifact_id@">
-                    #acs-kernel.common_Delete#
+                    &#128465;
                   </button>
                   <span name="timestamp"></span>
                   -
@@ -547,8 +547,8 @@
             </span>
             <div class="flex-12" name="revisions" data-revisions="">
               <div name="revision" class="flex-12" style="display:none;">
-                <button class="delete btn btn-warning">
-                  #acs-kernel.common_Delete#
+                <button class="delete">
+                  &#128465;
                 </button>
                 <span name="timestamp"></span>
                 -
