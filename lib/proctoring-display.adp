@@ -350,7 +350,7 @@
                   if (filters.end_time !== "") {
                       endTime+= " " + filters.end_time;
                   }
-                  if (endTime > timestamp) {
+                  if (endTime < timestamp) {
                       return true;
                   }
               }
