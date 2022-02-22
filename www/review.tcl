@@ -71,7 +71,7 @@ try {
                           to_char(current_timestamp, 'YYYY-MM-DD HH24:MI:SS') as timestamp,
                           p.first_names || ' ' || p.last_name as author,
                           :comment as comment,
-                          false as flag
+                          'false' as flag
                     from persons p
                    where person_id = :user_id
                    and   :comment is not null) record
