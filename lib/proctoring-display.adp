@@ -246,18 +246,6 @@
     })
 
 </script>
-<if @swa_p;literal@ true and @folder_exists_p;literal@ true>
-  <p>
-    <a id="delete-button" href="@delete_url@" class="btn btn-danger">@delete_label@</a>
-  </p>
-  <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
-    document.querySelector("#delete-button").addEventListener("click", function(e) {
-        if (!confirm("@delete_confirm@")) {
-            e.preventDefault();
-        }
-    });
-  </script>
-</if>
 <if @user_id@ not nil>
     <if @file@ nil>
         <h2 style="border-bottom: 1px solid #eee;">@user_name@</h2>
@@ -593,13 +581,13 @@
                       data-artifact-id="">#acs-subsite.Comment#</button>
             </div>
             <div class="flex-12">
-              <button class="flag-all btn btn-danger"
-                      data-artifact-id="">
-                #proctoring-support.flag_artifact_label#
-              </button>
               <button class="unflag-all btn btn-success"
                       data-artifact-id="">
                 #proctoring-support.unflag_artifact_label#
+              </button>
+              <button class="flag-all btn btn-danger"
+                      data-artifact-id="">
+                #proctoring-support.flag_artifact_label#
               </button>
             </div>
           </div>
@@ -693,53 +681,79 @@
     </if>
 </if>
 <else>
+  <style>
+    .review-status {
+        background-color:#f1f1f1;
+        border: 1px black solid;
+    }
+    .review-status div.inprogress {
+        background-color:orange;
+    }
+    .review-status div.flagged {
+        background-color:red;
+    }
+    .review-status div.ok {
+        background-color:green;
+    }
+  </style>
   <div class="form-group">
     <label for="filter">#acs-kernel.common_Search#:</label>
-    <input type="text" class="form-control" id="filter">
+    <input type="text" class="form-control" id="filter" value="">
   </div>
-  <if @swa_p;literal@ true>
-    <div class="btn-group">
-      <span class="btn btn-default">
-        <input type="checkbox" id="proctoring-bulk-all">
-      </span>
-      <span class="btn btn-default dropdown-toggle"
-            data-toggle="dropdown"
-            role="button"
-            aria-expanded="false">
-        #xotcl-core.Bulk_actions#<span class="caret"></span>
-      </span>
-      <ul class="dropdown-menu" role="menu">
-        <li><a id="proctoring-bulk-delete"
-               class="bin-empty">#acs-kernel.common_Delete#</a></li>
-      </ul>
-    </div>
-  </if>
-  <ul class="list-group">
-    <multiple name="users">
-      <li class="list-group-item" id="@users.user_id@" data-filter="@users.filter@">
-        <!-- <img src="@users.portrait_url@"> -->
-          <if @swa_p;literal@ true>
-            <input type="checkbox"
-                   class="proctoring-bulk"
-                   data-user-id="@users.user_id@">
-          </if>
-          <a style="display:inline-block;width:95%;"
-             href="@users.proctoring_url@">@users.last_name@ @users.first_names@</a>
-      </li>
-    </multiple>
-  </ul>
+
+  <listtemplate name="users"></listtemplate>
+
   <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
+    // When new artifacts are generated for this object, this websocket
+    // will trigger a page reload (capped to once every 60 seconds)
     var isLoading = false;
     initWS("@ws_url@", function(e) {
-        // A new user has pictures
-        if (!isLoading && document.querySelector("#" + e.data.user_id) == null) {
+        if (!isLoading) {
             isLoading = true;
             setTimeout(function() {
-                location.reload();
-            }, 10000);
+                if ( window.history.replaceState ) {
+                    window.history.replaceState(null, null, window.location.href);
+                }
+                window.location = window.location.href;
+            }, 60000);
         }
     });
 
+    // Enable the bulk-action delete button only when something has
+    // been selected.
+    var deleteButton = document.querySelector("#users-bulk_action-1");
+    if (deleteButton) {
+        deleteButton.setAttribute("disabled", "");
+        deleteButton.addEventListener("click", function(e) {
+            if (!confirm(`#proctoring-support.delete_users_artifacts_confirm_msg#`)) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        });
+        var bulkCheckboxes = document.querySelectorAll(`
+            #users-bulkaction-control,
+            form[name=users] input[name=user_id]`);
+        function toggleBulkActionsOnSelection(e) {
+            var selected = false;
+            for (i of bulkCheckboxes) {
+                if (e.target.checked || i.checked) {
+                    selected = true;
+                    break;
+                }
+            }
+            if (selected) {
+                deleteButton.removeAttribute("disabled");
+            } else {
+                deleteButton.setAttribute("disabled", "");
+            }
+        }
+        for (i of bulkCheckboxes) {
+            i.checked = false;
+            i.addEventListener("change", toggleBulkActionsOnSelection);
+        }
+    }
+
+    // Filter the users list based on the search bar
     document.querySelector("#filter").addEventListener("keyup", function(e) {
         var visibleSelector, hiddenSelector;
         visibleSelector = "";
@@ -757,61 +771,20 @@
             hiddenSelector = "[data-filter]:not(" + visibleSelector.trim() + ")";
         }
 
-        var visible = document.querySelectorAll(visibleSelector);
-        console.log(visibleSelector);
-        for (var i = 0; i < visible.length; i++) {
-            visible[i].style.display = "";
+        for (visible of document.querySelectorAll(visibleSelector)) {
+            visible.parentElement.parentElement.style.display = "";
         }
 
         if (hiddenSelector.length > 0) {
-            var hidden = document.querySelectorAll(hiddenSelector);
-            for (var i = 0; i < hidden.length; i++) {
-                hidden[i].style.display = "none";
+            // Hidden checkboxes might still be selected. If we are
+            // hinding any element, we first reset them.
+            for (i of (bulkCheckboxes ? bulkCheckboxes : [])) {
+                i.checked = false;
+            }
+            for (hidden of document.querySelectorAll(hiddenSelector)) {
+                hidden.parentElement.parentElement.style.display = "none";
             }
         }
     });
-
-    var bulkSelectAllButton = document.querySelector('#proctoring-bulk-all');
-    if (bulkSelectAllButton) {
-        bulkSelectAllButton.addEventListener('click', function (e) {
-            for (checkbox of document.querySelectorAll('.proctoring-bulk')) {
-                checkbox.checked = this.checked;
-            }
-        });
-    }
-
-    var bulkDeleteButton = document.querySelector('#proctoring-bulk-delete');
-    if (bulkDeleteButton) {
-        bulkDeleteButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (!confirm('#xowiki.delete_confirm#')) {
-                return;
-            }
-            var formData = new FormData();
-            formData.append('delete', true);
-            formData.append('object_id', @object_id;literal@);
-            for (checkbox of document.querySelectorAll('.proctoring-bulk')) {
-                console.log(checkbox.checked);
-                if (checkbox.checked) {
-                    var userId = checkbox.getAttribute('data-user-id');
-                    formData.append('user_id', userId);
-                }
-            }
-            if (!formData.has('user_id')) {
-                return;
-            }
-            var oReq = new XMLHttpRequest();
-            function reqListener () {
-                if (this.status == 200) {
-                    location.reload();
-                } else {
-                    console.error("Page returned status " + this.status);
-                }
-            }
-            oReq.addEventListener("load", reqListener);
-            oReq.open("POST", '@base_url@');
-            oReq.send(formData);
-        });
-    }
   </script>
 </else>

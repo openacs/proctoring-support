@@ -86,9 +86,6 @@ if {$delete_p && [llength $user_id] >= 1} {
     set folder [::proctoring::folder \
                     -object_id $object_id -user_id $user_id]
 
-    set delete_label [_ xowiki.delete]
-    set delete_confirm [_ xowiki.delete_confirm]
-
     if {$file ne ""} {
         #
         # Display a specific artifact file: this branch of the script
@@ -196,41 +193,113 @@ if {$delete_p && [llength $user_id] >= 1} {
     set folder [::proctoring::folder \
                     -object_id $object_id]
 
-    set delete_label [_ xowiki.delete_all]
-    set delete_confirm [_ xowiki.delete_all_confirm]
-
-    if {$delete_p} {
-        #
-        # Delete all of the artifacts for this proctored object
-        #
-        ::proctoring::artifact::delete -object_id $object_id
-        ad_returnredirect $base_url
-        ad_script_abort
-    }
-
     #
     # Display the list of proctored users for this object for whom
     # artifacts exist
     #
+    set bulk_actions [list]
+    if {$swa_p} {
+        lappend bulk_actions \
+            "#acs-kernel.common_Delete#" [ad_conn url] "#acs-kernel.common_Delete#"
+    }
+
+    template::list::create \
+        -name users \
+        -multirow users \
+        -key user_id \
+        -actions [list] \
+        -bulk_actions $bulk_actions \
+        -bulk_action_method post \
+        -bulk_action_export_vars {
+            object_id {delete true}
+        } \
+        -elements {
+            filter {
+                label ""
+                display_template {
+                    <span data-filter="@users.filter@"></span>
+                }
+            }
+            name {
+                label "[_ acs-admin.Name]"
+                link_url_col proctoring_url
+            }
+            student_id {
+                label "[_ proctoring-support.student_id_label]"
+                link_url_col proctoring_url
+            }
+            status {
+                label "[_ acs-subsite.Status]"
+                display_template {
+                    <div class="review-status">
+                      <div
+                        <if @users.n_artifacts@ ne
+                            @users.n_reviewed@>
+                          class="inprogress"
+                          style="width:@users.completion@%;"
+                        </if>
+                        <elseif @users.n_flagged@ gt 0>
+                          class="flagged"
+                        </elseif>
+                        <else>
+                          class="ok"
+                        </else>
+                        >&nbsp;</div>
+                    </div>
+                }
+            }
+            n_artifacts {
+                label "[_ proctoring-support.n_artifacts_label]"
+            }
+            n_reviewed {
+                label "[_ proctoring-support.n_reviewed_label]"
+            }
+            n_flagged {
+                label "[_ proctoring-support.n_flagged_label]"
+            }
+        }
+
     db_multirow -extend {
         student_id
         proctoring_url
         portrait_url
         filter
+        completion
     } -unclobber users get_users {
-        select distinct a.user_id,
-                        p.first_names,
-                        p.last_name
+        with reviewed_picture_name as (
+          select name from proctoring_object_artifacts
+          where object_id = :object_id
+          order by metadata is not null desc
+          fetch first 1 rows only
+        )
+        select a.user_id,
+               p.last_name || ' ' || p.first_names as name,
+               count(*) as n_artifacts,
+               count(a.metadata->'revisions') as n_reviewed,
+               count(
+                   (select 1 from
+                    jsonb_path_query(a.metadata->'revisions',
+                                     '$[*] ? (@.flag == "true")')
+                    fetch first 1 rows only
+                    )
+                   ) as n_flagged
         from proctoring_object_artifacts a,
              persons p
         where object_id = :object_id
+          and (a.type = 'audio' or
+               a.name = (select name from reviewed_picture_name))
           and a.user_id = p.person_id
-        order by last_name asc, first_names asc
+        group by a.user_id, p.person_id
+        order by p.last_name asc, p.first_names asc
     } {
         set student_id [::party::email -party_id $user_id]
 
         set proctoring_url [export_vars -no_base_encode -base $base_url { user_id object_id }]
         set portrait_url /shared/portrait-bits.tcl?user_id=$user_id
-        set filter [string tolower "$last_name $first_names $student_id"]
+        set filter [string tolower "$name $student_id"]
+
+        if {$n_artifacts > 0} {
+            set completion [expr {round(100 * (($n_reviewed * 1.0) / ($n_artifacts * 1.0)))}]
+        }
     }
 }
