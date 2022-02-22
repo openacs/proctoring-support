@@ -145,7 +145,7 @@ if {$delete_p && [llength $user_id] >= 1} {
                     and user_id = :user_id
                     and type = 'image'
                     and name = 'camera') camera
-                   join
+                   full join
                    (select artifact_id,
                            timestamp,
                            file,
