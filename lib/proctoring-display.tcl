@@ -112,6 +112,31 @@ if {$delete_p && [llength $user_id] >= 1} {
 
         set back_url $base_url
 
+        # Populate a multirow of presets for the time filters, which
+        # can also come from other packages.
+        db_multirow timeframes get_timeframes {
+            select '#proctoring-support.current_proctoring_configuration_timeframe_label#' as name,
+                   start_date,
+                   start_time,
+                   end_date,
+                   end_time
+              from proctoring_objects
+             where object_id = :object_id
+        }
+
+        foreach result [callback ::proctoring::callback::object::timeframes \
+                            -object_id $object_id] {
+            foreach timeframe $result {
+                ::template::multirow append \
+                    [dict get $timeframe name] \
+                    [dict get $timeframe start_date] \
+                    [dict get $timeframe start_time] \
+                    [dict get $timeframe end_date] \
+                    [dict get $timeframe end_time]
+            }
+        }
+        template::multirow sort timeframes start_date start time end_date end_time name
+
         # Desktop and camera pictures are produced at the same time,
         # even if they might not have the same timestamp, so they are
         # put together in a single row, based on the order in which

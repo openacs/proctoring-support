@@ -84,3 +84,24 @@ ad_proc -public -callback ::proctoring::callback::artifact::postprocess {
 
     @param artifact_id id of the artifact
 } -
+
+namespace eval ::proctoring::callback {}
+namespace eval ::proctoring::callback::object {}
+
+ad_proc -public -callback ::proctoring::callback::object::timeframes {
+    -object_id:required
+} {
+    Implementations of this hook can return a list of timeframes,
+    retrieved by package-specific logic (e.g. the timeframe of a XoWF
+    InclassExam) that we can use to e.g. filter the list of proctoring
+    artifacts via presets.
+
+    @param object_id id of the proctored object
+
+    @return a list of dicts with fields "name", "start_date",
+            "start_time", "end_date" and "end_time". Date fields are
+            dates in ISO format such as "2016-09-07", time fields are
+            time formats such as "08:00" or other value accepted by a
+            time HTML input field.
+} -
+

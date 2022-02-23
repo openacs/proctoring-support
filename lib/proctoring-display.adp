@@ -283,7 +283,7 @@
 
         <h3 style="margin-top:1em;">#proctoring-support.recordings#</h3>
         <div class="flex-container" name="filters">
-          <div class="flex-6">
+          <div class="flex-2">
             <div>
               <input type="radio" name="only" value="reviewed"> #proctoring-support.reviewed_label#
               <input type="radio" name="only" value="not-reviewed"> #proctoring-support.not_reviewed_label#
@@ -301,6 +301,25 @@
           </div>
           <div class="flex-3">
             <input type="date" name="end_date"><input type="time" name="end_time"> #acs-admin.End_time#
+          </div>
+          <div class="flex-4">
+            <div>#proctoring-support.time_filter_presets_label#</div>
+            <div>
+              <input type="radio"
+                     name="timeframe"
+                     value="none"> #acs-subsite.none#
+            </div>
+            <multiple name="timeframes">
+              <div>
+                <input type="radio"
+                       name="timeframe"
+                       data-start-date="@timeframes.start_date@"
+                       data-start-time="@timeframes.start_time@"
+                       data-end-date="@timeframes.end_date@"
+                       data-end-time="@timeframes.end_time@"
+                       > @timeframes.name@: @timeframes.start_date@ @timeframes.start_time@ - @timeframes.end_date@ @timeframes.end_time@
+              </div>
+            </multiple>
           </div>
         </div>
         <div>
@@ -366,6 +385,23 @@
               }
               document.querySelector("#total").textContent = total;
               document.querySelector("#total-shown").textContent = totalShown;
+          }
+          for (f of document.querySelectorAll("input[name=timeframe]")) {
+              f.addEventListener('change', function(e) {
+                  document.querySelector("[name=start_date]").value =
+                      this.getAttribute("data-start-date");
+                  document.querySelector("[name=end_date]").value =
+                      this.getAttribute("data-end-date");
+                  document.querySelector("[name=start_time]").value =
+                      this.getAttribute("data-start-time");
+                  document.querySelector("[name=end_time]").value =
+                      this.getAttribute("data-end-time");
+              });
+          }
+          for (f of dateFilters) {
+              f.addEventListener('change', function(e) {
+                  document.querySelector("input[name=timeframe][value=none]").checked = false;
+              });
           }
           for (f of document.querySelectorAll("[name=filters] input")) {
               f.addEventListener('change', function(e) {
