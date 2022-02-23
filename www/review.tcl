@@ -34,7 +34,7 @@ if {$flag ne ""} {
 }
 
 try {
-    set revisions [::xo::dc get_value update_comments {
+    ::xo::dc 1row update_comments {
         with
         updated_revisions as (
             select jsonb_agg(u.revision)
@@ -91,12 +91,22 @@ try {
                                     (select * from updated_revisions))
             where artifact_id = :artifact_id
               and acs_permission.permission_p(object_id, :user_id, 'admin')
-            returning metadata->'revisions' as revisions
+            returning object_id, metadata->'revisions' as revisions
         )
 
         -- Return the final result as a JSON array
-        select revisions from update
-    }]
+        select object_id, revisions from update
+    }
+
+    if {[namespace which ::ws::multicast] ne ""} {
+        ns_log warning ciao
+        # Notify that something new is there for this object, so the
+        # users list will refresh
+        set chat proctoring-${object_id}
+        ::ws::multicast $chat [ns_connchan wsencode \
+                                   -opcode text 1]
+
+    }
 
     ns_return 200 text/plain $revisions
 
