@@ -127,7 +127,7 @@ if {$delete_p && [llength $user_id] >= 1} {
         foreach result [callback ::proctoring::callback::object::timeframes \
                             -object_id $object_id] {
             foreach timeframe $result {
-                ::template::multirow append \
+                ::template::multirow append timeframes \
                     [dict get $timeframe name] \
                     [dict get $timeframe start_date] \
                     [dict get $timeframe start_time] \
@@ -135,7 +135,7 @@ if {$delete_p && [llength $user_id] >= 1} {
                     [dict get $timeframe end_time]
             }
         }
-        template::multirow sort timeframes start_date start time end_date end_time name
+        template::multirow sort timeframes start_date start_time end_date end_time name
 
         # Desktop and camera pictures are produced at the same time,
         # even if they might not have the same timestamp, so they are
