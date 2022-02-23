@@ -461,10 +461,10 @@
           </multiple>
         </div>
 
-        <div id="fullpage"></div>
-
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
-          var fullPage = document.querySelector("#fullpage");
+          var fullPage = document.createElement("div");
+          fullPage.id = "fullpage";
+          document.body.insertBefore(fullPage, document.body.firstElementChild);
           fullPage.addEventListener("click", function(e) {
               this.style.display = "none";
           });
