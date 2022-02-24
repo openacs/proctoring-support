@@ -303,27 +303,19 @@
             <input type="date" name="end_date"><input type="time" name="end_time"> #acs-admin.End_time#
           </div>
           <div class="flex-4">
-            <div>#proctoring-support.time_filter_presets_label#</div>
-            <div>
-              <input type="radio"
-                     name="timeframe"
-                     value="none"> #acs-subsite.none#
-            </div>
-            <multiple name="timeframes">
-              <div>
-                <input type="radio"
-                       name="timeframe"
-                       data-start-date="@timeframes.start_date@"
-                       data-start-time="@timeframes.start_time@"
-                       data-end-date="@timeframes.end_date@"
-                       data-end-time="@timeframes.end_time@"
-                       > @timeframes.name@: @timeframes.start_date@ @timeframes.start_time@ - @timeframes.end_date@ @timeframes.end_time@
-              </div>
-            </multiple>
+            <select name="timeframe">
+              <option value=",,,"> #acs-subsite.none#</option>
+              <multiple name="timeframes">
+                <option value="@timeframes.start_date@,@timeframes.start_time@,@timeframes.end_date@,@timeframes.end_time@">
+                  @timeframes.name@: @timeframes.start_date@ @timeframes.start_time@ - @timeframes.end_date@ @timeframes.end_time@
+                </option>
+              </multiple>
+            </select>
+            #proctoring-support.time_filter_presets_label#
           </div>
-        </div>
-        <div>
-          <span id="total-shown">@total@</span>/<span id="total">@total@</span>
+          <div>
+            <span id="total-shown">@total@</span>/<span id="total">@total@</span>
+          </div>
         </div>
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
           var dateFilters = document.querySelectorAll("[name=start_date], [name=end_date], [name=start_time], [name=end_time]");
@@ -386,24 +378,19 @@
               document.querySelector("#total").textContent = total;
               document.querySelector("#total-shown").textContent = totalShown;
           }
-          for (f of document.querySelectorAll("input[name=timeframe]")) {
-              f.addEventListener('change', function(e) {
-                  document.querySelector("[name=start_date]").value =
-                      this.getAttribute("data-start-date");
-                  document.querySelector("[name=end_date]").value =
-                      this.getAttribute("data-end-date");
-                  document.querySelector("[name=start_time]").value =
-                      this.getAttribute("data-start-time");
-                  document.querySelector("[name=end_time]").value =
-                      this.getAttribute("data-end-time");
-              });
-          }
+          document.querySelector("select[name=timeframe]").addEventListener('change', function(e) {
+              var values = this.value.split(",");
+              document.querySelector("[name=start_date]").value = values[0];
+              document.querySelector("[name=start_time]").value = values[1];
+              document.querySelector("[name=end_date]").value = values[2];
+              document.querySelector("[name=end_time]").value = values[3];
+          });
           for (f of dateFilters) {
               f.addEventListener('change', function(e) {
-                  document.querySelector("input[name=timeframe][value=none]").checked = false;
+                  document.querySelector("select[name=timeframe]").value = ",,,";
               });
           }
-          for (f of document.querySelectorAll("[name=filters] input")) {
+          for (f of document.querySelectorAll("[name=filters]")) {
               f.addEventListener('change', function(e) {
                   hideFiltered();
               });
