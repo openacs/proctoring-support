@@ -445,6 +445,98 @@ aa_register_case \
         }]
     }
 
+aa_register_case \
+    -cats {api smoke} \
+    -urls {
+        upload
+    } \
+    -procs {
+        ::proctoring::artifact::store
+    } \
+    proctoring_upload_test {
+        Test that the actual upload works as expected
+    } {
+        try {
+            set package_url [lindex [::site_node::get_package_url -package_key proctoring-support] 0]
+
+            set user_info [acs::test::user::create]
+            set session [::acs::test::set_user $user_info]
+            set login [dict get $session login]
+
+            set headers [ns_set create headers]
+            if {[dict exists $session cookies]} {
+                ns_set put $headers Cookie [dict get $session cookies]
+            }
+
+            set user_id [dict get $user_info user_id]
+            set object_id $user_id
+
+            set type image
+            set name camera
+            set file [acs_root_dir]/packages/proctoring-support/tcl/test/data/test.png
+
+            #
+            # Check, if a testURL was specified in the config file
+            #
+            # ns_section ns/server/${server}/acs/acs-automated-testing
+            #         ns_param TestURL http://127.0.0.1:8080/
+            #
+            set url [parameter::get \
+                         -package_id [apm_package_id_from_key acs-automated-testing] \
+                         -parameter TestURL \
+                         -default ""]
+            if {$url eq ""} {
+                set url [ns_conn location]
+            }
+            set urlInfo [ns_parseurl $url]
+            set address [dict get $urlInfo host]
+            set url "${url}${package_url}upload"
+
+            aa_section "Upload enforcing active proctoring conf"
+
+            set r [util::http::post \
+                       -url $url \
+                       -headers $headers \
+                       -files [list [list fieldname file file $file]] \
+                       -formvars [export_vars -url {type name object_id}]]
+
+            aa_equals "Request returns 200" [dict get $r status] 200
+            aa_equals "Proctoring is not configured for '$object_id', so requests returns 'OFF'" \
+                [dict get $r page] OFF
+
+            aa_false "File was not stored" [::xo::dc 0or1row artifact_exists {
+                select 1 from dual where exists
+                (select 1 from proctoring_object_artifacts
+                 where object_id = :object_id
+                 and user_id = :user_id)
+            }]
+
+            aa_section "Upload NOT enforcing active proctoring conf"
+            set r [util::http::post \
+                       -url $url \
+                       -headers $headers \
+                       -files [list [list fieldname file file $file]] \
+                       -formvars [export_vars -url {type name object_id {check_active_p false}}]]
+
+            aa_equals "Request returns 200" [dict get $r status] 200
+            aa_equals "Requests returns 'OK'" \
+                [dict get $r page] OK
+
+            aa_true "File was stored" [::xo::dc 0or1row artifact_exists {
+                select 1 from dual where exists
+                (select 1 from proctoring_object_artifacts
+                 where object_id = :object_id
+                 and user_id = :user_id)
+            }]
+        } finally {
+            # Cleanup
+            if {[info exists user_id]} {
+                proctoring::artifact::delete -object_id $user_id
+                acs_user::delete -user_id $user_id -permanent
+            }
+        }
+    }
+
 # Local variables:
 #    mode: tcl
 #    tcl-indent-level: 4
