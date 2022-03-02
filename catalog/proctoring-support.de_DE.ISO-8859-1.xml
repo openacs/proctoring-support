@@ -102,6 +102,8 @@
 	&lt;li&gt;die Prüfung mit dieser Bestätigung entgegennehme, d.h. es erfolgt eine Beurteilung und dieser Antritt wird auf die Gesamtzahl der Wiederholungen angerechnet.&lt;/li&gt;
 &lt;/ul&gt;</msg>
   <msg key="Examination_Statement">Prüfungserklärung</msg>
+  <msg key="flag_all_confirm_msg">Alle Artefakte für diesen Benutzer würden für überprufung markiert, sind Sie sicher?</msg>
+  <msg key="flag_all_label">Alle zur Überprüfung markieren</msg>
   <msg key="flag_artifact_label">Zur Überprüfung markieren</msg>
   <msg key="flagged_label">Markiert</msg>
   <msg key="grant_access_to_camera_msg">Erlauben Sie den Zugriff auf Ihre Kamera, wenn Ihr Browser Sie dazu auffordert. Haben Sie den Zugriff erlaubt, wird Ihnen eine Vorschau angezeigt. Stellen Sie sicher, dass ihr Gesicht im Vorschaubild gut zu erkennen ist</msg>
@@ -135,6 +137,8 @@
   <msg key="Start_date">Anfangsdatum</msg>
   <msg key="student_id_label">Matrikelnummer</msg>
   <msg key="time_filter_presets_label">Filter</msg>
+  <msg key="unflag_all_confirm_msg">Alle Artefakte für diesen Benutzer würden bestätigt, sind Sie sicher?</msg>
+  <msg key="unflag_all_label">Alle als OK bestätigen</msg>
   <msg key="unflag_artifact_label">Als OK bestätigen</msg>
   <msg key="unflagged_label">Bestätigt OK</msg>
   <msg key="user_has_flagged_this_artifact_msg">Dieses Objekt wurde zur Überprüfung vorgemerkt</msg>

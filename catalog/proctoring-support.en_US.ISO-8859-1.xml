@@ -102,6 +102,8 @@
 	&lt;li&gt;I accept receipt of this examination, i.e. I acknowledge that the exam will be graded and will count towards my total number of examination attempts&lt;/li&gt;
 &lt;/ul&gt;</msg>
   <msg key="Examination_Statement">Examination Statement</msg>
+  <msg key="flag_all_confirm_msg">This will flag for review all artifacts for this user. Are you sure?</msg>
+  <msg key="flag_all_label">Flag everything for review</msg>
   <msg key="flag_artifact_label">Flag for review</msg>
   <msg key="flagged_label">Flagged</msg>
   <msg key="grant_access_to_camera_msg">If your browser prompts you to give access to the camera, please do so. Once permission has been granted, a preview image will appear. Please make sure your face is clearly visible in the picture before proceeding.</msg>
@@ -140,6 +142,8 @@
   <msg key="Start_date">Start date</msg>
   <msg key="student_id_label">Student ID</msg>
   <msg key="time_filter_presets_label">Time filter presets</msg>
+  <msg key="unflag_all_confirm_msg">This will set all artifacts for this user as OK, are you sure?</msg>
+  <msg key="unflag_all_label">Set everything as OK</msg>
   <msg key="unflag_artifact_label">Confirm OK</msg>
   <msg key="unflagged_label">Confirmed OK</msg>
   <msg key="user_has_flagged_this_artifact_msg">This artifact has been flagged for revision</msg>

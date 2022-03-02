@@ -111,6 +111,10 @@ if {$delete_p && [llength $user_id] >= 1} {
         set portrait_url [export_vars -base "/shared/portrait-bits.tcl" {user_id {size x200}}]
 
         set back_url $base_url
+        set bulk_flag_base [export_vars -base ${proctoring_url}review-all \
+                                {user_id object_id {return_url $user_url}}]
+        set bulk_unflag_url ${bulk_flag_base}&flag=false
+        set bulk_flag_url ${bulk_flag_base}&flag=true
 
         # Populate a multirow of presets for the time filters, which
         # can also come from other packages.
@@ -153,8 +157,7 @@ if {$delete_p && [llength $user_id] >= 1} {
                    coalesce(camera.timestamp,
                             desktop.timestamp) as timestamp,
                    null as audio_url,
-                   coalesce(camera.revisions, '[]') ||
-                     coalesce(desktop.revisions, '[]') as revisions
+                   coalesce(camera.revisions, desktop.revisions) as revisions
             from (select artifact_id,
                            timestamp,
                            file,
@@ -290,6 +293,7 @@ if {$delete_p && [llength $user_id] >= 1} {
         with reviewed_picture_name as (
           select name from proctoring_object_artifacts
           where object_id = :object_id
+            and type <> 'audio'
           order by metadata is not null desc
           fetch first 1 rows only
         )

@@ -279,7 +279,15 @@
             </div>
         </div>
 
-        <p><a href="@back_url@" class="btn btn-default">#xowiki.back#</a></p>
+        <p>
+          <a href="@back_url@" class="btn btn-default">#xowiki.back#</a>
+        </p>
+        <p>
+          <button data-href="@bulk_unflag_url@" id="unflag-all"
+             class="btn btn-success">#proctoring-support.unflag_all_label#</button>
+          <button data-href="@bulk_flag_url@" id="flag-all"
+             class="btn btn-danger">#proctoring-support.flag_all_label#</button>
+        </p>
 
         <h3 style="margin-top:1em;">#proctoring-support.recordings#</h3>
         <div class="flex-container" name="filters">
@@ -318,6 +326,17 @@
           </div>
         </div>
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
+          document.querySelector("#flag-all").addEventListener("click", function(e) {
+              if (confirm(`#proctoring-support.flag_all_confirm_msg#`)) {
+                  window.location = `@bulk_flag_url;literal@`;
+              }
+          });
+          document.querySelector("#unflag-all").addEventListener("click", function(e) {
+              if (confirm(`#proctoring-support.unflag_all_confirm_msg#`)) {
+                  window.location = `@bulk_unflag_url;literal@`;
+              }
+          });
+
           var dateFilters = document.querySelectorAll("[name=start_date], [name=end_date], [name=start_time], [name=end_time]");
           var radioFilters = document.querySelectorAll("[name='only']");
           function isFiltered(e, filters) {
