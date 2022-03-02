@@ -71,7 +71,7 @@
 }
 
 .flex-container[name='data'] {
-    border: 2px #eee solid;
+    border: 3px #eee solid;
     border-radius: 8px;
 }
 
