@@ -153,7 +153,8 @@ if {$delete_p && [llength $user_id] >= 1} {
                    coalesce(camera.timestamp,
                             desktop.timestamp) as timestamp,
                    null as audio_url,
-                   camera.revisions || desktop.revisions as revisions
+                   coalesce(camera.revisions, '[]') ||
+                     coalesce(desktop.revisions, '[]') as revisions
             from (select artifact_id,
                            timestamp,
                            file,
@@ -161,7 +162,7 @@ if {$delete_p && [llength $user_id] >= 1} {
                                         partition by object_id, user_id
                                         order by timestamp asc
                                          ) as order,
-                           coalesce(metadata->'revisions', '[]') as revisions
+                           metadata->'revisions' as revisions
                   from proctoring_object_artifacts
                     where object_id = :object_id
                     and user_id = :user_id
@@ -175,7 +176,7 @@ if {$delete_p && [llength $user_id] >= 1} {
                                         partition by object_id, user_id
                                         order by timestamp asc
                                          ) as order,
-                           coalesce(metadata->'revisions', '[]') as revisions
+                           metadata->'revisions' as revisions
                      from proctoring_object_artifacts
                     where object_id = :object_id
                     and user_id = :user_id
