@@ -460,7 +460,10 @@ aa_register_case \
             set package_url [lindex [::site_node::get_package_url -package_key proctoring-support] 0]
 
             set user_info [acs::test::user::create]
-            set session [::acs::test::set_user $user_info]
+            set d [::acs::test::login $user_info]
+            dict set session cookies [dict get $d session cookies]
+            dict set session login via_login
+
             set login [dict get $session login]
 
             set headers [ns_set create headers]
