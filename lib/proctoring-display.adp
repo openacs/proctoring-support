@@ -708,9 +708,7 @@
     .review-status {
         background-color:#f1f1f1;
         border: 1px black solid;
-    }
-    .review-status div.inprogress {
-        background-color:orange;
+        text-align: center;
     }
     .review-status div.flagged {
         background-color:red;

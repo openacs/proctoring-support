@@ -258,15 +258,10 @@ if {$delete_p && [llength $user_id] >= 1} {
                 label "[_ acs-subsite.Status]"
                 display_template {
                     <div class="review-status">
-                      <div
-                        <if @users.n_artifacts@ ne
-                            @users.n_reviewed@>
-                          class="inprogress"
-                          style="width:@users.completion@%;"
-                        </if>
-                        <elseif @users.n_flagged@ gt 0>
+                      <div style="width:@users.completion@%;"
+                        <if @users.n_flagged@ gt 0>
                           class="flagged"
-                        </elseif>
+                        </if>
                         <else>
                           class="ok"
                         </else>
@@ -324,8 +319,6 @@ if {$delete_p && [llength $user_id] >= 1} {
         set portrait_url /shared/portrait-bits.tcl?user_id=$user_id
         set filter [string tolower "$name $student_id"]
 
-        if {$n_artifacts > 0} {
-            set completion [expr {round(100 * (($n_reviewed * 1.0) / ($n_artifacts * 1.0)))}]
-        }
+        set completion [expr {round(100 * (($n_reviewed * 1.0) / ($n_artifacts * 1.0)))}]
     }
 }
