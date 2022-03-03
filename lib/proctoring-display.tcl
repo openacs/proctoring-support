@@ -290,13 +290,6 @@ if {$delete_p && [llength $user_id] >= 1} {
         filter
         completion
     } -unclobber users get_users {
-        with reviewed_picture_name as (
-          select name from proctoring_object_artifacts
-          where object_id = :object_id
-            and type <> 'audio'
-          order by metadata is not null desc
-          fetch first 1 rows only
-        )
         select a.user_id,
                p.last_name || ' ' || p.first_names as name,
                count(*) as n_artifacts,
@@ -318,7 +311,11 @@ if {$delete_p && [llength $user_id] >= 1} {
              persons p
         where object_id = :object_id
           and (a.type = 'audio' or
-               a.name = (select name from reviewed_picture_name))
+               a.name = (case when exists (select 1 from proctoring_object_artifacts
+                                            where object_id = a.object_id
+                                              and type <> 'audio'
+                                              and name = 'camera') then 'camera'
+                         else 'desktop' end))
           and a.user_id = p.person_id
         group by a.user_id, p.person_id
         order by p.last_name asc, p.first_names asc
