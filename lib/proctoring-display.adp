@@ -321,12 +321,14 @@
           </div>
         </div>
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
-          document.querySelector("#flag-all").addEventListener("click", function(e) {
+          var bulkFlagBtn = document.querySelector("#flag-all");
+          bulkFlagBtn.addEventListener("click", function(e) {
               if (confirm(`#proctoring-support.flag_all_confirm_msg#`)) {
                   window.location = `@bulk_flag_url;literal@`;
               }
           });
-          document.querySelector("#unflag-all").addEventListener("click", function(e) {
+          var bulkUnflagBtn = document.querySelector("#unflag-all");
+          bulkUnflagBtn.addEventListener("click", function(e) {
               if (confirm(`#proctoring-support.unflag_all_confirm_msg#`)) {
                   window.location = `@bulk_unflag_url;literal@`;
               }
@@ -572,17 +574,22 @@
                       e.insertBefore(revision, e.lastElementChild);
                   }
               }
+              e.parentElement.querySelector('.flag-all').disabled = isFlagged;
               if (isFlagged) {
                   e.parentElement.classList.add("flagged");
               } else {
                   e.parentElement.classList.remove("flagged");
               }
+              e.parentElement.querySelector('.unflag-all').disabled = isUnflagged;
               if (isUnflagged) {
                   e.parentElement.classList.add("unflagged");
               } else {
                   e.parentElement.classList.remove("unflagged");
               }
               hideFiltered();
+
+              bulkFlagBtn.disabled = document.querySelector("#event-list [name=data]:not(.flagged)") === null;
+              bulkUnflagBtn.disabled = document.querySelector("#event-list [name=data]:not(.unflagged)") === null;
           }
           for (e of document.querySelectorAll("[name='revisions']")) {
               renderArtifactComments(e);
