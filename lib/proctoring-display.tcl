@@ -111,7 +111,7 @@ if {$delete_p && [llength $user_id] >= 1} {
         set portrait_url [export_vars -base "/shared/portrait-bits.tcl" {user_id {size x200}}]
 
         set back_url $base_url
-        set bulk_flag_base [export_vars -base ${proctoring_url}review-all \
+        set bulk_flag_base [export_vars -base ${proctoring_url}review \
                                 {user_id object_id {return_url $user_url}}]
         set bulk_unflag_url ${bulk_flag_base}&flag=false
         set bulk_flag_url ${bulk_flag_base}&flag=true
@@ -300,7 +300,13 @@ if {$delete_p && [llength $user_id] >= 1} {
         select a.user_id,
                p.last_name || ' ' || p.first_names as name,
                count(*) as n_artifacts,
-               count(a.metadata->'revisions') as n_reviewed,
+               count(
+                   (select 1 from
+                    jsonb_path_query(a.metadata->'revisions',
+                                     '$[*] ? (@.flag == "false")')
+                    fetch first 1 rows only
+                    )
+                   ) as n_reviewed,
                count(
                    (select 1 from
                     jsonb_path_query(a.metadata->'revisions',
@@ -323,6 +329,6 @@ if {$delete_p && [llength $user_id] >= 1} {
         set portrait_url /shared/portrait-bits.tcl?user_id=$user_id
         set filter [string tolower "$name $student_id"]
 
-        set completion [expr {round(100 * (($n_reviewed * 1.0) / ($n_artifacts * 1.0)))}]
+        set completion [expr {round(100 * ((($n_reviewed + $n_flagged) * 1.0) / ($n_artifacts * 1.0)))}]
     }
 }

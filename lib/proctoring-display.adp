@@ -121,11 +121,6 @@
         <label for="comment">#acs-subsite.Comment#</label>
         <textarea id="comment" name="comment" class="form-control" required></textarea>
       </div>
-      <div class="checkbox">
-        <label>
-          <input name="flag" type="checkbox">#proctoring-support.flag_artifact_label#
-        </label>
-      </div>
       <button type="submit" class="btn btn-default">#acs-kernel.common_Save#</button>
     </form>
   </div>
