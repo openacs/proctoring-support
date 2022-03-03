@@ -715,6 +715,8 @@
                    }
                    place.style.display = null;
                    imageObserver.observe(element);
+
+                   hideFiltered();
                }
 
                appendEvent(JSON.parse(e.data));
