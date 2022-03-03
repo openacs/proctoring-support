@@ -117,7 +117,7 @@ if {$flag ne ""} {
         where (a.artifact_id = u.artifact_id or a.artifact_id = :artifact_id)
           and acs_permission.permission_p(a.object_id, :reviewer_id, 'admin')
 
-       returning a.object_id, a.metadata->'revisions' as revision
+       returning a.object_id, a.metadata->'revisions' as revisions
     )
 
     -- Return the object_id so that we can inform websocket
