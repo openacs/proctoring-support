@@ -111,9 +111,10 @@ if {$flag ne ""} {
        update proctoring_object_artifacts as a set
           metadata = jsonb_set(coalesce(metadata, '{}'),
                                '{revisions}',
-                               (select revisions from updated_revisions where artifact_id = a.artifact_id))
-        where (artifact_id in (select artifact_id from updated_revisions)
-               or artifact_id = :artifact_id)
+                               u.revisions)
+      	from updated_revisions u
+      	     full join dual on true
+        where a.artifact_id = u.artifact_id
          and acs_permission.permission_p(a.object_id, :reviewer_id, 'admin')
        returning a.object_id, a.metadata->'revisions' as revisions
     )
@@ -140,4 +141,3 @@ if {$artifact_id ne ""} {
     ad_returnredirect $return_url
     ad_script_abort
 }
-
