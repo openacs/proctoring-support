@@ -112,11 +112,12 @@ if {$flag ne ""} {
           metadata = jsonb_set(coalesce(metadata, '{}'),
                                '{revisions}',
                                u.revisions)
-      	from updated_revisions u
-      	     full join dual on true
-        where a.artifact_id = u.artifact_id
-         and acs_permission.permission_p(a.object_id, :reviewer_id, 'admin')
-       returning a.object_id, a.metadata->'revisions' as revisions
+         from updated_revisions u
+              full join dual on true
+        where (a.artifact_id = u.artifact_id or a.artifact_id = :artifact_id)
+          and acs_permission.permission_p(a.object_id, :reviewer_id, 'admin')
+
+       returning a.object_id, a.metadata->'revisions' as revision
     )
 
     -- Return the object_id so that we can inform websocket
