@@ -343,11 +343,15 @@
               } else if (filters.status === 'unflagged' && !e.classList.contains('unflagged')) {
                   // - unflagged artifacts
                   return true;
-              } else if (filters.status === 'reviewed' && !e.querySelector("[data-msg]")) {
-                  // - artifacts with a comment
+              } else if (filters.status === 'reviewed' &&
+                         !(e.classList.contains('flagged') ||
+                           e.classList.contains('unflagged'))) {
+                  // - artifacts with a review outcome
                   return true;
-              } else if (filters.status === 'not-reviewed' && e.querySelector("[data-msg]")) {
-                  // - artifacts without a comment
+              } else if (filters.status === 'not-reviewed' &&
+                         (e.classList.contains('flagged') ||
+                          e.classList.contains('unflagged'))) {
+                  // - artifacts without a review outcome
                   return true;
               }
               var timestamp = e.querySelector("[name=title]").textContent;
