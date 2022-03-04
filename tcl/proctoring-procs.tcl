@@ -281,9 +281,9 @@ ad_proc ::proctoring::artifact::store {
                 a tempfile from a request.
 
     @return dict of fields 'artifact_id', 'timestamp' and
-            'file'. Timestamp is the epoch of the artifact's creation,
-            File is the final path of the file in the proctoring
-            folder.
+            'file'. 'timestamp' is the epoch of the artifact's
+            creation, 'file' is the final path of the file in the
+            proctoring folder.
 } {
     if {![file exists $file]} {
         error "File does not exist"
