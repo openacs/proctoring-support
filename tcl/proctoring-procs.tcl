@@ -272,23 +272,25 @@ ad_proc ::proctoring::artifact::store {
 
     @param object_id id of the proctored object
     @param user_id id of the user this artifact was created for
-    @param timestamp epoch in seconds. Defaults to clock seconds when
-                     not specified
+    @param timestamp epoch in seconds. Defaults to current timestamp
+                     when not specified, with microseconds resolution.
     @param name name of the source for this artifact (e.g. 'camera' or 'desktop')
     @param type type of artifact (e.g. 'image' or 'audio')
     @param file absolute path to the artifact file. The file will be
                 moved inside of the proctoring folder, so this can be
                 a tempfile from a request.
 
-    @return dict of fields 'artifact_id' and 'file'. File is the final
-            path of the file in the proctoring folder.
+    @return dict of fields 'artifact_id', 'timestamp' and
+            'file'. Timestamp is the epoch of the artifact's creation,
+            File is the final path of the file in the proctoring
+            folder.
 } {
     if {![file exists $file]} {
         error "File does not exist"
     }
 
     if {![info exists timestamp]} {
-        set timestamp [clock seconds]
+        set timestamp [expr {[clock microseconds] / 1000000.0}]
     }
 
     set proctoring_dir [::proctoring::folder \
@@ -325,9 +327,10 @@ ad_proc ::proctoring::artifact::store {
            :type,
            :file_path
            )
-          returning artifact_id
+          returning artifact_id,
+                    extract(seconds from timestamp) as timestamp
         )
-        select artifact_id from insert
+        select * from insert
     }]
 
     callback ::proctoring::callback::artifact::postprocess \
@@ -335,6 +338,7 @@ ad_proc ::proctoring::artifact::store {
 
     return [list \
                 artifact_id $artifact_id \
+                timestamp $timestamp \
                 file $file_path]
 }
 

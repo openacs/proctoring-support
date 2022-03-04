@@ -74,14 +74,11 @@ if {!$record_p} {
         ad_script_abort
     }
 
-    set timestamp [clock seconds]
-
     set file ${file.tmpfile}.${extension}
     file rename -- ${file.tmpfile} $file
     set artifact [::proctoring::artifact::store \
                       -object_id $object_id \
                       -user_id $user_id \
-                      -timestamp $timestamp \
                       -name $name \
                       -type $type \
                       -file $file]
@@ -97,7 +94,7 @@ if {!$record_p} {
                     "user_id": "$user_id",
                     "name": "$name",
                     "type": "$type",
-                    "timestamp": "$timestamp",
+                    "timestamp": "[dict get $artifact timestamp]",
                     "file": "[dict get $artifact file]",
                     "id": "[dict get $artifact artifact_id]"
                 }
