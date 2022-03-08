@@ -103,8 +103,8 @@
 &lt;/ul&gt;</msg>
   <msg key="Examination_Statement">Prüfungserklärung</msg>
   <msg key="flag_all_confirm_msg">Alle Artefakte für diesen Benutzer würden für überprufung markiert, sind Sie sicher?</msg>
-  <msg key="flag_all_label">Alle zur Überprüfung markieren</msg>
-  <msg key="flag_artifact_label">Zur Überprüfung markieren</msg>
+  <msg key="flag_all_label">Alle überprüfen</msg>
+  <msg key="flag_artifact_label">Überprüfen</msg>
   <msg key="flagged_label">Markiert</msg>
   <msg key="grant_access_to_camera_msg">Erlauben Sie den Zugriff auf Ihre Kamera, wenn Ihr Browser Sie dazu auffordert. Haben Sie den Zugriff erlaubt, wird Ihnen eine Vorschau angezeigt. Stellen Sie sicher, dass ihr Gesicht im Vorschaubild gut zu erkennen ist</msg>
   <msg key="grant_access_to_camera_title">Zugriff auf Ihre Kamera erlauben</msg>
@@ -120,9 +120,9 @@
   <msg key="missing_stream_message">Die Online-Aufsicht wurde beendet, ist für diese Prüfung aber noch aktiviert. Bitte schließen Sie Google Chrome, um die Prüfungsumgebung ganz zu verlassen, oder starten Sie die automatisierte Online-Aufsicht wieder mit einem Klick auf \&#34;OK\&#34;. Damit betreten Sie die Prüfungsumgebung erneut.&lt;br&gt;&lt;br&gt;Wenn Sie über dieses Problem melden, inkludieren Sie bitte folgenden Text: </msg>
   <msg key="mobile_devices_are_unsupported">Mobile Geräte werden nicht unterstützt.</msg>
   <msg key="n_artifacts_label">Artefakte</msg>
-  <msg key="n_flagged_label">Markiert</msg>
-  <msg key="n_reviewed_label">Überprüft</msg>
-  <msg key="not_reviewed_label">Nicht überprüft</msg>
+  <msg key="n_flagged_label">Überprüfen</msg>
+  <msg key="n_reviewed_label">Kontrolliert</msg>
+  <msg key="not_reviewed_label">Nicht kontrolliert</msg>
   <msg key="OnlineExam">Online-Prüfung</msg>
   <msg key="Preview">Vorschau</msg>
   <msg key="preview_help_text">Falls aktiviert, wird den Benutzern während der Online-Aufsichtssitzung eine Vorschau der aufgezeichneten Eingaben angezeigt.</msg>
@@ -133,14 +133,14 @@
   <msg key="recordings">Aufzeichnungen</msg>
   <msg key="request_failed">Die Anfrage an den Server ist fehlgeschlagen, sie wird in 10 Sekunden erneut versucht...</msg>
   <msg key="request_timeout">Die Anfrage an den Server hat das Zeitlimit überschritten, sie wird in 10 Sekunden erneut versucht...</msg>
-  <msg key="reviewed_label">Überprüft</msg>
+  <msg key="reviewed_label">Kontrolliert</msg>
   <msg key="Start_date">Anfangsdatum</msg>
   <msg key="student_id_label">Matrikelnummer</msg>
   <msg key="time_filter_presets_label">Filter</msg>
-  <msg key="unflag_all_confirm_msg">Alle Artefakte für diesen Benutzer würden bestätigt, sind Sie sicher?</msg>
-  <msg key="unflag_all_label">Alle als OK bestätigen</msg>
-  <msg key="unflag_artifact_label">Als OK bestätigen</msg>
-  <msg key="unflagged_label">Bestätigt OK</msg>
+  <msg key="unflag_all_confirm_msg">Alle Artefakte für diesen Benutzer würden als in Ordnung bestätigt, sind Sie sicher?</msg>
+  <msg key="unflag_all_label">Alle in Ordnung</msg>
+  <msg key="unflag_artifact_label">In Ordnung</msg>
+  <msg key="unflagged_label">In Ordnung</msg>
   <msg key="user_has_flagged_this_artifact_msg">Dieses Objekt wurde zur Überprüfung vorgemerkt</msg>
   <msg key="user_has_unflagged_this_artifact_msg">Dieses Objekt wurde bestätigt</msg>
   <msg key="user_photo">Foto</msg>
