@@ -241,6 +241,7 @@ if {$delete_p && [llength $user_id] >= 1} {
         -bulk_action_method post \
         -bulk_action_export_vars {
             object_id {delete true}
+            {m "[ns_queryget m]"}
         } \
         -elements {
             filter {
