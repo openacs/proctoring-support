@@ -23,7 +23,7 @@
   </div>
 
   <div id="wizard">
-    <h1>#xowf.menu-New-App-OnlineExam#</h1>
+    <h1>@proctoring_name@</h1>
 
     <!-- One "tab" for each step in the form: -->
     <if @proctoring_p;literal@ true>

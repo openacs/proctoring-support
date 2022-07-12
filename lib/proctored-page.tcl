@@ -68,6 +68,7 @@ ad_include_contract {
            recorded (default true). This flag is useful to turn off
            recording of proctored content for e.g. mock exams to avoid
            privacy issues.
+    @param proctoring_name a human readable name for the proctoring session
 } {
     object_url:localurl
     object_id:naturalnum,notnull
@@ -86,6 +87,7 @@ ad_include_contract {
     {upload_p:boolean true}
     {record_p:boolean true}
     {upload_url:localurl "/proctoring/upload"}
+    {proctoring_name "Online Exam"}
     msg:array,optional
 }
 
