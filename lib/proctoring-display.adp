@@ -275,7 +275,7 @@
         </div>
 
         <p>
-          <a href="@back_url@" class="btn btn-default">#xowiki.back#</a>
+          <a href="@back_url@" class="btn btn-default">#acs-subsite.Go_back#</a>
         </p>
         <p>
           <button data-href="@bulk_unflag_url@" id="unflag-all"
