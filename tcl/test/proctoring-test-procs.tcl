@@ -478,22 +478,7 @@ aa_register_case \
             set name camera
             set file [acs_root_dir]/packages/proctoring-support/tcl/test/data/test.png
 
-            #
-            # Check, if a testURL was specified in the config file
-            #
-            # ns_section ns/server/${server}/acs/acs-automated-testing
-            #         ns_param TestURL http://127.0.0.1:8080/
-            #
-            set url [parameter::get \
-                         -package_id [apm_package_id_from_key acs-automated-testing] \
-                         -parameter TestURL \
-                         -default ""]
-            if {$url eq ""} {
-                set url [ns_conn location]
-            }
-            set urlInfo [ns_parseurl $url]
-            set address [dict get $urlInfo host]
-            set url "${url}${package_url}upload"
+            set url [acs::test::url]${package_url}upload
 
             aa_section "Upload enforcing active proctoring conf"
 
