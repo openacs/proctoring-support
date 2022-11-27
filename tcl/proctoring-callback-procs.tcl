@@ -6,7 +6,7 @@ namespace eval ::proctoring {}
 
 ad_proc -private ::proctoring::enforce_filter args {
     This is the enforcing filter calling the callbacks that will tell
-    us whether this request whould be proctored or not.
+    us whether this request would be proctored or not.
 
     @see proctoring::enforce
     @see https://naviserver.sourceforge.io/n/naviserver/files/ns_register.html
@@ -92,7 +92,7 @@ ad_proc -public -callback ::proctoring::callback::object::timeframes {
     -object_id:required
 } {
     Implementations of this hook can return a list of timeframes,
-    retrieved by package-specific logic (e.g. the timeframe of a XoWF
+    retrieved by package-specific logic (e.g. the timeframe of an XoWF
     InclassExam) that we can use to e.g. filter the list of proctoring
     artifacts via presets.
 
