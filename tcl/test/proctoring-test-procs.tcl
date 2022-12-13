@@ -150,8 +150,7 @@ aa_register_case \
             set key a3e85dcad0cd6a6e2f55e77399e4c9caf47807d760402d6b740017a9f0b2a197
             set hash 6f3edc0ef5a56879eba206a7debb3fb0585ebb1f2423ebc10a1afce991edfbcd
             set url https://learn-a.wu.ac.at:8081/dotlrn/classes/tlf/testkurs.17s/
-            set conf_file [ad_tmpnam]
-            set wfd [open $conf_file w]
+            set wfd [ad_opentmpfile conf_file]
             puts $wfd abcd
             close $wfd
             set conf_file_hash [ns_md file $conf_file]
@@ -211,15 +210,13 @@ aa_register_case \
     } {
         set user1 1
         set object1 1
-        set file1 [ad_tmpnam]
-        set wfd [open $file1 w]
+        set wfd [ad_opentmpfile file1]
         puts $wfd abcd
         close $wfd
 
         set user2 2
         set object2 2
-        set file2 [ad_tmpnam]
-        set wfd [open $file2 w]
+        set wfd [ad_opentmpfile file2]
         puts $wfd efgh
         close $wfd
 
@@ -273,8 +270,7 @@ aa_register_case \
     proctoring_artifact_store {
         Test ::proctoring::artifact::store
     } {
-        set file [ad_tmpnam].test
-        set wfd [open $file w]
+        set wfd [ad_opentmpfile file *.test]
         puts $wfd 1234
         close $wfd
 

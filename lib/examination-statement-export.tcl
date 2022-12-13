@@ -23,8 +23,7 @@ lappend acceptances {*}[::xo::dc list_of_lists -prepare integer export {
 }]
 
 # Write the data to a file
-set tmpfile [ad_tmpnam]
-set f [open $tmpfile w]
+set f [ad_opentmpfile tmpfile]
 puts $f [csv::joinlist $acceptances ";"]
 close $f
 
