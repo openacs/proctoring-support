@@ -369,13 +369,13 @@ class Proctoring {
             const streamName = this.streamNames[i];
             const conf = this.mediaConf[streamName];
             // streams are not required by default
-            if (conf.required === undefined) {
+            if (typeof conf.required === 'undefined') {
                 conf.required = false;
             }
-            if (conf.imageHandlers !== undefined) {
+            if (typeof conf.imageHandlers !== 'undefined') {
                 this.imageHandlers[i] = conf.imageHandlers;
             }
-            if (conf.audioHandlers !== undefined) {
+            if (typeof conf.audioHandlers !== 'undefined') {
                 this.audioHandlers[i] = conf.audioHandlers;
             }
             if (conf.stream instanceof MediaStream) {
@@ -419,8 +419,8 @@ class Proctoring {
         const self = this;
 
         // Cam stream
-        if (this.mediaConf.camera !== undefined &&
-            this.mediaConf.camera.stream === undefined) {
+        if (typeof this.mediaConf.camera !== 'undefined' &&
+            typeof this.mediaConf.camera.stream === 'undefined') {
             if (!navigator.mediaDevices.getUserMedia) {
                 const err = 'getUserMedia not supported';
                 self.streamErrors[self.streamNames.indexOf('camera')] = err;
@@ -443,8 +443,8 @@ class Proctoring {
         }
 
         // Desktop stream
-        if (this.mediaConf.desktop !== undefined &&
-            this.mediaConf.desktop.stream === undefined) {
+        if (typeof this.mediaConf.desktop !== 'undefined' &&
+            typeof this.mediaConf.desktop.stream === 'undefined') {
             if (!navigator.mediaDevices.getDisplayMedia) {
                 const err = 'getDisplayMedia not supported';
                 self.streamErrors[self.streamNames.indexOf('desktop')] = err;
@@ -456,8 +456,8 @@ class Proctoring {
                         const selectedStream = stream.getVideoTracks()[0].getSettings().displaySurface;
                         // If displaySurface was specified, browser
                         // MUST support it and MUST be the right one.
-                        if (requestedStream === undefined ||
-                            (selectedStream !== undefined &&
+                        if (typeof requestedStream === 'undefined' ||
+                            (typeof selectedStream !== 'undefined' &&
                              requestedStream === selectedStream)) {
                             this.useDesktopStream(stream);
                         } else {
@@ -688,8 +688,8 @@ class Proctoring {
             const conf = this.mediaConf[streamName];
             // const height = stream.getVideoTracks()[0].getSettings().height;
             // const width = stream.getVideoTracks()[0].getSettings().width;
-            const iHeight = conf.height === undefined ? video.videoHeight : conf.height;
-            const iWidth = conf.width === undefined ? video.videoWidth : conf.width;
+            const iHeight = typeof conf.height === 'undefined' ? video.videoHeight : conf.height;
+            const iWidth = typeof conf.width === 'undefined' ? video.videoWidth : conf.width;
             const self = this;
             const pictures = this.pictures[i];
             const prevPicture = this.prevPictures[i];
@@ -721,7 +721,7 @@ class Proctoring {
 
             const handlers = self.imageHandlers[i];
             if (handlers !== null) {
-                if (handlers.png !== undefined) {
+                if (typeof handlers.png !== 'undefined') {
                     canvas.toBlob(function(blob) {
                         if (typeof handlers.png.blob === 'function') {
                             handlers.png.blob(blob);
@@ -735,7 +735,7 @@ class Proctoring {
                         }
                     }, 'image/png');
                 }
-                if (handlers.jpeg !== undefined) {
+                if (typeof handlers.jpeg !== 'undefined') {
                     canvas.toBlob(function(blob) {
                         if (typeof handlers.jpeg.blob === 'function') {
                             handlers.jpeg.blob(blob);
@@ -749,7 +749,7 @@ class Proctoring {
                         }
                     }, 'image/jpeg');
                 }
-                if (handlers.gif !== undefined) {
+                if (typeof handlers.gif !== 'undefined') {
                     pictures.push(canvas);
                     self.renderGif(pictures);
                 }

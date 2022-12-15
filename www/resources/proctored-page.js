@@ -18,7 +18,7 @@ function streamMuted(stream) {
 }
 
 function embedAudioTrackFromStream(fromStream, toStream) {
-    if (fromStream === undefined) {
+    if (typeof fromStream === 'undefined') {
         return;
     }
     const audioTracks = fromStream.getAudioTracks();
@@ -318,15 +318,15 @@ if (hasProctoring) {
                 // If user requested for a specific displaysurface
                 // and browser supports it, also check that the
                 // one selected is right.
-                if (requestedStream === undefined ||
-                    (selectedStream !== undefined &&
+                if (typeof requestedStream === 'undefined' ||
+                    (typeof selectedStream !== 'undefined' &&
                      requestedStream === selectedStream)) {
                     deskvideo.srcObject = stream;
                     deskvideo.style.display = 'block';
                     valid = true;
                     streams[2] = stream;
                 } else {
-                    if (selectedStream !== undefined) {
+                    if (typeof selectedStream !== 'undefined') {
                         throw wrongDisplaySurfaceSelectedMessage;
                     } else {
                         throw displaySurfaceNotSupportedMessage;
