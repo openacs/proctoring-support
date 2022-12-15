@@ -348,7 +348,7 @@ if (hasProctoring) {
 }
 if (hasExaminationStatement) {
     handlers.push(function () {
-        const acceptButton = document.getElementById('nextBtn');
+        const acceptButton = document.querySelector('#nextBtn');
         acceptButton.innerHTML = acceptLabel;
         const clickHandler = function(e) {
             approveStartExam();
@@ -360,21 +360,21 @@ if (hasExaminationStatement) {
 
 function showTab(n) {
     // This function will display the specified tab of the form...
-    const x = document.getElementsByClassName('tab');
+    const x = document.querySelectorAll('.tab');
     if (x.length === 0) {
         return;
     }
     x[n].style.display = 'block';
     //... and fix the Previous/Next buttons:
     if (n === 0) {
-        document.getElementById('prevBtn').style.display = 'none';
+        document.querySelector('#prevBtn').style.display = 'none';
     } else {
-        document.getElementById('prevBtn').style.display = 'inline';
+        document.querySelector('#prevBtn').style.display = 'inline';
     }
     if (n === (x.length - 1)) {
-        document.getElementById('nextBtn').innerHTML = submitLabel;
+        document.querySelector('#nextBtn').innerHTML = submitLabel;
     } else {
-        document.getElementById('nextBtn').innerHTML = nextLabel;
+        document.querySelector('#nextBtn').innerHTML = nextLabel;
     }
     //... and run a function that will display the correct step indicator:
     fixStepIndicator(n);
@@ -405,7 +405,7 @@ function recheck(n) {
 
 function nextPrev(n) {
     // This function will figure out which tab to display
-    const x = document.getElementsByClassName('tab');
+    const x = document.querySelectorAll('.tab');
     // Exit the function if any field in the current tab is invalid:
     if (n === 1 && !validateForm()) return false;
     // Hide the current tab:
@@ -415,8 +415,6 @@ function nextPrev(n) {
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
         // ... the form gets submitted:
-        // location.href = '';
-        //document.getElementById('regForm').submit();
         startExam();
         return false;
     }
@@ -429,19 +427,19 @@ let valid = false;
 function validateForm() {
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
-        document.getElementsByClassName('step')[currentTab].className += ' finish';
+        document.querySelectorAll('.step')[currentTab].classList.add('finish');
     }
     return valid; // return the valid status
 }
 
 function fixStepIndicator(n) {
     // This function removes the "active" class of all steps...
-    const steps = document.getElementsByClassName('step');
+    const steps = document.querySelectorAll('.step');
     for (const step of steps) {
-        step.className = step.className.replace(' active', '');
+        step.classList.remove('active');
     }
     //... and adds the "active" class on the current step:
-    steps[n].className += ' active';
+    steps[n].classList.add('active');
 }
 
 const cameraConstraints = {
