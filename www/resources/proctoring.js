@@ -240,7 +240,7 @@ class AutoAudioRecorder {
         this.stopHandle = null;
 
         // Prepare to sample stream properties
-        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        this.audioCtx = new window.AudioContext();
         this.analyser = this.audioCtx.createAnalyser();
         this.source = this.audioCtx.createMediaStreamSource(this.stream);
         this.source.connect(this.analyser);
