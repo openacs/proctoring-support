@@ -8,15 +8,13 @@ function modalAlert(message, handler) {
 }
 
 function streamMuted(stream) {
-    let muted = false;
     for (const track of stream.getAudioTracks()) {
         if (track.muted ||
             track.getSettings().volume === 0) {
-            muted = true;
-            break;
+            return true;
         }
     }
-    return muted;
+    return false;
 }
 
 function embedAudioTrackFromStream(fromStream, toStream) {
@@ -66,13 +64,11 @@ function createIframe() {
 
 function createPreview() {
     const e = document.querySelector('#preview-placeholder');
-    let style = !hasPreview ? 'position:absolute;top:0;left:0;' : '';
-    e.setAttribute('style', style);
+    e.setAttribute('style', !hasPreview ? 'position:absolute;top:0;left:0;' : '');
     for (const stream of proctoring.streams) {
         if (stream && stream.getAudioTracks().length > 0) {
             const canvas = document.createElement('canvas');
-            style = hasPreview ? 'height: 30px; width: 40px' : 'height: 1px; width: 1px';
-            canvas.setAttribute('style', style);
+            canvas.setAttribute('style', hasPreview ? 'height: 30px; width: 40px' : 'height: 1px; width: 1px');
             canvas.setAttribute('id', 'audio-preview');
             e.appendChild(canvas);
             new AudioWave(stream, '#audio-preview');
@@ -81,8 +77,7 @@ function createPreview() {
     }
     for (const video of proctoring.videos) {
         if (video) {
-            const width = hasPreview ? 30 : 1;
-            video.setAttribute('height', width);
+            video.setAttribute('height', hasPreview ? 30 : 1);
             e.appendChild(video);
         }
     }
