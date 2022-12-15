@@ -1,6 +1,6 @@
 function modalAlert(message, handler) {
     document.querySelector('#modal-messages .modal-body').innerHTML = message;
-    dialog = $('#modal-messages');
+    const dialog = $('#modal-messages');
     if (typeof handler === 'function') {
         dialog.on('hidden.bs.modal', handler);
     }
