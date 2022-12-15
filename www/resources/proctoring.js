@@ -110,7 +110,7 @@
 //
 // Example conf:
 //
-// var conf = {
+// const conf = {
 //     minMsInterval: 5000,
 //     maxMsInterval: 10000,
 //     minAudioDuration: 1,
@@ -134,7 +134,7 @@
 //                            // every time a new gif for this stream is
 //                            // rendered and will receive the base64
 //                            // data in input
-//                            var input = document.querySelector('input[name="proctoring1"]');
+//                            const input = document.querySelector('input[name="proctoring1"]');
 //                            input.value = base64data;
 //                        }
 //                    },
@@ -166,7 +166,7 @@
 //                            // every time a new gif for this stream is
 //                            // rendered and will receive the base64
 //                            // data in input
-//                            var input = document.querySelector('input[name="proctoring1"]');
+//                            const input = document.querySelector('input[name="proctoring1"]');
 //                            input.value = base64data;
 //                        }
 //                    },
@@ -188,17 +188,17 @@
 //         }
 //     }
 // };
-// var proctoring = new Proctoring(conf);
+// const proctoring = new Proctoring(conf);
 // proctoring.start();
 //
 
 Date.prototype.toTZISOString = function() {
-    var tzo = -this.getTimezoneOffset(),
-        dif = tzo >= 0 ? '+' : '-',
-        pad = function(num) {
-            var norm = Math.floor(Math.abs(num));
-            return (norm < 10 ? '0' : '') + norm;
-        };
+    const tzo = -this.getTimezoneOffset();
+    const dif = tzo >= 0 ? '+' : '-';
+    const pad = function(num) {
+        const norm = Math.floor(Math.abs(num));
+        return (norm < 10 ? '0' : '') + norm;
+    };
     return this.getFullYear() +
         '-' + pad(this.getMonth() + 1) +
         '-' + pad(this.getDate()) +
@@ -218,17 +218,19 @@ class AutoAudioRecorder {
                 minDuration=5,
                 maxDuration=60,
                 sampleInterval=50) {
-        var autorec = this;
+        const self = this;
+
         this.stream = new MediaStream();
-        var audioTracks = stream.getAudioTracks();
+
+        const audioTracks = stream.getAudioTracks();
         if (audioTracks.length == 0) {
             throw "No audio track available in supplied stream";
         }
 
         // Get only audio tracks from the main stream object
-        audioTracks.forEach(function(track) {
-            autorec.stream.addTrack(track);
-        });
+        for (const track of audioTracks) {
+            this.stream.addTrack(track);
+        };
 
         this.ondataavailable = ondataavailable;
         this.onmicrophonetoolow = onmicrophonetoolow;
@@ -261,10 +263,10 @@ class AutoAudioRecorder {
         });
 
         this.recorder.addEventListener("dataavailable", function(e) {
-            if (autorec.currentDuration() >= autorec.minDuration) {
-                autorec.ondataavailable(e.data);
+            if (self.currentDuration() >= self.minDuration) {
+                self.ondataavailable(e.data);
             }
-            autorec.numPositiveSamples = 0;
+            self.numPositiveSamples = 0;
         });
     }
 
@@ -274,14 +276,14 @@ class AutoAudioRecorder {
 
     someNoise() {
         this.analyser.getByteTimeDomainData(this.dataArray);
-        var max = 0;
-        for(var i = 0; i < this.bufferLength; i++) {
-            var v = (this.dataArray[i] - 128.0) / 128.0;
+        let max = 0;
+        for (const data in this.dataArray) {
+            const v = (data - 128.0) / 128.0;
             if (v > max) {
                 max = v;
             }
         }
-        var decay = 500 / this.sampleInterval;
+        const decay = 500 / this.sampleInterval;
         this.noise = (this.noise * (decay - 1) + max) / decay;
 
         if (this.nSkipSilentFrames == 0 &&
@@ -363,9 +365,9 @@ class Proctoring {
         this.streams = [null, null];
         this.videos = [null, null];
 
-        for (var i = 0; i < this.numStreams; i++) {
-            var streamName = this.streamNames[i];
-            var conf = this.mediaConf[streamName];
+        for (let i = 0; i < this.numStreams; i++) {
+            const streamName = this.streamNames[i];
+            const conf = this.mediaConf[streamName];
             // streams are not required by default
             if (conf.required == undefined) {
                 conf.required = false;
@@ -389,7 +391,7 @@ class Proctoring {
     }
 
     useCameraStream(stream) {
-        var i = this.streamNames.indexOf("camera");
+        const i = this.streamNames.indexOf("camera");
         if (this.audioHandlers[i] != null) {
             new AutoAudioRecorder(stream,
                                   this.audioHandlers[i].auto,
@@ -406,7 +408,7 @@ class Proctoring {
     }
 
     useDesktopStream(stream) {
-        var i = this.streamNames.indexOf("desktop");
+        const i = this.streamNames.indexOf("desktop");
         this.streams[i] = stream;
         this.videos[i] = this.createVideo(stream);
         this.numActiveStreams++;
@@ -414,31 +416,31 @@ class Proctoring {
     }
 
     acquireDevices() {
-        var proctor = this;
+        const self = this;
 
         // Cam stream
         if (this.mediaConf.camera != undefined &&
             this.mediaConf.camera.stream == undefined) {
             if (!navigator.mediaDevices.getUserMedia &&
                 !navigator.getUserMedia) {
-                var err = "getUserMedia not supported";
-                proctor.streamErrors[proctor.streamNames.indexOf("camera")] = err;
+                const err = "getUserMedia not supported";
+                self.streamErrors[self.streamNames.indexOf("camera")] = err;
                 console.log("Camera cannot be recorded: " + err);
-                proctor.numCheckedStreams++;
+                self.numCheckedStreams++;
             } else {
-                var camPromise = navigator.mediaDevices.getUserMedia ?
+                const camPromise = navigator.mediaDevices.getUserMedia ?
                     navigator.mediaDevices.getUserMedia(this.mediaConf.camera.constraints) :
                     navigator.getUserMedia(this.mediaConf.camera.constraints);
                 camPromise.then(stream => {
                         this.useCameraStream(stream);
                     })
                     .catch(function (err) {
-                        proctor.streamErrors[proctor.streamNames.indexOf("camera")] = err;
+                        self.streamErrors[self.streamNames.indexOf("camera")] = err;
                         console.log("Camera cannot be recorded: " + err);
                         if (err.name == 'AbortError') {
-                            proctor.numCheckedStreams = proctor.numStreams;
+                            self.numCheckedStreams = self.numStreams;
                         } else {
-                            proctor.numCheckedStreams++;
+                            self.numCheckedStreams++;
                         }
                     });
             }
@@ -449,17 +451,17 @@ class Proctoring {
             this.mediaConf.desktop.stream == undefined) {
             if (!navigator.mediaDevices.getDisplayMedia &&
                 !navigator.getDisplayMedia) {
-                var err = "getDisplayMedia not supported";
-                proctor.streamErrors[proctor.streamNames.indexOf("desktop")] = err;
+                const err = "getDisplayMedia not supported";
+                self.streamErrors[self.streamNames.indexOf("desktop")] = err;
                 console.log("Desktop cannot be recorded: " + err);
-                proctor.numCheckedStreams++;
+                self.numCheckedStreams++;
             } else {
-                var desktopPromise = navigator.mediaDevices.getDisplayMedia ?
+                const desktopPromise = navigator.mediaDevices.getDisplayMedia ?
                     navigator.mediaDevices.getDisplayMedia(this.mediaConf.desktop.constraints) :
                     navigator.getDisplayMedia(this.mediaConf.desktop.constraints);
                 desktopPromise.then(stream => {
-                        var requestedStream = this.mediaConf.desktop.constraints.video.displaySurface;
-                        var selectedStream = stream.getVideoTracks()[0].getSettings().displaySurface;
+                        const requestedStream = this.mediaConf.desktop.constraints.video.displaySurface;
+                        const selectedStream = stream.getVideoTracks()[0].getSettings().displaySurface;
                         // If displaySurface was specified, browser
                         // MUST support it and MUST be the right one.
                         if (requestedStream == undefined ||
@@ -471,12 +473,12 @@ class Proctoring {
                         }
                     })
                     .catch(function (err) {
-                        proctor.streamErrors[proctor.streamNames.indexOf("desktop")] = err;
+                        self.streamErrors[self.streamNames.indexOf("desktop")] = err;
                         console.log("Desktop cannot be recorded: " + err);
                         if (err.name == 'AbortError') {
-                            proctor.numCheckedStreams = proctor.numStreams;
+                            self.numCheckedStreams = self.numStreams;
                         } else {
-                            proctor.numCheckedStreams++;
+                            self.numCheckedStreams++;
                         }
                     });
             }
@@ -493,33 +495,26 @@ class Proctoring {
     }
 
     streamMuted(stream) {
-        var muted = false;
-        var audioTracks = stream.getAudioTracks();
-        for (var i = 0; i < audioTracks.length; i++) {
-            var track = audioTracks[i];
+        for (const track of stream.getAudioTracks()) {
             if (track.muted ||
                 !track.enabled ||
                 track.getSettings().volume == 0) {
-                muted = true;
-                break;
+                return true;
             }
         }
-        var videoTracks = stream.getVideoTracks();
-        for (var i = 0; i < videoTracks.length; i++) {
-            var track = videoTracks[i];
+        for (const track of stream.getVideoTracks()) {
             if (track.muted ||
                 !track.enabled) {
-                muted = true;
-                break;
+                return true;
             }
         }
-        return muted;
+        return false;
     }
 
     checkStream(i) {
-        var stream = this.streams[i];
-        var streamName = this.streamNames[i];
-        var video = this.videos[i];
+        const stream = this.streams[i];
+        const streamName = this.streamNames[i];
+        const video = this.videos[i];
 
         if (typeof streamName !== "undefined" && this.mediaConf[streamName].required) {
             try {
@@ -546,7 +541,7 @@ class Proctoring {
     checkMissingStreams() {
         if (!this.isMissingStreams &&
             this.numCheckedStreams == this.numStreams) {
-            for (var i = 0; i < this.streams.length; i++) {
+            for (let i = 0; i < this.streams.length; i++) {
                 this.checkStream(i);
             }
         }
@@ -560,7 +555,7 @@ class Proctoring {
         if (frames.length == 0) {
             return;
         }
-        var i = this.pictures.indexOf(frames);
+        const i = this.pictures.indexOf(frames);
         if (this.gifs[i] == null) {
             this.gifs[i] = new GIF({
                 workers: 2,
@@ -569,19 +564,18 @@ class Proctoring {
                 width: frames[0].width,
                 height: frames[0].height
             });
-            var proctor = this;
-            var gifs = this.gifs;
+            const self = this;
+            const gifs = this.gifs;
             gifs[i].on('finished', function(blob) {
-                var handlers = proctor.imageHandlers[i];
+                const handlers = self.imageHandlers[i];
                 if (typeof handlers.gif.blob == 'function') {
                     handlers.gif.blob(blob);
                 }
                 if (typeof handlers.gif.base64 == 'function') {
-                    var reader = new FileReader();
+                    const reader = new FileReader();
                     reader.readAsDataURL(blob);
                     reader.onloadend = function() {
-                        var base64data = reader.result;
-                        handlers.gif.base64(base64data);
+                        handlers.gif.base64(reader.result);
                     }
                 }
                 // Stop the workers and kill the gif object
@@ -590,9 +584,9 @@ class Proctoring {
                 gifs[gifs.indexOf(this)] = null;
             });
         }
-        var gif = this.gifs[i];
+        const gif = this.gifs[i];
         if (!gif.running) {
-            for (var j = 0; j < frames.length; j++) {
+            for (let j = 0; j < frames.length; j++) {
                 gif.addFrame(frames[j], {delay: 500});
             }
             gif.render();
@@ -600,7 +594,7 @@ class Proctoring {
     }
 
     createVideo(stream) {
-        var video = document.createElement("video");
+        const video = document.createElement("video");
         video.muted = true;
         video.autoplay = "true";
         video.preload = "auto";
@@ -619,25 +613,25 @@ class Proctoring {
     }
 
     watermark(canvas, text) {
-        var ctx = canvas.getContext("2d");
-        var fontSize = 0.032*canvas.width;
+        const ctx = canvas.getContext("2d");
+        const fontSize = 0.032 * canvas.width;
         ctx.font = "10px monospace" ;
         ctx.fillStyle = "white";
         ctx.strokeStyle = "black";
         ctx.lineWidth = 0.5;
-        var metrics = ctx.measureText(text);
-        var x = canvas.width - metrics.width;
-        var y = canvas.height - fontSize;
+        const metrics = ctx.measureText(text);
+        const x = canvas.width - metrics.width;
+        const y = canvas.height - fontSize;
         ctx.fillText(text, x, y);
         ctx.strokeText(text, x, y);
     }
 
     canvasToGrayscale(canvas) {
-        var ctx = canvas.getContext("2d");
-        var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        var data = imageData.data;
-        for (var i = 0; i < data.length; i += 4) {
-            var avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        const ctx = canvas.getContext("2d");
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+            const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
             data[i]     = avg; // red
             data[i + 1] = avg; // green
             data[i + 2] = avg; // blue
@@ -646,12 +640,11 @@ class Proctoring {
     }
 
     isCanvasMonochrome(canvas) {
-        var ctx = canvas.getContext("2d");
-        var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        var data = imageData.data;
-        var isMonochrome = true;
-        var firstPx = [];
-        for (var i = 0; i < data.length; i += 4) {
+        const ctx = canvas.getContext("2d");
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        const firstPx = [];
+        for (let i = 0; i < data.length; i += 4) {
             if (i == 0) {
                 firstPx[0] = data[i];
                 firstPx[1] = data[i+1];
@@ -659,16 +652,15 @@ class Proctoring {
             } else if (firstPx[0] != data[i] ||
                        firstPx[1] != data[i+1] ||
                        firstPx[2] != data[i+2]) {
-                isMonochrome = false;
-                break;
+                return false;
             }
         }
 
-        return isMonochrome;
+        return true;
     }
 
     cloneCanvas(canvas) {
-        var c = document.createElement("canvas");
+        const c = document.createElement("canvas");
         c.width = canvas.width;
         c.height = canvas.height;
         c.getContext("2d").drawImage(canvas, 0, 0, c.width, c.height);
@@ -676,42 +668,40 @@ class Proctoring {
     }
 
     areCanvasEquals(canvas1, canvas2) {
-        var ctx1 = canvas1.getContext("2d");
-        var imageData1 = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
-        var data1 = imageData1.data;
-        var ctx2 = canvas2.getContext("2d");
-        var imageData2 = ctx2.getImageData(0, 0, canvas2.width, canvas2.height);
-        var data2 = imageData2.data;
-        var areEquals = true;
-        for (var i = 0; i < data1.length; i += 4) {
+        const ctx1 = canvas1.getContext("2d");
+        const imageData1 = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+        const data1 = imageData1.data;
+        const ctx2 = canvas2.getContext("2d");
+        const imageData2 = ctx2.getImageData(0, 0, canvas2.width, canvas2.height);
+        const data2 = imageData2.data;
+        for (let i = 0; i < data1.length; i += 4) {
             if (data1[i] != data2[i] ||
                 data1[i+1] != data2[i+1] ||
                 data1[i+2] != data2[i+2]) {
-                areEquals = false;
-                break;
+                return false;
             }
         }
 
-        return areEquals;
+        return true;
     }
 
 
     takeShot(stream, grayscale) {
-        var i = this.streams.indexOf(stream);
-        var video = this.videos[i];
+        const i = this.streams.indexOf(stream);
+        const video = this.videos[i];
 
         if (!video.paused) {
-            var streamName = this.streamNames[i];
-            var conf = this.mediaConf[streamName];
-            // var height = stream.getVideoTracks()[0].getSettings().height;
-            // var width = stream.getVideoTracks()[0].getSettings().width;
-            var iHeight = conf.height == undefined ? video.videoHeight : conf.height;
-            var iWidth = conf.width == undefined ? video.videoWidth : conf.width;
-            var proctor = this;
-            var pictures = this.pictures[i];
-            var prevPicture = this.prevPictures[i];
+            const streamName = this.streamNames[i];
+            const conf = this.mediaConf[streamName];
+            // const height = stream.getVideoTracks()[0].getSettings().height;
+            // const width = stream.getVideoTracks()[0].getSettings().width;
+            const iHeight = conf.height == undefined ? video.videoHeight : conf.height;
+            const iWidth = conf.width == undefined ? video.videoWidth : conf.width;
+            const self = this;
+            const pictures = this.pictures[i];
+            const prevPicture = this.prevPictures[i];
 
-            var canvas = document.createElement("canvas");
+            const canvas = document.createElement("canvas");
             canvas.width = iWidth;
             canvas.height = iHeight;
             canvas.getContext("2d").drawImage(video, 0, 0, iWidth, iHeight);
@@ -736,7 +726,7 @@ class Proctoring {
 
             this.watermark(canvas, (new Date()).toTZISOString());
 
-            var handlers = proctor.imageHandlers[i];
+            const handlers = self.imageHandlers[i];
             if (handlers != null) {
                 if (handlers.png != undefined) {
                     canvas.toBlob(function(blob) {
@@ -744,11 +734,10 @@ class Proctoring {
                             handlers.png.blob(blob);
                         }
                         if (typeof handlers.png.base64 == 'function') {
-                            var reader = new FileReader();
+                            const reader = new FileReader();
                             reader.readAsDataURL(blob);
                             reader.onloadend = function() {
-                                var base64data = reader.result;
-                                handlers.png.base64(base64data);
+                                handlers.png.base64(reader.result);
                             }
                         }
                     }, "image/png");
@@ -759,25 +748,24 @@ class Proctoring {
                             handlers.jpeg.blob(blob);
                         }
                         if (typeof handlers.jpeg.base64 == 'function') {
-                            var reader = new FileReader();
+                            const reader = new FileReader();
                             reader.readAsDataURL(blob);
                             reader.onloadend = function() {
-                                var base64data = reader.result;
-                                handlers.jpeg.base64(base64data);
+                                handlers.jpeg.base64(reader.result);
                             }
                         }
                     }, "image/jpeg");
                 }
                 if (handlers.gif != undefined) {
                     pictures.push(canvas);
-                    proctor.renderGif(pictures);
+                    self.renderGif(pictures);
                 }
             }
         }
     }
 
     takePictures(minMsInterval, maxMsInterval) {
-        var interval;
+        let interval;
         if (!this.isMissingStreams &&
             this.numCheckedStreams == this.numStreams &&
             this.numActiveStreams > 0) {
@@ -793,7 +781,7 @@ class Proctoring {
                 this.ready = true;
             }
             // For every configured video stream, take a picture
-            for (var i = 0; i < this.streams.length; i++) {
+            for (let i = 0; i < this.streams.length; i++) {
                 try {
                     if (this.videos[i]) {
                         this.takeShot(this.streams[i],
@@ -825,6 +813,6 @@ class Proctoring {
 
 // We need this trick to get the folder of this very script and build
 // from there the URL to the gif worker.
-var scripts = document.querySelectorAll("script");
-var loc = scripts[scripts.length - 1].src;
+const scripts = document.querySelectorAll("script");
+const loc = scripts[scripts.length - 1].src;
 Proctoring.webWorkerURL = loc.substring(0, loc.lastIndexOf('/')) + "/gif.worker.js";
