@@ -1,7 +1,7 @@
 function modalAlert(message, handler) {
-    document.querySelector("#modal-messages .modal-body").innerHTML = message;
+    document.querySelector('#modal-messages .modal-body').innerHTML = message;
     dialog = $('#modal-messages');
-    if (typeof handler == 'function') {
+    if (typeof handler === 'function') {
         dialog.on('hidden.bs.modal', handler);
     }
     dialog.modal('show');
@@ -11,7 +11,7 @@ function streamMuted(stream) {
     let muted = false;
     for (const track of stream.getAudioTracks()) {
         if (track.muted ||
-            track.getSettings().volume == 0) {
+            track.getSettings().volume === 0) {
             muted = true;
             break;
         }
@@ -20,11 +20,11 @@ function streamMuted(stream) {
 }
 
 function embedAudioTrackFromStream(fromStream, toStream) {
-    if (fromStream == undefined) {
+    if (fromStream === undefined) {
         return;
     }
     const audioTracks = fromStream.getAudioTracks();
-    if (audioTracks.length == 0) {
+    if (audioTracks.length === 0) {
         return;
     } else {
         toStream.addTrack(audioTracks[0]);
@@ -33,56 +33,56 @@ function embedAudioTrackFromStream(fromStream, toStream) {
 }
 
 function createIframe() {
-    console.log("creating iframe");
-    const iframe = document.createElement("iframe");
-    iframe.setAttribute("class", "embed-responsive-item");
-    iframe.setAttribute("id", "proctored-iframe-" + objectId);
-    iframe.addEventListener("load", function(e) {
+    console.log('creating iframe');
+    const iframe = document.createElement('iframe');
+    iframe.setAttribute('class', 'embed-responsive-item');
+    iframe.setAttribute('id', 'proctored-iframe-' + objectId);
+    iframe.addEventListener('load', function(e) {
         try {
             // Prevent loops of iframes: bring the iframe to the
             // start when we detect it would land on the very URL
             // of this page.
             const parentURL = location.href + location.search;
             const iframeURL = this.contentWindow.location.href + this.contentWindow.location.search;
-            if (parentURL == iframeURL) {
+            if (parentURL === iframeURL) {
                 this.src = objectURL;
             }
         } catch (e) {
             // Accessing the properties of an iframe fetching from a
             // cross-origin website is forbidden. This is fine in this
             // case as the URL is most definitely not looping.
-            if (e.name === "SecurityError") {
-                console.log("iframe URL is most likely an external one");
+            if (e.name === 'SecurityError') {
+                console.log('iframe URL is most likely an external one');
             } else {
                 console.error(e);
             }
         }
-        console.log("iframe loaded");
+        console.log('iframe loaded');
     });
-    document.querySelector("#proctored-iframe-placeholder").appendChild(iframe);
+    document.querySelector('#proctored-iframe-placeholder').appendChild(iframe);
     iframe.src = objectURL;
-    console.log("iframe created");
+    console.log('iframe created');
 }
 
 function createPreview() {
-    const e = document.querySelector("#preview-placeholder");
-    let style = !hasPreview ? "position:absolute;top:0;left:0;" : "";
-    e.setAttribute("style", style);
+    const e = document.querySelector('#preview-placeholder');
+    let style = !hasPreview ? 'position:absolute;top:0;left:0;' : '';
+    e.setAttribute('style', style);
     for (const stream of proctoring.streams) {
         if (stream && stream.getAudioTracks().length > 0) {
-            const canvas = document.createElement("canvas");
-            style = hasPreview ? "height: 30px; width: 40px" : "height: 1px; width: 1px";
-            canvas.setAttribute("style", style);
-            canvas.setAttribute("id", "audio-preview");
+            const canvas = document.createElement('canvas');
+            style = hasPreview ? 'height: 30px; width: 40px' : 'height: 1px; width: 1px';
+            canvas.setAttribute('style', style);
+            canvas.setAttribute('id', 'audio-preview');
             e.appendChild(canvas);
-            new AudioWave(stream, "#audio-preview");
+            new AudioWave(stream, '#audio-preview');
             break;
         }
     }
     for (const video of proctoring.videos) {
         if (video) {
             const width = hasPreview ? 30 : 1;
-            video.setAttribute("height", width);
+            video.setAttribute('height', width);
             e.appendChild(video);
         }
     }
@@ -91,29 +91,29 @@ function createPreview() {
 let uploadHandle = null;
 const uploadQueue = [];
 function scheduleUpload(name, type, blob) {
-    if (type == "image" &&
-        (blob == null ||
+    if (type === 'image' &&
+        (blob === null ||
         blob.size <= blackPictureSizeThreshold)) {
-        if (name == "camera") {
+        if (name === 'camera') {
             modalAlert(blackPictureCameraMessage);
         } else {
             modalAlert(blackPictureDesktopMessage);
         }
     }
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("type", type);
-    formData.append("object_id", objectId);
-    formData.append("file", blob);
-    formData.append("check_active_p", checkActive);
-    formData.append("record_p", record_p);
+    formData.append('name', name);
+    formData.append('type', type);
+    formData.append('object_id', objectId);
+    formData.append('file', blob);
+    formData.append('check_active_p', checkActive);
+    formData.append('record_p', record_p);
     uploadQueue.push(formData);
 }
 
 function upload() {
     if (!hasUpload) {
         uploadQueue.length = 0;
-        console.log("Dummy upload");
+        console.log('Dummy upload');
     }
 
     function reschedule(ms) {
@@ -133,14 +133,14 @@ function upload() {
         // Prepare the upload
         //
         const request = new XMLHttpRequest();
-        request.addEventListener("loadend", function () {
+        request.addEventListener('loadend', function () {
             if (this.status === 200) {
                 //
                 // Request completed successfully, however, the
                 // backend might have informed us that this proctoring
                 // session is over.
                 //
-                if (this.response == "OK") {
+                if (this.response === 'OK') {
                     //
                     // Success: reschedule the upload 1s from now.
                     //
@@ -165,7 +165,7 @@ function upload() {
         //
         // Send the file
         //
-        request.open("POST", uploadURL);
+        request.open('POST', uploadURL);
         request.send(formData);
     } else {
         //
@@ -186,45 +186,43 @@ function approveStartExam() {
     }
 
     const formData = new FormData();
-    formData.append("object_id", objectId);
+    formData.append('object_id', objectId);
 
     const request = new XMLHttpRequest();
     request.timeout = 10000;
-    request.addEventListener("readystatechange", function () {
-        if (this.readyState == 4) {
-            if(this.status == 200) {
-                if (this.response == "OK") {
-                    valid = true;
-                } else {
-                    location.href = objectURL;
-                }
+    request.addEventListener('load', function () {
+        if(this.status === 200) {
+            if (this.response === 'OK') {
+                valid = true;
             } else {
-                setError(requestFailedMessage);
-                reschedule(10000);
+                location.href = objectURL;
             }
+        } else {
+            setError(requestFailedMessage);
+            reschedule(10000);
         }
     });
-    request.addEventListener("timeout", function () {
+    request.addEventListener('timeout', function () {
         setError(requestTimedOutMessage);
         reschedule(10000);
     });
-    request.addEventListener("error", function () {
+    request.addEventListener('error', function () {
         setError(requestFailedMessage);
         reschedule(10000);
     });
-    request.open("POST", examinationStatementURL);
+    request.open('POST', examinationStatementURL);
     request.send(formData);
 }
 
 
 let currentTab = 0; // Current tab is set to be the first tab (0)
-document.querySelector("#retryBtn").addEventListener("click", function(e) {
+document.querySelector('#retryBtn').addEventListener('click', function(e) {
     recheck(currentTab);
 });
-document.querySelector("#prevBtn").addEventListener("click", function(e) {
+document.querySelector('#prevBtn').addEventListener('click', function(e) {
     nextPrev(-1);
 });
-document.querySelector("#nextBtn").addEventListener("click", function(e) {
+document.querySelector('#nextBtn').addEventListener('click', function(e) {
     nextPrev(1);
 });
 
@@ -262,16 +260,16 @@ if (hasProctoring) {
                 if (streamMuted(stream)) {
                     throw yourMicrophoneIsMutedMessage;
                 } else {
-                    new AudioWave(stream, "#audio");
+                    new AudioWave(stream, '#audio');
                     valid = true;
                     streams[0] = stream;
                 }
             }).catch(err => {
-                if (err.name == "NotAllowedError") {
+                if (err.name === 'NotAllowedError') {
                     err = microphonePermissionDeniedMessage;
-                } else if (err.name == "NotFoundError") {
+                } else if (err.name === 'NotFoundError') {
                     err = microphoneNotFoundMessage;
-                } else if (err.name == "NotReadableError") {
+                } else if (err.name === 'NotReadableError') {
                     err = microphoneNotReadableMessage;
                 }
                 setError(err);
@@ -286,27 +284,27 @@ if (hasProctoring) {
                 video: cameraConstraints.video
             }).then(stream => {
                 camvideo.srcObject = stream;
-                camvideo.style.display = "block";
+                camvideo.style.display = 'block';
                 streams[1] = stream;
-                camvideo.addEventListener("play", function() {
-                    const canvas = document.createElement("canvas");
+                camvideo.addEventListener('play', function() {
+                    const canvas = document.createElement('canvas');
                     canvas.width = camvideo.videoWidth;
                     canvas.height = camvideo.videoHeight;
-                    canvas.getContext("2d").drawImage(camvideo, 0, 0, camvideo.videoWidth, camvideo.videoHeight);
+                    canvas.getContext('2d').drawImage(camvideo, 0, 0, camvideo.videoWidth, camvideo.videoHeight);
                     canvas.toBlob(function(blob) {
-                        if (blob == null ||
+                        if (blob === null ||
                             blob.size <= blackPictureSizeThreshold) {
                             setError(blackPictureCameraMessage);
                         }
-                    }, "image/jpeg");
+                    }, 'image/jpeg');
                 });
                 valid = true;
             }).catch(err => {
-                if (err.name == "NotAllowedError") {
+                if (err.name === 'NotAllowedError') {
                     err = cameraPermissionDeniedMessage;
-                } else if (err.name == "NotFoundError") {
+                } else if (err.name === 'NotFoundError') {
  	 	    err = cameraNotFoundMessage;
-                } else if (err.name == "NotReadableError") {
+                } else if (err.name === 'NotReadableError') {
                     err = cameraNotReadableMessage;
                 }
                 setError(err);
@@ -325,22 +323,22 @@ if (hasProctoring) {
                 // If user requested for a specific displaysurface
                 // and browser supports it, also check that the
                 // one selected is right.
-                if (requestedStream == undefined ||
-                    (selectedStream != undefined &&
-                     requestedStream == selectedStream)) {
+                if (requestedStream === undefined ||
+                    (selectedStream !== undefined &&
+                     requestedStream === selectedStream)) {
                     deskvideo.srcObject = stream;
-                    deskvideo.style.display = "block";
+                    deskvideo.style.display = 'block';
                     valid = true;
                     streams[2] = stream;
                 } else {
-                    if (selectedStream != undefined) {
+                    if (selectedStream !== undefined) {
                         throw wrongDisplaySurfaceSelectedMessage;
                     } else {
                         throw displaySurfaceNotSupportedMessage;
                     }
                 }
             }).catch(err => {
-                if (err.name == "NotAllowedError") {
+                if (err.name === 'NotAllowedError') {
                     err = desktopPermissionDeniedMessage;
                 }
                 setError(err);
@@ -350,53 +348,55 @@ if (hasProctoring) {
 }
 if (hasExaminationStatement) {
     handlers.push(function () {
-        const acceptButton = document.getElementById("nextBtn");
+        const acceptButton = document.getElementById('nextBtn');
         acceptButton.innerHTML = acceptLabel;
         const clickHandler = function(e) {
             approveStartExam();
-            this.removeEventListener("click", clickHandler);
+            this.removeEventListener('click', clickHandler);
         };
-        acceptButton.addEventListener("click", clickHandler);
+        acceptButton.addEventListener('click', clickHandler);
     });
 }
 
 function showTab(n) {
     // This function will display the specified tab of the form...
-    const x = document.getElementsByClassName("tab");
-    if (x.length == 0) return;
-    x[n].style.display = "block";
-    //... and fix the Previous/Next buttons:
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
+    const x = document.getElementsByClassName('tab');
+    if (x.length === 0) {
+        return;
     }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = submitLabel;
+    x[n].style.display = 'block';
+    //... and fix the Previous/Next buttons:
+    if (n === 0) {
+        document.getElementById('prevBtn').style.display = 'none';
     } else {
-        document.getElementById("nextBtn").innerHTML = nextLabel;
+        document.getElementById('prevBtn').style.display = 'inline';
+    }
+    if (n === (x.length - 1)) {
+        document.getElementById('nextBtn').innerHTML = submitLabel;
+    } else {
+        document.getElementById('nextBtn').innerHTML = nextLabel;
     }
     //... and run a function that will display the correct step indicator:
     fixStepIndicator(n);
 
-    if (typeof handlers[n] == "function") {
+    if (typeof handlers[n] === 'function') {
         handlers[n]();
     } else {
         valid = true;
     }
 }
 
-const errorEl = document.querySelector("#error-message");
+const errorEl = document.querySelector('#error-message');
 function clearError() {
-    errorEl.innerHTML = "";
-    retryBtn.style.display = "none";
+    errorEl.innerHTML = '';
+    retryBtn.style.display = 'none';
 }
 
 function setError(errmsg) {
     // console.error(errmsg);
     errorEl.innerHTML = errmsg;
     valid = false;
-    retryBtn.style.display = "inline";
+    retryBtn.style.display = 'inline';
 }
 
 function recheck(n) {
@@ -405,18 +405,18 @@ function recheck(n) {
 
 function nextPrev(n) {
     // This function will figure out which tab to display
-    const x = document.getElementsByClassName("tab");
+    const x = document.getElementsByClassName('tab');
     // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
+    if (n === 1 && !validateForm()) return false;
     // Hide the current tab:
-    x[currentTab].style.display = "none";
+    x[currentTab].style.display = 'none';
     // Increase or decrease the current tab by 1:
     currentTab = currentTab + n;
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
         // ... the form gets submitted:
-        // location.href = "";
-        //document.getElementById("regForm").submit();
+        // location.href = '';
+        //document.getElementById('regForm').submit();
         startExam();
         return false;
     }
@@ -429,19 +429,19 @@ let valid = false;
 function validateForm() {
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
+        document.getElementsByClassName('step')[currentTab].className += ' finish';
     }
     return valid; // return the valid status
 }
 
 function fixStepIndicator(n) {
     // This function removes the "active" class of all steps...
-    const steps = document.getElementsByClassName("step");
+    const steps = document.getElementsByClassName('step');
     for (const step of steps) {
-        step.className = step.className.replace(" active", "");
+        step.className = step.className.replace(' active', '');
     }
     //... and adds the "active" class on the current step:
-    steps[n].className += " active";
+    steps[n].className += ' active';
 }
 
 const cameraConstraints = {
@@ -457,7 +457,7 @@ const desktopConstraints = {
     video: {
         width: 1280,
         height: 960,
-        displaySurface: "monitor"
+        displaySurface: 'monitor'
     }
 };
 
@@ -465,14 +465,14 @@ let audioHandlers;
 if (hasAudio) {
     audioHandlers = {
         auto: function(blob) {
-            scheduleUpload("camera", "audio", blob);
+            scheduleUpload('camera', 'audio', blob);
         }
     };
 }
 
 function startExam() {
-    document.querySelector("#wizard").style.display = "none";
-    document.querySelector("#proctoring").style.display = "block";
+    document.querySelector('#wizard').style.display = 'none';
+    document.querySelector('#proctoring').style.display = 'block';
 
     const mediaConf = {};
     let cameraStream;
@@ -492,7 +492,7 @@ function startExam() {
             imageHandlers: {
                 jpeg: {
                     blob: function(blob) {
-                        scheduleUpload("camera", "image", blob);
+                        scheduleUpload('camera', 'image', blob);
                     }
                 }
             },
@@ -508,7 +508,7 @@ function startExam() {
             imageHandlers: {
                 jpeg: {
                     blob: function(blob) {
-                        scheduleUpload("desktop", "image", blob);
+                        scheduleUpload('desktop', 'image', blob);
                     }
                 }
             },
@@ -522,7 +522,7 @@ function startExam() {
         minAudioDuration: minAudioDuration,
         maxAudioDuration: maxAudioDuration,
         onMissingStreamHandler : function(streamName, errMsg) {
-            errMsg = missingStreamMessage + "\"" + streamName + ": " + errMsg + "\"";
+            errMsg = missingStreamMessage + '"' + streamName + ': ' + errMsg + '"';
             modalAlert(errMsg, function() {
                 location.reload();
             });
@@ -538,21 +538,21 @@ function startExam() {
     };
 
     if (hasProctoring) {
-        console.log("creating proctoring");
+        console.log('creating proctoring');
         proctoring = new Proctoring(conf);
-        console.log("starting proctoring");
+        console.log('starting proctoring');
         proctoring.start();
-        console.log("starting upload");
+        console.log('starting upload');
         upload();
-        console.log("proctoring has started");
+        console.log('proctoring has started');
     } else {
         createIframe();
-        console.log("proctoring not requested");
+        console.log('proctoring not requested');
     }
 }
 
-window.addEventListener("load", function() {
-    document.querySelector("#proctoring").style.display = "none";
-    document.querySelector("#wizard").style.display = "block";
+window.addEventListener('load', function() {
+    document.querySelector('#proctoring').style.display = 'none';
+    document.querySelector('#wizard').style.display = 'block';
     showTab(currentTab); // Display the current tab
 });
