@@ -95,7 +95,7 @@ function scheduleUpload(name, type, blob) {
             modalAlert(blackPictureDesktopMessage);
         }
     }
-    const formData = new FormData();
+    const formData = new window.FormData();
     formData.append('name', name);
     formData.append('type', type);
     formData.append('object_id', objectId);
@@ -127,7 +127,7 @@ function upload() {
         //
         // Prepare the upload
         //
-        const request = new XMLHttpRequest();
+        const request = new window.XMLHttpRequest();
         request.addEventListener('loadend', function () {
             if (this.status === 200) {
                 //
@@ -180,10 +180,10 @@ function approveStartExam() {
         rescheduleHandle = setTimeout(approveStartExam, ms);
     }
 
-    const formData = new FormData();
+    const formData = new window.FormData();
     formData.append('object_id', objectId);
 
-    const request = new XMLHttpRequest();
+    const request = new window.XMLHttpRequest();
     request.timeout = 10000;
     request.addEventListener('loadend', function () {
         if(this.status === 200) {

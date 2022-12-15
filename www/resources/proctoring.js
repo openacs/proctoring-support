@@ -220,7 +220,7 @@ class AutoAudioRecorder {
                 sampleInterval=50) {
         const self = this;
 
-        this.stream = new MediaStream();
+        this.stream = new window.MediaStream();
 
         const audioTracks = stream.getAudioTracks();
         if (audioTracks.length === 0) {
@@ -246,7 +246,7 @@ class AutoAudioRecorder {
         this.source.connect(this.analyser);
         this.analyser.fftSize = 2048;
         this.bufferLength = this.analyser.frequencyBinCount;
-        this.dataArray = new Uint8Array(this.bufferLength);
+        this.dataArray = new window.Uint8Array(this.bufferLength);
 
         this.numPositiveSamples = 0;
         this.noise = 0;
@@ -258,7 +258,7 @@ class AutoAudioRecorder {
         this.nSkipSilentFrames = this.NSKIPSILENTFRAMES;
 
         // Create an audio recorder
-        this.recorder = new MediaRecorder(this.stream, {
+        this.recorder = new window.MediaRecorder(this.stream, {
             mimeType: 'audio/webm'
         });
 
@@ -565,7 +565,7 @@ class Proctoring {
                     handlers.gif.blob(blob);
                 }
                 if (typeof handlers.gif.base64 === 'function') {
-                    const reader = new FileReader();
+                    const reader = new window.FileReader();
                     reader.readAsDataURL(blob);
                     reader.onloadend = function() {
                         handlers.gif.base64(reader.result);
@@ -717,7 +717,7 @@ class Proctoring {
                 this.canvasToGrayscale(canvas);
             }
 
-            this.watermark(canvas, (new Date()).toTZISOString());
+            this.watermark(canvas, (new window.Date()).toTZISOString());
 
             const handlers = self.imageHandlers[i];
             if (handlers !== null) {
@@ -727,7 +727,7 @@ class Proctoring {
                             handlers.png.blob(blob);
                         }
                         if (typeof handlers.png.base64 === 'function') {
-                            const reader = new FileReader();
+                            const reader = new window.FileReader();
                             reader.readAsDataURL(blob);
                             reader.onloadend = function() {
                                 handlers.png.base64(reader.result);
@@ -741,7 +741,7 @@ class Proctoring {
                             handlers.jpeg.blob(blob);
                         }
                         if (typeof handlers.jpeg.base64 === 'function') {
-                            const reader = new FileReader();
+                            const reader = new window.FileReader();
                             reader.readAsDataURL(blob);
                             reader.onloadend = function() {
                                 handlers.jpeg.base64(reader.result);
