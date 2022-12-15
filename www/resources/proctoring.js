@@ -491,7 +491,8 @@ class Proctoring {
     }
 
     reset() {
-        this.pictures = [[], []];
+        this.pictures[0].length = 0;
+        this.pictures[1].length = 0;
     }
 
     streamMuted(stream) {
