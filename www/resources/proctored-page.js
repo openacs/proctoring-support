@@ -8,10 +8,8 @@ function modalAlert(message, handler) {
 }
 
 function streamMuted(stream) {
-    var muted = false;
-    var audioTracks = stream.getAudioTracks();
-    for (var i = 0; i < audioTracks.length; i++) {
-        var track = audioTracks[i];
+    let muted = false;
+    for (const track of stream.getAudioTracks()) {
         if (track.muted ||
             track.getSettings().volume == 0) {
             muted = true;
@@ -25,7 +23,7 @@ function embedAudioTrackFromStream(fromStream, toStream) {
     if (fromStream == undefined) {
         return;
     }
-    var audioTracks = fromStream.getAudioTracks();
+    const audioTracks = fromStream.getAudioTracks();
     if (audioTracks.length == 0) {
         return;
     } else {
@@ -36,7 +34,7 @@ function embedAudioTrackFromStream(fromStream, toStream) {
 
 function createIframe() {
     console.log("creating iframe");
-    var iframe = document.createElement("iframe");
+    const iframe = document.createElement("iframe");
     iframe.setAttribute("class", "embed-responsive-item");
     iframe.setAttribute("id", "proctored-iframe-" + objectId);
     iframe.addEventListener("load", function(e) {
@@ -44,8 +42,8 @@ function createIframe() {
             // Prevent loops of iframes: bring the iframe to the
             // start when we detect it would land on the very URL
             // of this page.
-            var parentURL = location.href + location.search;
-            var iframeURL = this.contentWindow.location.href + this.contentWindow.location.search;
+            const parentURL = location.href + location.search;
+            const iframeURL = this.contentWindow.location.href + this.contentWindow.location.search;
             if (parentURL == iframeURL) {
                 this.src = objectURL;
             }
@@ -67,13 +65,12 @@ function createIframe() {
 }
 
 function createPreview() {
-    var style;
-    var e = document.querySelector("#preview-placeholder");
-    style = !hasPreview ? "position:absolute;top:0;left:0;" : "";
+    const e = document.querySelector("#preview-placeholder");
+    let style = !hasPreview ? "position:absolute;top:0;left:0;" : "";
     e.setAttribute("style", style);
-    for (stream of proctoring.streams) {
+    for (const stream of proctoring.streams) {
         if (stream && stream.getAudioTracks().length > 0) {
-            var canvas = document.createElement("canvas");
+            const canvas = document.createElement("canvas");
             style = hasPreview ? "height: 30px; width: 40px" : "height: 1px; width: 1px";
             canvas.setAttribute("style", style);
             canvas.setAttribute("id", "audio-preview");
@@ -82,17 +79,17 @@ function createPreview() {
             break;
         }
     }
-    for (video of proctoring.videos) {
+    for (const video of proctoring.videos) {
         if (video) {
-            var width = hasPreview ? 30 : 1;
+            const width = hasPreview ? 30 : 1;
             video.setAttribute("height", width);
             e.appendChild(video);
         }
     }
 }
 
-var uploadHandle = null;
-var uploadQueue = [];
+let uploadHandle = null;
+const uploadQueue = [];
 function scheduleUpload(name, type, blob) {
     if (type == "image" &&
         (blob == null ||
@@ -103,7 +100,7 @@ function scheduleUpload(name, type, blob) {
             modalAlert(blackPictureDesktopMessage);
         }
     }
-    var formData = new FormData();
+    const formData = new FormData();
     formData.append("name", name);
     formData.append("type", type);
     formData.append("object_id", objectId);
@@ -115,7 +112,7 @@ function scheduleUpload(name, type, blob) {
 
 function upload() {
     if (!hasUpload) {
-        uploadQueue = [];
+        uploadQueue.length = 0;
         console.log("Dummy upload");
     }
 
@@ -130,12 +127,12 @@ function upload() {
         // There are files in the queue. Get the first element and
         // prepare to send.
         //
-        var formData = uploadQueue.shift();
+        const formData = uploadQueue.shift();
 
         //
         // Prepare the upload
         //
-        var request = new XMLHttpRequest();
+        const request = new XMLHttpRequest();
         request.addEventListener("loadend", function () {
             if (this.status === 200) {
                 //
@@ -182,16 +179,16 @@ function approveStartExam() {
     valid = false;
     clearError();
 
-    var rescheduleHandle = null;
+    let rescheduleHandle = null;
     function reschedule(ms) {
         clearTimeout(rescheduleHandle);
         rescheduleHandle = setTimeout(approveStartExam, ms);
     }
 
-    var formData = new FormData();
+    const formData = new FormData();
     formData.append("object_id", objectId);
 
-    var request = new XMLHttpRequest();
+    const request = new XMLHttpRequest();
     request.timeout = 10000;
     request.addEventListener("readystatechange", function () {
         if (this.readyState == 4) {
@@ -220,9 +217,8 @@ function approveStartExam() {
 }
 
 
-var currentTab = 0; // Current tab is set to be the first tab (0)
-var recheckBtn = document.querySelector("#retryBtn");
-recheckBtn.addEventListener("click", function(e) {
+let currentTab = 0; // Current tab is set to be the first tab (0)
+document.querySelector("#retryBtn").addEventListener("click", function(e) {
     recheck(currentTab);
 });
 document.querySelector("#prevBtn").addEventListener("click", function(e) {
@@ -232,18 +228,17 @@ document.querySelector("#nextBtn").addEventListener("click", function(e) {
     nextPrev(1);
 });
 
-var examinationStatement = document.querySelector('#examination-statement');
-var deskvideo = document.querySelector('#desktop');
-var camvideo = document.querySelector('#webcam');
-var audio = document.querySelector('#audio');
+const deskvideo = document.querySelector('#desktop');
+const camvideo = document.querySelector('#webcam');
+const audio = document.querySelector('#audio');
 
-var streams = [];
-var handlers = [];
+const streams = [];
+const handlers = [];
 if (hasProctoring) {
     handlers.push(function () {
         clearError();
         valid = false;
-        var errmsg;
+        let errmsg;
         if (isMobile) {
             errmsg = mobileDevicesNotSupportedMessage;
         } else if (!navigator.mediaDevices.getUserMedia) {
@@ -261,10 +256,9 @@ if (hasProctoring) {
         handlers.push(function () {
             valid = false;
             clearError();
-            var constraints = {
+            navigator.mediaDevices.getUserMedia({
                 audio: cameraConstraints.audio
-            };
-            navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+            }).then(stream => {
                 if (streamMuted(stream)) {
                     throw yourMicrophoneIsMutedMessage;
                 } else {
@@ -288,23 +282,21 @@ if (hasProctoring) {
         handlers.push(function () {
             valid = false;
             clearError();
-            var constraints = {
+            navigator.mediaDevices.getUserMedia({
                 video: cameraConstraints.video
-            };
-            navigator.mediaDevices.getUserMedia(constraints).then(stream => {
+            }).then(stream => {
                 camvideo.srcObject = stream;
                 camvideo.style.display = "block";
                 streams[1] = stream;
                 camvideo.addEventListener("play", function() {
-                    var canvas = document.createElement("canvas");
+                    const canvas = document.createElement("canvas");
                     canvas.width = camvideo.videoWidth;
                     canvas.height = camvideo.videoHeight;
                     canvas.getContext("2d").drawImage(camvideo, 0, 0, camvideo.videoWidth, camvideo.videoHeight);
                     canvas.toBlob(function(blob) {
                         if (blob == null ||
                             blob.size <= blackPictureSizeThreshold) {
-                            var errmsg = blackPictureCameraMessage;
-                            setError(errmsg);
+                            setError(blackPictureCameraMessage);
                         }
                     }, "image/jpeg");
                 });
@@ -325,12 +317,11 @@ if (hasProctoring) {
         handlers.push(function () {
             valid = false;
             clearError();
-            var constraints = {
+            navigator.mediaDevices.getDisplayMedia({
                 video: desktopConstraints.video
-            };
-            navigator.mediaDevices.getDisplayMedia(constraints).then(stream=> {
-                var requestedStream = constraints.video.displaySurface;
-                var selectedStream = stream.getVideoTracks()[0].getSettings().displaySurface;
+            }).then(stream=> {
+                const requestedStream = desktopConstraints.video.displaySurface;
+                const selectedStream = stream.getVideoTracks()[0].getSettings().displaySurface;
                 // If user requested for a specific displaysurface
                 // and browser supports it, also check that the
                 // one selected is right.
@@ -359,9 +350,9 @@ if (hasProctoring) {
 }
 if (hasExaminationStatement) {
     handlers.push(function () {
-        var acceptButton = document.getElementById("nextBtn");
+        const acceptButton = document.getElementById("nextBtn");
         acceptButton.innerHTML = acceptLabel;
-        var clickHandler = function(e) {
+        const clickHandler = function(e) {
             approveStartExam();
             this.removeEventListener("click", clickHandler);
         };
@@ -371,7 +362,7 @@ if (hasExaminationStatement) {
 
 function showTab(n) {
     // This function will display the specified tab of the form...
-    var x = document.getElementsByClassName("tab");
+    const x = document.getElementsByClassName("tab");
     if (x.length == 0) return;
     x[n].style.display = "block";
     //... and fix the Previous/Next buttons:
@@ -395,7 +386,7 @@ function showTab(n) {
     }
 }
 
-var errorEl = document.querySelector("#error-message");
+const errorEl = document.querySelector("#error-message");
 function clearError() {
     errorEl.innerHTML = "";
     retryBtn.style.display = "none";
@@ -414,7 +405,7 @@ function recheck(n) {
 
 function nextPrev(n) {
     // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
+    const x = document.getElementsByClassName("tab");
     // Exit the function if any field in the current tab is invalid:
     if (n == 1 && !validateForm()) return false;
     // Hide the current tab:
@@ -434,7 +425,7 @@ function nextPrev(n) {
 }
 
 // Retreiving the stream happens asynchronously
-var valid = false;
+let valid = false;
 function validateForm() {
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
@@ -445,15 +436,15 @@ function validateForm() {
 
 function fixStepIndicator(n) {
     // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
+    const steps = document.getElementsByClassName("step");
+    for (const step of steps) {
+        step.className = step.className.replace(" active", "");
     }
     //... and adds the "active" class on the current step:
-    x[n].className += " active";
+    steps[n].className += " active";
 }
 
-var cameraConstraints = {
+const cameraConstraints = {
     video: {
         width: { max: 640 },
         height: { max: 480 }
@@ -462,7 +453,7 @@ var cameraConstraints = {
         noiseSuppression: false
     }
 };
-var desktopConstraints = {
+const desktopConstraints = {
     video: {
         width: 1280,
         height: 960,
@@ -470,7 +461,7 @@ var desktopConstraints = {
     }
 };
 
-var audioHandlers;
+let audioHandlers;
 if (hasAudio) {
     audioHandlers = {
         auto: function(blob) {
@@ -483,8 +474,8 @@ function startExam() {
     document.querySelector("#wizard").style.display = "none";
     document.querySelector("#proctoring").style.display = "block";
 
-    var mediaConf = {};
-    var cameraStream;
+    const mediaConf = {};
+    let cameraStream;
     if (hasAudio && hasCamera) {
         cameraStream = embedAudioTrackFromStream(streams[0], streams[1]);
     } else if (hasAudio) {
@@ -509,7 +500,7 @@ function startExam() {
             stream: cameraStream
         };
     }
-    var desktopStream = streams[2];
+    const desktopStream = streams[2];
     if (hasDesktop) {
         mediaConf.desktop = {
             required: true,
@@ -525,7 +516,7 @@ function startExam() {
         };
     }
 
-    var conf = {
+    const conf = {
         minMsInterval: minMsInterval,
         maxMsInterval: maxMsInterval,
         minAudioDuration: minAudioDuration,
