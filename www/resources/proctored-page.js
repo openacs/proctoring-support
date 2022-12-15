@@ -185,7 +185,7 @@ function approveStartExam() {
 
     const request = new XMLHttpRequest();
     request.timeout = 10000;
-    request.addEventListener('load', function () {
+    request.addEventListener('loadend', function () {
         if(this.status === 200) {
             if (this.response === 'OK') {
                 valid = true;
