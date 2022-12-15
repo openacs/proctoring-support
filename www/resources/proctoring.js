@@ -421,17 +421,13 @@ class Proctoring {
         // Cam stream
         if (this.mediaConf.camera !== undefined &&
             this.mediaConf.camera.stream === undefined) {
-            if (!navigator.mediaDevices.getUserMedia &&
-                !navigator.getUserMedia) {
+            if (!navigator.mediaDevices.getUserMedia) {
                 const err = 'getUserMedia not supported';
                 self.streamErrors[self.streamNames.indexOf('camera')] = err;
                 console.log('Camera cannot be recorded: ' + err);
                 self.numCheckedStreams++;
             } else {
-                const camPromise = navigator.mediaDevices.getUserMedia ?
-                    navigator.mediaDevices.getUserMedia(this.mediaConf.camera.constraints) :
-                    navigator.getUserMedia(this.mediaConf.camera.constraints);
-                camPromise.then(stream => {
+                navigator.mediaDevices.getUserMedia(this.mediaConf.camera.constraints).then(stream => {
                         this.useCameraStream(stream);
                     })
                     .catch(function (err) {
@@ -449,17 +445,13 @@ class Proctoring {
         // Desktop stream
         if (this.mediaConf.desktop !== undefined &&
             this.mediaConf.desktop.stream === undefined) {
-            if (!navigator.mediaDevices.getDisplayMedia &&
-                !navigator.getDisplayMedia) {
+            if (!navigator.mediaDevices.getDisplayMedia) {
                 const err = 'getDisplayMedia not supported';
                 self.streamErrors[self.streamNames.indexOf('desktop')] = err;
                 console.log('Desktop cannot be recorded: ' + err);
                 self.numCheckedStreams++;
             } else {
-                const desktopPromise = navigator.mediaDevices.getDisplayMedia ?
-                    navigator.mediaDevices.getDisplayMedia(this.mediaConf.desktop.constraints) :
-                    navigator.getDisplayMedia(this.mediaConf.desktop.constraints);
-                desktopPromise.then(stream => {
+                navigator.mediaDevices.getDisplayMedia(this.mediaConf.desktop.constraints).then(stream => {
                         const requestedStream = this.mediaConf.desktop.constraints.video.displaySurface;
                         const selectedStream = stream.getVideoTracks()[0].getSettings().displaySurface;
                         // If displaySurface was specified, browser
