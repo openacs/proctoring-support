@@ -697,7 +697,8 @@ class Proctoring {
             const canvas = document.createElement('canvas');
             canvas.width = iWidth;
             canvas.height = iHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0, iWidth, iHeight);
+            const ctx = canvas.getContext('2d', {willReadFrequently: true});
+            ctx.drawImage(video, 0, 0, iWidth, iHeight);
 
             // In the future we might be stricter about black pictures...
             // if (this.isCanvasMonochrome(canvas)) {
