@@ -364,6 +364,7 @@ class Proctoring {
         this.prevPictures = [null, null];
         this.streams = [null, null];
         this.videos = [null, null];
+        this.canvases = [null, null];
 
         for (let i = 0; i < this.numStreams; i++) {
             const streamName = this.streamNames[i];
@@ -694,7 +695,10 @@ class Proctoring {
             const pictures = this.pictures[i];
             const prevPicture = this.prevPictures[i];
 
-            const canvas = document.createElement('canvas');
+            if (this.canvases[i] === null) {
+                this.canvases[i] = document.createElement('canvas');
+            }
+            const canvas = this.canvases[i];
             canvas.width = iWidth;
             canvas.height = iHeight;
             const ctx = canvas.getContext('2d', {willReadFrequently: true});
