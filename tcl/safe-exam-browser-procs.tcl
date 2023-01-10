@@ -34,10 +34,7 @@ ad_proc -private ::proctoring::seb::configure {
         set seb_file_path ""
     }
 
-    ::xo::dc dml -prepare {
-        integer text text
-        text text
-    } save_conf {
+    ::xo::dc dml -prepare integer,text,text,text,text save_conf {
         insert into proctoring_safe_exam_browser_conf
         (object_id, allowed_keys, seb_file)
         values

@@ -10,7 +10,7 @@ auth::require_login
 
 set user_id [ad_conn user_id]
 
-::xo::dc dml -prepare {integer integer} insert {
+::xo::dc dml -prepare integer,integer insert {
     insert into proctoring_examination_statement_acceptance
     (object_id, user_id)
     values

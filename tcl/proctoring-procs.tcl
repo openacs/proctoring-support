@@ -303,9 +303,9 @@ ad_proc ::proctoring::artifact::store {
     # Create an entry in the database for the file we have just
     # collected, so that we can further enrich it with metadata in
     # later postprocessing phases.
-    set artifact_id [::xo::dc get_value -prepare {
+    set artifact_id [::xo::dc get_value -prepare [join {
         integer integer integer text text text
-    } store {
+    }] store {
         with insert as (
           insert into proctoring_object_artifacts
           (
@@ -351,12 +351,10 @@ ad_proc ::proctoring::artifact::delete {
     @param object_id proctored object id
     @param user_id user the artifact was collected for.
 } {
-    ::xo::dc dml -prepare {
-        integer text integer
-    } delete {
+    ::xo::dc dml -prepare integer,integer,integer delete {
         delete from proctoring_object_artifacts
         where object_id = :object_id
-          and (coalesce(:user_id, '') = '' or user_id = :user_id)
+          and (:user_id is null or user_id = :user_id)
     }
     ::proctoring::delete \
         -object_id $object_id \
