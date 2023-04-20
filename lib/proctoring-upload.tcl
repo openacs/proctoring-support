@@ -43,6 +43,12 @@ if {!$record_p} {
                             -object_id $object_id -user_id $user_id]
 
     if {$type eq "audio"} {
+        #
+        # Audios are assumed to be webm files. One could do better and
+        # peek into the file like we do in the commented line,
+        # however, this would not scale. Exec-free solutions are
+        # welcome!
+        #
         # set mime_type [exec [util::which file] --mime-type -b ${file.tmpfile}]
         set mime_type video/webm
     } else {
