@@ -587,6 +587,30 @@ class Proctoring {
         }
     }
 
+    requestPictureInPicture(video) {
+        //
+        // Browser versions released 2022-2023 onward may decide to
+        // kill our video when the browser is put out of focus. Such a
+        // use case is quite common for exams that take place on tools
+        // different than the browser itself, e.g. written assignments
+        // on a word processor.  To avoid this, we put the camera
+        // preview into a separate foregroung Picture-in-Picture.
+        //
+        // Mac OS was the first introducing this behavior, but now
+        // this seems to apply to other OSes as well.
+        //
+        video.addEventListener('loadeddata', function(e) {
+            const self = this;
+            this.requestPictureInPicture()
+                .then((pictureInPictureWindow) => {
+                    console.log('Picture-in-Picture successfull', self);
+                })
+                .catch(function (err) {
+                    console.error('Picture-in-Picture failed', self, err);
+                });
+        });
+    }
+
     createVideo(stream) {
         const video = document.createElement('video');
         video.muted = true;
@@ -602,6 +626,7 @@ class Proctoring {
         video.addEventListener('pause', function(e) {
             this.play();
         });
+        this.requestPictureInPicture(video);
 
         return video;
     }
