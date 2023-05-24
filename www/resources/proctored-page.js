@@ -1,10 +1,15 @@
 function modalAlert(message, handler) {
-    document.querySelector('#modal-messages .modal-body').innerHTML = message;
-    const dialog = $('#modal-messages');
-    if (typeof handler === 'function') {
-        dialog.on('hidden.bs.modal', handler);
+    if (typeof jQuery !== 'undefined') {
+        document.querySelector('#modal-messages .modal-body').innerHTML = message;
+        const dialog = $('#modal-messages');
+        if (typeof handler === 'function') {
+            dialog.on('hidden.bs.modal', handler);
+        }
+        dialog.modal('show');
+    } else {
+        alert(message);
+        handler();
     }
-    dialog.modal('show');
 }
 
 function streamMuted(stream) {
@@ -105,6 +110,39 @@ function scheduleUpload(name, type, blob) {
     uploadQueue.push(formData);
 }
 
+
+//
+// In this proctoring implementation we try to tolerate many
+// suboptimal conditions such as lack of Internet connectivity or a
+// temporary downtime of the server.  We also handle exceptions
+// happening at various places on the client side, such as obtaining
+// the picture, making sure streams are active and so on.
+//
+// In the wild we have encountered situations where despite our best
+// efforts the user would be able to proceed through the session
+// without generating proctoring artifacts. Foul play aside, such
+// condition may happen, for instance, if the client suddenly hangs
+// while taking a picture without generating an error. This may be due
+// to various factors such as hardware errors or browser bugs that is
+// difficult to foresee or reproduce. In such unfortunate case, no
+// upload would be scheduled and no error would be thrown.
+//
+// Therefore, we now implement a simple "ground-truth" test: whenever
+// we detect that the client has not been sending artifacts for longer
+// than 10 times the maximum proctoring interval, we inform the user
+// and abort the session.
+//
+let latestSuccessfulUploadTimeout;
+function checkUpload() {
+    clearTimeout(latestSuccessfulUploadTimeout);
+
+    latestSuccessfulUploadTimeout = setTimeout(function () {
+        modalAlert(tooLongWithoutSendingArtifactsMessage, function() {
+            location.reload();
+        });
+    }, maxMsInterval * 10);
+}
+
 function upload() {
     if (!hasUpload) {
         uploadQueue.length = 0;
@@ -140,6 +178,7 @@ function upload() {
                     // Success: reschedule the upload 1s from now.
                     //
                     reschedule(1000);
+                    checkUpload();
                 } else {
                     //
                     // Proctoring is over: redirect to the unproctored
@@ -537,6 +576,7 @@ function startExam() {
         proctoring.start();
         console.log('starting upload');
         upload();
+        checkUpload();
         console.log('proctoring has started');
     } else {
         createIframe();

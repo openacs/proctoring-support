@@ -142,6 +142,7 @@
   <msg key="Start_date">Start date</msg>
   <msg key="student_id_label">Student ID</msg>
   <msg key="time_filter_presets_label">Time filter presets</msg>
+  <msg key="too_long_without_sending_artifacts">Too much time has passed without sending proctoring artifacts. This session will be aborted. Please check your network connectivity and hardware configuration and try again.</msg>
   <msg key="unflag_all_confirm_msg">This will set all artifacts for this user as OK, are you sure?</msg>
   <msg key="unflag_all_label">Set everything as OK</msg>
   <msg key="unflag_artifact_label">Confirm OK</msg>

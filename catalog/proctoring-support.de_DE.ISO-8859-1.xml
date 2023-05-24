@@ -137,6 +137,7 @@
   <msg key="Start_date">Anfangsdatum</msg>
   <msg key="student_id_label">Matrikelnummer</msg>
   <msg key="time_filter_presets_label">Filter</msg>
+  <msg key="too_long_without_sending_artifacts">Es ist zu viel Zeit verstrichen, ohne dass Proctoring-Artefakte gesendet wurden. Diese Sitzung wird abgebrochen. Bitte überprüfen Sie Ihre Netzwerkverbindung und Hardwarekonfiguration und versuchen Sie es erneut.</msg>
   <msg key="unflag_all_confirm_msg">Alle Artefakte für diesen Benutzer würden als in Ordnung bestätigt, sind Sie sicher?</msg>
   <msg key="unflag_all_label">Alle in Ordnung</msg>
   <msg key="unflag_artifact_label">In Ordnung</msg>

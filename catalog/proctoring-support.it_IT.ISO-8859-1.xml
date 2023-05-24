@@ -63,6 +63,7 @@
   <msg key="Start_date">Data inizio</msg>
   <msg key="student_id_label">ID Studente</msg>
   <msg key="time_filter_presets_label">Periodi preselezionati</msg>
+  <msg key="too_long_without_sending_artifacts">È trascorso troppo tempo senza che siano stati inviati artefatti di verifica. La sessione verrà interrotta. Si prega di controllare la connettività di rete e la configurazione hardware e riprovare.</msg>
   <msg key="unflag_all_confirm_msg">Tutti gli artefatti di questo utente saranno segnati come OK. Vuoi procedere?</msg>
   <msg key="unflag_all_label">Segna tutto come OK</msg>
   <msg key="unflag_artifact_label">Segna come OK</msg>

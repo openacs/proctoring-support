@@ -137,5 +137,6 @@
     const submitLabel = "#proctoring-support.wizard_finish#";
     const acceptLabel = "#proctoring-support.accept#";
     const blackPictureSizeThreshold = 5000; // kbytes
+    const tooLongWithoutSendingArtifactsMessage = `@msg.too_long_without_sending_artifacts@`;
   </script>
   <script src="/resources/proctoring-support/proctored-page.js"></script>

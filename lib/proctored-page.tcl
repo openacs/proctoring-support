@@ -119,6 +119,7 @@ set default_msg(camera_not_readable) [_ proctoring-support.camera_not_readable]
 set default_msg(wrong_display_surface_selected) [_ proctoring-support.wrong_display_surface_selected]
 set default_msg(display_surface_not_supported) [_ proctoring-support.display_surface_not_supported]
 set default_msg(mobile_devices_not_supported) [_ proctoring-support.mobile_devices_are_unsupported]
+set default_msg(too_long_without_sending_artifacts) [_ proctoring-support.too_long_without_sending_artifacts]
 
 foreach {key value} [array get default_msg] {
     if {![info exists msg($key)]} {
