@@ -587,31 +587,8 @@ class Proctoring {
         }
     }
 
-    requestPictureInPicture(video) {
-        //
-        // Browser versions released 2022-2023 onward may decide to
-        // kill our video when the browser is put out of focus. Such a
-        // use case is quite common for exams that take place on tools
-        // different than the browser itself, e.g. written assignments
-        // on a word processor.  To avoid this, we put the camera
-        // preview into a separate foregroung Picture-in-Picture.
-        //
-        // Mac OS was the first introducing this behavior, but now
-        // this seems to apply to other OSes as well.
-        //
-        video.addEventListener('loadeddata', function(e) {
-            const self = this;
-            this.requestPictureInPicture()
-                .then((pictureInPictureWindow) => {
-                    console.log('Picture-in-Picture successfull', self);
-                })
-                .catch(function (err) {
-                    console.error('Picture-in-Picture failed', self, err);
-                });
-        });
-    }
-
     createVideo(stream) {
+        const self = this;
         const video = document.createElement('video');
         video.muted = true;
         video.autoplay = true;
@@ -626,7 +603,55 @@ class Proctoring {
         video.addEventListener('pause', function(e) {
             this.play();
         });
-        this.requestPictureInPicture(video);
+
+        //
+        // Browser versions released 2022-2023 onward may decide to
+        // kill our video when the browser is put out of focus. Such a
+        // use case is quite common for exams that take place on tools
+        // different than the browser itself, e.g. written assignments
+        // on a word processor.  To avoid this, we put the camera
+        // preview into a separate foregroung Picture-in-Picture when
+        // the proctored page is put in the background.
+        //
+        // Mac OS was the first introducing this behavior, but now
+        // this seems to apply to other OSes as well.
+        //
+        window.addEventListener('blur', function(e) {
+            //
+            // Page goes out of sight. Put video in PiP.
+            //
+            if (!self.pipTaken && !document.pictureInPictureElement) {
+                self.pipTaken = true;
+                video.requestPictureInPicture()
+                    .then((pictureInPictureWindow) => {
+                        console.log('Entering Picture-in-Picture successfull', video);
+                    })
+                    .catch(function (err) {
+                        console.error('Entering Picture-in-Picture failed', video, err);
+                    })
+                    .finally(function() {
+                        //
+                        // Only one of the attempts to put one of the
+                        // possibly multiple videos in PiP will
+                        // succeed, as the second will not count as
+                        // triggered by a user interaction. Hence we
+                        // use this flag mechanism to skip the second
+                        // attempt alsogether.
+                        //
+                        self.pipTaken = false;
+                    });
+            }
+        });
+        window.addEventListener('click', function(e) {
+            //
+            // User interacted again with the page. Exit PiP.
+            //
+            if (document.pictureInPictureElement) {
+                document.exitPictureInPicture()
+                    .then(() => console.log('Exiting Picture-in-Picture successfull'))
+                    .catch((err) => console.error('Exiting Picture-in-Picture failed', err));
+            }
+        });
 
         return video;
     }
