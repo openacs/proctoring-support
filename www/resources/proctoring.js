@@ -754,17 +754,15 @@ class Proctoring {
             const ctx = canvas.getContext('2d', {willReadFrequently: true});
             ctx.drawImage(video, 0, 0, iWidth, iHeight);
 
-            // In the future we might be stricter about black pictures...
-            // if (this.isCanvasMonochrome(canvas)) {
-            //     throw 'canvas is monochrome';
-            // }
+            if (this.isCanvasMonochrome(canvas)) {
+                throw 'canvas is monochrome';
+            }
 
-            // Check that camera does not keep sending the same
-            // picture over and over.
-            if (streamName === 'camera' &&
-                prevPicture !== null &&
+            // Check that we are not sending the same picture over and
+            // over.
+            if (prevPicture &&
                 this.areCanvasEquals(canvas, prevPicture)) {
-                throw 'Camera is sending the same identical picture twice.';
+                throw 'you are sending the same identical picture twice.';
             }
             this.prevPictures[i] = this.cloneCanvas(canvas);
 
