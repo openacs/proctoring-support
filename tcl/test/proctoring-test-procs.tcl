@@ -482,7 +482,7 @@ aa_register_case \
                        -url $url \
                        -headers $headers \
                        -files [list [list fieldname file file $file]] \
-                       -formvars [export_vars -url {type name object_id}]]
+                       -formvars [export_vars {type name object_id}]]
 
             aa_equals "Request returns 200" [dict get $r status] 200
             aa_equals "Proctoring is not configured for '$object_id', so requests returns 'OFF'" \
@@ -500,7 +500,7 @@ aa_register_case \
                        -url $url \
                        -headers $headers \
                        -files [list [list fieldname file file $file]] \
-                       -formvars [export_vars -url {type name object_id {check_active_p false}}]]
+                       -formvars [export_vars {type name object_id {check_active_p false}}]]
 
             aa_equals "Request returns 200" [dict get $r status] 200
             aa_equals "Requests returns 'OK'" \

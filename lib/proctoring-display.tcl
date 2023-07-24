@@ -70,7 +70,7 @@ set host ${only_host}[expr {$port ni {"" 80} ? ":$port" : ""}]
 set proto     [dict get $parsed_host proto]
 set ws_proto  [expr {$proto eq "https" ? "wss" : "ws"}]
 set proctoring_url [site_node::get_package_url -package_key proctoring-support]
-set ws_url $ws_proto://${host}${proctoring_url}/websocket?[export_vars -no_empty {user_id object_id}]
+set ws_url $ws_proto://${host}${proctoring_url}/[export_vars -base websocket -no_empty {user_id object_id}]
 
 if {$delete_p && [llength $user_id] >= 1} {
     #
