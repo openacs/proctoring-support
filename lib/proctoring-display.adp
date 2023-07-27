@@ -247,8 +247,8 @@
 
         <div class="clearfix">
             <!-- person details -->
-            <div class="panel panel-default pull-left" style="margin-right:1em;">
-                <div class="panel-heading"><b>#acs-kernel.Person#</b></div>
+            <div class="panel panel-default card mb-3 pull-left float-start" style="margin-right:1em;">
+                <div class="panel-heading card-header"><b>#acs-kernel.Person#</b></div>
                 <table class="table">
                     <tr>
                         <th>#acs-subsite.Last_name#:</th>
@@ -261,8 +261,8 @@
                 </table>
             </div>
 
-            <div class="panel panel-default pull-left">
-                <div class="panel-heading"><b>#proctoring-support.user_photo#</b></div>
+            <div class="panel panel-default card mb-3 pull-left float-start">
+                <div class="panel-heading card-header"><b>#proctoring-support.user_photo#</b></div>
                 <table class="table">
                     <tr>
                         <th>#acs-subsite.Portrait#</th>
