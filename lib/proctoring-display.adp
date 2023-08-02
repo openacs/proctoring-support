@@ -398,7 +398,7 @@
               </if>
               <div class="flex-12" name="revisions" data-revisions="@events.revisions@">
                 <div name="revision" class="flex-12" style="display:none;">
-                  <button class="delete"
+                  <button class="delete btn btn-default btn-light"
                           data-artifact-id="@events.artifact_id@">
                     &#128465;
                   </button>
@@ -574,7 +574,7 @@
             </span>
             <div class="flex-12" name="revisions" data-revisions="">
               <div name="revision" class="flex-12" style="display:none;">
-                <button class="delete">
+                <button class="delete btn btn-default btn-light">
                   &#128465;
                 </button>
                 <span name="timestamp"></span>
