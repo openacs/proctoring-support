@@ -674,7 +674,7 @@
                        element = place.querySelector('audio');
                        element.setAttribute('data-src', getFileURL(e));
                    } else {
-                       place = event.querySelector('[name="' + e.name + '"']);
+                       place = event.querySelector('[name="' + e.name + '"]');
                        element = place.querySelector('img');
                        element.setAttribute('data-src', getFileURL(e));
                        element.addEventListener('click', clickToEnlargeImage);
