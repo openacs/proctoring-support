@@ -101,6 +101,7 @@
         <label for="comment">#acs-subsite.Comment#</label>
         <textarea id="comment" name="comment" class="form-control" required></textarea>
       </div>
+      <br>
       <button type="submit" class="btn btn-default btn-light">#acs-kernel.common_Save#</button>
     </form>
   </div>
