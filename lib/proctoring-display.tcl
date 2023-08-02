@@ -202,6 +202,8 @@ if {$delete_p && [llength $user_id] >= 1} {
 
             order by timestamp asc
         } {
+            set timestamp [string range $timestamp 0 18]
+
             if {$camera_url ne ""} {
                 set camera_url [file tail $camera_url]
                 set camera_url [export_vars -base $user_url {{file $camera_url}}]
