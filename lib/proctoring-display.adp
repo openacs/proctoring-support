@@ -108,45 +108,42 @@
 <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
 
     // Get references to the modal
-    var modal = document.getElementById("modal");
-    var modalIdElement = modal.querySelector('[name="artifact_id"]');
+    const modal = document.getElementById('modal');
+    const modalIdElement = modal.querySelector('[name="artifact_id"]');
+    const modalComment = modal.querySelector('#comment');
 
-    document.querySelector("#modal form").addEventListener('submit', function (e) {
+    const form = document.querySelector('#modal form');
+    form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var request = new XMLHttpRequest();
-        var form = this;
-        request.addEventListener("loadend", function () {
+        const request = new XMLHttpRequest();
+        request.addEventListener('loadend', function () {
             if (this.status === 200) {
-                var artifactId = modalIdElement.value;
+                const artifactId = modalIdElement.value;
                 updateArtifactComments(artifactId, this.response);
                 form.reset();
-                modal.style.display = "none";
-                document.querySelector(".comment[data-artifact-id='" + artifactId + "']")?.focus();
+                modal.style.display = 'none';
+                document.querySelector('.comment[data-artifact-id="' + artifactId + '"]')?.focus();
             } else {
                 alert(this.response);
             }
         });
-        request.open("POST", '@proctoring_url@/review');
+        request.open('POST', '@proctoring_url@/review');
         request.send(new FormData(form));
     });
 
     function openReview(e) {
-        var artifactId = this.getAttribute('data-artifact-id');
+        const artifactId = this.getAttribute('data-artifact-id');
         modalIdElement.value = artifactId;
-        modal.querySelector("#comment").focus();
+        modalComment.focus();
     };
 
     function initWS(URL, onMessage) {
-        if ("WebSocket" in window) {
-            websocket = new WebSocket(URL);
-        } else {
-            websocket = new MozWebSocket(URL);
-        }
+        const websocket = new WebSocket(URL);
         // Keepalive websocket
         websocket.onopen = function(evt) {
             setInterval(function (ws) {
-                if (ws.readyState == 1) {
-                    ws.send("ping");
+                if (ws.readyState === 1) {
+                    ws.send('ping');
                 }
             }, 30000, this);
         };
@@ -155,57 +152,53 @@
     }
 
     // borrowed from https://css-tricks.com/the-complete-guide-to-lazy-loading-images/
-    var imageObserver;
-    document.addEventListener("DOMContentLoaded", function() {
-      var lazyloadImages;
+    document.addEventListener('DOMContentLoaded', function() {
+        const lazyloadImages = document.querySelectorAll('.lazy');
 
-      if ("IntersectionObserver" in window) {
-        lazyloadImages = document.querySelectorAll(".lazy");
-        imageObserver = new IntersectionObserver(function(entries, observer) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              var image = entry.target;
-              image.src = image.dataset.src;
-              image.classList.remove("lazy");
-              imageObserver.unobserve(image);
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver(function(entries, observer) {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        const image = entry.target;
+                        image.src = image.dataset.src;
+                        image.classList.remove('lazy');
+                        imageObserver.unobserve(image);
+                    }
+                }
+            });
+
+            for (const img of lazyloadImages) {
+                imageObserver.observe(img);
             }
-          });
-        });
-
-        lazyloadImages.forEach(function(image) {
-          imageObserver.observe(image);
-        });
-      } else {
-            var lazyloadThrottleTimeout;
-            lazyloadImages = document.querySelectorAll(".lazy");
+        } else {
+            let lazyloadThrottleTimeout;
 
             function lazyload () {
-             if(lazyloadThrottleTimeout) {
-               clearTimeout(lazyloadThrottleTimeout);
-             }
+                if (lazyloadThrottleTimeout) {
+                    clearTimeout(lazyloadThrottleTimeout);
+                }
 
-             lazyloadThrottleTimeout = setTimeout(function() {
-               var scrollTop = window.pageYOffset;
-               lazyloadImages.forEach(function(img) {
-                   if(img.offsetTop < (window.innerHeight + scrollTop)) {
-                     img.src = img.dataset.src;
-                     img.classList.remove('lazy');
-                   }
-               });
-               if(lazyloadImages.length == 0) {
-                 document.removeEventListener("scroll", lazyload);
-                 window.removeEventListener("resize", lazyload);
-                 window.removeEventListener("orientationChange", lazyload);
-               }
-             }, 20);
+                lazyloadThrottleTimeout = setTimeout(function() {
+                    const scrollTop = window.pageYOffset;
+                    for (const img of lazyloadImages) {
+                        if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                        }
+                    }
+                    if (lazyloadImages.length === 0) {
+                        document.removeEventListener('scroll', lazyload);
+                        window.removeEventListener('resize', lazyload);
+                        window.removeEventListener('orientationChange', lazyload);
+                    }
+                }, 20);
             }
 
-            document.addEventListener("scroll", lazyload);
-            window.addEventListener("resize", lazyload);
-            window.addEventListener("orientationChange", lazyload);
-      }
-    })
-
+            document.addEventListener('scroll', lazyload);
+            window.addEventListener('resize', lazyload);
+            window.addEventListener('orientationChange', lazyload);
+        }
+    });
 </script>
 <if @user_id@ not nil>
     <if @file@ nil>
@@ -287,21 +280,21 @@
           </div>
         </div>
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
-          var bulkFlagBtn = document.querySelector("#flag-all");
-          bulkFlagBtn.addEventListener("click", function(e) {
+          const bulkFlagBtn = document.querySelector('#flag-all');
+          bulkFlagBtn.addEventListener('click', function(e) {
               if (confirm(`#proctoring-support.flag_all_confirm_msg#`)) {
                   window.location = `@bulk_flag_url;literal@`;
               }
           });
-          var bulkUnflagBtn = document.querySelector("#unflag-all");
-          bulkUnflagBtn.addEventListener("click", function(e) {
+          const bulkUnflagBtn = document.querySelector('#unflag-all');
+          bulkUnflagBtn.addEventListener('click', function(e) {
               if (confirm(`#proctoring-support.unflag_all_confirm_msg#`)) {
                   window.location = `@bulk_unflag_url;literal@`;
               }
           });
 
-          var dateFilters = document.querySelectorAll("[name=start_date], [name=end_date], [name=start_time], [name=end_time]");
-          var radioFilters = document.querySelectorAll("[name='only']");
+          const dateFilters = document.querySelectorAll('[name=start_date], [name=end_date], [name=start_time], [name=end_time]');
+          const radioFilters = document.querySelectorAll('[name=only]');
           function isFiltered(e, filters) {
               if (filters.status === 'flagged' && !e.classList.contains('flagged')) {
                   // - flagged artifacts
@@ -320,20 +313,20 @@
                   // - artifacts without a review outcome
                   return true;
               }
-              var timestamp = e.querySelector("[name=title]").textContent;
-              if (filters.start_date !== "") {
-                  var startTime = filters.start_date;
-                  if (filters.start_time !== "") {
-                      startTime+= " " + filters.start_time;
+              const timestamp = e.querySelector('[name=title]').textContent;
+              if (filters.start_date !== '') {
+                  let startTime = filters.start_date;
+                  if (filters.start_time !== '') {
+                      startTime+= ' ' + filters.start_time;
                   }
                   if (startTime > timestamp) {
                       return true;
                   }
               }
-              if (filters.end_date !== "") {
-                  var endTime = filters.end_date;
-                  if (filters.end_time !== "") {
-                      endTime+= " " + filters.end_time;
+              if (filters.end_date !== '') {
+                  let endTime = filters.end_date;
+                  if (filters.end_time !== '') {
+                      endTime+= ' ' + filters.end_time;
                   }
                   if (endTime < timestamp) {
                       return true;
@@ -342,41 +335,41 @@
               return false;
           }
           function hideFiltered() {
-              var total = 0;
-              var totalShown = 0;
-              var filters = {"status": "all"};
-              for (r of radioFilters) {
+              let total = 0;
+              let totalShown = 0;
+              const filters = {'status': 'all'};
+              for (const r of radioFilters) {
                   if (r.checked) {
                       filters.status = r.value;
                   }
               }
-              for (d of dateFilters) {
+              for (const d of dateFilters) {
                   filters[d.name] = d.value;
               }
               // Hide/show artifacts according to the filter:
-              for (e of document.querySelectorAll("#event-list [name='data']")) {
+              for (const e of document.querySelectorAll('#event-list [name=data]')) {
                   e.style.display = isFiltered(e, filters) ? 'none' : null;
                   total++;
                   if (!e.style.display) {
                       totalShown++;
                   }
               }
-              document.querySelector("#total").textContent = total;
-              document.querySelector("#total-shown").textContent = totalShown;
+              document.querySelector('#total').textContent = total;
+              document.querySelector('#total-shown').textContent = totalShown;
           }
-          document.querySelector("select[name=timeframe]").addEventListener('change', function(e) {
-              var values = this.value.split(",");
-              document.querySelector("[name=start_date]").value = values[0];
-              document.querySelector("[name=start_time]").value = values[1];
-              document.querySelector("[name=end_date]").value = values[2];
-              document.querySelector("[name=end_time]").value = values[3];
+          document.querySelector('select[name=timeframe]').addEventListener('change', function(e) {
+              const values = this.value.split(',');
+              document.querySelector('[name=start_date]').value = values[0];
+              document.querySelector('[name=start_time]').value = values[1];
+              document.querySelector('[name=end_date]').value = values[2];
+              document.querySelector('[name=end_time]').value = values[3];
           });
-          for (f of dateFilters) {
+          for (const f of dateFilters) {
               f.addEventListener('change', function(e) {
-                  document.querySelector("select[name=timeframe]").value = ",,,";
+                  document.querySelector('select[name=timeframe]').value = ',,,';
               });
           }
-          for (f of document.querySelectorAll("[name=filters]")) {
+          for (const f of document.querySelectorAll('[name=filters]')) {
               f.addEventListener('change', function(e) {
                   hideFiltered();
               });
@@ -435,11 +428,11 @@
         </div>
 
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
-          var fullPage = document.createElement("div");
-          fullPage.id = "fullpage";
+          const fullPage = document.createElement('div');
+          fullPage.id = 'fullpage';
           document.body.insertBefore(fullPage, document.body.firstElementChild);
-          fullPage.addEventListener("click", function(e) {
-              this.style.display = "none";
+          fullPage.addEventListener('click', function(e) {
+              this.style.display = 'none';
           });
           function clickToEnlargeImage(e) {
               if (e.target.src) {
@@ -449,34 +442,34 @@
                   fullPage.style.display = 'block';
               }
           }
-          for (img of document.querySelectorAll("img.lazy")) {
-              img.addEventListener("click", clickToEnlargeImage);
+          for (const img of document.querySelectorAll('img.lazy')) {
+              img.addEventListener('click', clickToEnlargeImage);
           }
 
           function updateArtifactComments(artifactId, data) {
-              var button = document.
-                  querySelector(".comment[data-artifact-id='" + artifactId + "']");
+              const button = document.
+                  querySelector('.comment[data-artifact-id="' + artifactId + '"]');
               if (button) {
-                  var revisions = button.parentElement;
-                  revisions.setAttribute("data-revisions", data);
+                  const revisions = button.parentElement;
+                  revisions.setAttribute('data-revisions', data);
                   renderArtifactComments(revisions);
               }
           }
           function flag(e, flag=true) {
               e.preventDefault();
-              var artifactId = e.target.getAttribute('data-artifact-id');
-              var request = new XMLHttpRequest();
-              request.addEventListener("loadend", function () {
+              const artifactId = e.target.getAttribute('data-artifact-id');
+              const request = new XMLHttpRequest();
+              request.addEventListener('loadend', function () {
                   if (this.status === 200) {
                       updateArtifactComments(artifactId, this.response);
                   } else {
                       alert(this.response);
                   }
               });
-              var formData = new FormData();
+              const formData = new FormData();
               formData.append('artifact_id', artifactId);
               formData.append('flag', flag);
-              request.open("POST", '@proctoring_url@/review');
+              request.open('POST', '@proctoring_url@/review');
               request.send(formData);
           }
           function unFlag(e) {
@@ -487,47 +480,47 @@
               if (!confirm(`#acs-templating.Are_you_sure#`)) {
                   return
               }
-              var deleteButton = e.target;
-              var artifactId = deleteButton.getAttribute('data-artifact-id');
-              var record = deleteButton.getAttribute("data-record");
-              var request = new XMLHttpRequest();
-              request.addEventListener("loadend", function () {
+              const deleteButton = e.target;
+              const artifactId = deleteButton.getAttribute('data-artifact-id');
+              const record = deleteButton.getAttribute('data-record');
+              const request = new XMLHttpRequest();
+              request.addEventListener('loadend', function () {
                   if (this.status === 200) {
                       updateArtifactComments(artifactId, this.response);
                   } else {
                       alert(this.response);
                   }
               });
-              var formData = new FormData();
+              const formData = new FormData();
               formData.append('artifact_id', artifactId);
               formData.append('deleted_record', record);
-              request.open("POST", '@proctoring_url@/review');
+              request.open('POST', '@proctoring_url@/review');
               request.send(formData);
           }
           function renderArtifactComments(e) {
               // Cleanup
-              for (c of e.querySelectorAll("div[name='revision'][data-msg]")) {
+              for (const c of e.querySelectorAll('div[name=revision][data-msg]')) {
                   e.removeChild(c);
               }
-              var revisions = e.getAttribute('data-revisions');
-              var isFlagged = false;
-              var isUnflagged = false;
+              const revisions = e.getAttribute('data-revisions');
+              let isFlagged = false;
+              let isUnflagged = false;
               if (revisions !== '') {
-                  for (r of JSON.parse(decodeURIComponent(revisions))) {
+                  for (const r of JSON.parse(decodeURIComponent(revisions))) {
 
-                      var revision = e.firstElementChild.cloneNode(true);
+                      const revision = e.firstElementChild.cloneNode(true);
                       revision.style.display = null;
-                      revision.setAttribute("data-msg", true);
+                      revision.setAttribute('data-msg', true);
 
-                      var timestamp = revision.querySelector("[name='timestamp']");
+                      const timestamp = revision.querySelector('[name=timestamp]');
                       timestamp.style.display = null;
                       timestamp.textContent = r.timestamp;
 
-                      var author = revision.querySelector("[name='author']");
+                      const author = revision.querySelector('[name=author]');
                       author.style.display = null;
                       author.textContent = r.author;
 
-                      var comment = revision.querySelector("[name='comment']");
+                      const comment = revision.querySelector('[name=comment]');
                       comment.style.display = null;
                       comment.textContent = r.comment;
 
@@ -537,31 +530,31 @@
                           isUnflagged = true;
                       }
 
-                      var deleteButton = revision.querySelector(".delete");
-                      deleteButton.setAttribute("data-record", JSON.stringify(r));
-                      deleteButton.addEventListener("click", deleteArtifactComment);
+                      const deleteButton = revision.querySelector('.delete');
+                      deleteButton.setAttribute('data-record', JSON.stringify(r));
+                      deleteButton.addEventListener('click', deleteArtifactComment);
 
                       e.insertBefore(revision, e.lastElementChild);
                   }
               }
               e.parentElement.querySelector('.flag-all').disabled = isFlagged;
               if (isFlagged) {
-                  e.parentElement.classList.add("flagged");
+                  e.parentElement.classList.add('flagged');
               } else {
-                  e.parentElement.classList.remove("flagged");
+                  e.parentElement.classList.remove('flagged');
               }
               e.parentElement.querySelector('.unflag-all').disabled = isUnflagged;
               if (isUnflagged) {
-                  e.parentElement.classList.add("unflagged");
+                  e.parentElement.classList.add('unflagged');
               } else {
-                  e.parentElement.classList.remove("unflagged");
+                  e.parentElement.classList.remove('unflagged');
               }
               hideFiltered();
 
-              bulkFlagBtn.disabled = document.querySelector("#event-list [name=data]:not(.flagged)") === null;
-              bulkUnflagBtn.disabled = document.querySelector("#event-list [name=data]:not(.unflagged)") === null;
+              bulkFlagBtn.disabled = document.querySelector('#event-list [name=data]:not(.flagged)') === null;
+              bulkUnflagBtn.disabled = document.querySelector('#event-list [name=data]:not(.unflagged)') === null;
           }
-          for (e of document.querySelectorAll("[name='revisions']")) {
+          for (const e of document.querySelectorAll('[name=revisions]')) {
               renderArtifactComments(e);
           }
         </script>
@@ -608,37 +601,37 @@
         </div>
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
            function setEventButtonHandlers(element) {
-               acsModal(".comment");
-               for (e of element.querySelectorAll(".comment")) {
+               acsModal('.comment');
+               for (const e of element.querySelectorAll('.comment')) {
                    e.addEventListener('click', openReview);
                }
-               for (e of element.querySelectorAll(".flag-all")) {
+               for (const e of element.querySelectorAll('.flag-all')) {
                    e.addEventListener('click', flag);
                }
-               for (e of element.querySelectorAll(".unflag-all")) {
+               for (const e of element.querySelectorAll('.unflag-all')) {
                    e.addEventListener('click', unFlag);
                }
            }
            setEventButtonHandlers(document);
-           initWS("@ws_url;literal@", function(e) {
-               var template = document.querySelector("#template").firstElementChild;
-               var eventList = document.querySelector("#event-list");
-               var lastEvent = null;
+           initWS('@ws_url;literal@', function(e) {
+               const template = document.querySelector('#template').firstElementChild;
+               const eventList = document.querySelector('#event-list');
+               let lastEvent = null;
                if (eventList.children.length > 0) {
                    lastEvent = eventList.children[eventList.children.length - 1];
                }
 
                function getFileURL(e) {
-                   var fileTokens = e.file.split("/");
-                   return "@user_url@&file=" + fileTokens[fileTokens.length - 1];
+                   const fileTokens = e.file.split('/');
+                   return '@user_url@&file=' + fileTokens[fileTokens.length - 1];
                }
                function createEvent(e) {
-                   var event = template.cloneNode(true);
-                   for (s of event.querySelectorAll("span")) {
+                   const event = template.cloneNode(true);
+                   for (const s of event.querySelectorAll('span')) {
                        s.style.display = 'none';
                    }
-                   var title = event.querySelector("[name=title]");
-                   var timestamp = new Date(e.timestamp * 1000);
+                   const title = event.querySelector('[name=title]');
+                   let timestamp = new Date(e.timestamp * 1000);
                    // Compute the local ISO date. toISOString would
                    // return the UTC time...
                    timestamp =
@@ -649,42 +642,42 @@
                        (timestamp.getMinutes() + '').padStart(2, '0') + ':' +
                        (timestamp.getSeconds() + '').padStart(2, '0');
                    title.textContent = timestamp;
-                   var button = event.querySelector(".comment");
+                   const button = event.querySelector('.comment');
                    button.addEventListener('click', openReview);
                    eventList.appendChild(event);
                    return event;
                }
                function appendEvent(e) {
-                   var event;
+                   let event;
                    if (e.type !== 'audio' &&
                        lastEvent &&
-                       lastEvent.querySelector("[name='" + e.name + "']")?.style.display === 'none' &&
-                       lastEvent.querySelector("[name='audio']")?.style.display === 'none') {
+                       lastEvent.querySelector('[name="' + e.name + '"]')?.style.display === 'none' &&
+                       lastEvent.querySelector('[name=audio]')?.style.display === 'none') {
                        event = lastEvent;
                    } else {
                        event = createEvent(e);
                    }
 
-                   var buttons = event.querySelectorAll("[data-artifact-id]");
-                   var id = buttons[0].getAttribute("data-artifact-id");
+                   const buttons = event.querySelectorAll('[data-artifact-id]');
+                   const id = buttons[0].getAttribute('data-artifact-id');
                    if (id === '' || e.name === 'camera') {
-                       for (b of buttons) {
-                           b.setAttribute("data-artifact-id", e.id);
+                       for (const b of buttons) {
+                           b.setAttribute('data-artifact-id', e.id);
                            b.style.display = null;
                        }
                        setEventButtonHandlers(event);
                    }
 
-                   var place, element;
+                   let place, element;
                    if (e.type === 'audio') {
-                       place = event.querySelector("[name='audio']");
-                       element = place.querySelector("audio");
-                       element.setAttribute("data-src", getFileURL(e));
+                       place = event.querySelector('[name=audio]');
+                       element = place.querySelector('audio');
+                       element.setAttribute('data-src', getFileURL(e));
                    } else {
-                       place = event.querySelector("[name='" + e.name + "']");
-                       element = place.querySelector("img");
-                       element.setAttribute("data-src", getFileURL(e));
-                       element.addEventListener("click", clickToEnlargeImage);
+                       place = event.querySelector('[name="' + e.name + '"']);
+                       element = place.querySelector('img');
+                       element.setAttribute('data-src', getFileURL(e));
+                       element.addEventListener('click', clickToEnlargeImage);
                    }
                    place.style.display = null;
                    imageObserver.observe(element);
@@ -721,8 +714,8 @@
   <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
     // When new artifacts are generated for this object, this websocket
     // will trigger a page reload (capped to once every 60 seconds)
-    var isLoading = false;
-    initWS("@ws_url@", function(e) {
+    let isLoading = false;
+    initWS('@ws_url@', function(e) {
         if (!isLoading) {
             isLoading = true;
             setTimeout(function() {
@@ -736,68 +729,68 @@
 
     // Enable the bulk-action delete button only when something has
     // been selected.
-    var deleteButton = document.querySelector("#users-bulk_action-1");
+    const deleteButton = document.querySelector('#users-bulk_action-1');
     if (deleteButton) {
-        deleteButton.setAttribute("disabled", "");
-        deleteButton.addEventListener("click", function(e) {
+        deleteButton.setAttribute('disabled', '');
+        deleteButton.addEventListener('click', function(e) {
             if (!confirm(`#proctoring-support.delete_users_artifacts_confirm_msg#`)) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
             }
         });
-        var bulkCheckboxes = document.querySelectorAll(`
+        const bulkCheckboxes = document.querySelectorAll(`
             #users-bulkaction-control,
             form[name=users] input[name=user_id]`);
         function toggleBulkActionsOnSelection(e) {
-            var selected = false;
-            for (i of bulkCheckboxes) {
+            let selected = false;
+            for (const i of bulkCheckboxes) {
                 if (e.target.checked || i.checked) {
                     selected = true;
                     break;
                 }
             }
             if (selected) {
-                deleteButton.removeAttribute("disabled");
+                deleteButton.removeAttribute('disabled');
             } else {
-                deleteButton.setAttribute("disabled", "");
+                deleteButton.setAttribute('disabled', '');
             }
         }
-        for (i of bulkCheckboxes) {
+        for (const i of bulkCheckboxes) {
             i.checked = false;
-            i.addEventListener("change", toggleBulkActionsOnSelection);
+            i.addEventListener('change', toggleBulkActionsOnSelection);
         }
     }
 
     // Filter the users list based on the search bar
-    document.querySelector("#filter").addEventListener("keyup", function(e) {
-        var visibleSelector, hiddenSelector;
-        visibleSelector = "";
-        var tokens = this.value.toLowerCase().split(/\s+/);
-        for (var i = 0; i < tokens.length; i++) {
-            if (tokens[i].length > 0) {
-                visibleSelector+= '[data-filter*="' + tokens[i] + '"] ';
+    document.querySelector('#filter').addEventListener('keyup', function(e) {
+        let visibleSelector = '';
+        const tokens = this.value.toLowerCase().split(/\s+/);
+        for (const token of tokens) {
+            if (token.length > 0) {
+                visibleSelector+= '[data-filter*="' + token + '"] ';
             }
         }
 
-        if (visibleSelector.length == 0) {
-            visibleSelector = "[data-filter]";
-            hiddenSelector = "";
+        let hiddenSelector = '';
+        if (visibleSelector.length === 0) {
+            visibleSelector = '[data-filter]';
+            hiddenSelector = '';
         } else {
-            hiddenSelector = "[data-filter]:not(" + visibleSelector.trim() + ")";
+            hiddenSelector = '[data-filter]:not(' + visibleSelector.trim() + ')';
         }
 
-        for (visible of document.querySelectorAll(visibleSelector)) {
-            visible.parentElement.parentElement.style.display = "";
+        for (const visible of document.querySelectorAll(visibleSelector)) {
+            visible.parentElement.parentElement.style.display = '';
         }
 
         if (hiddenSelector.length > 0) {
             // Hidden checkboxes might still be selected. If we are
             // hinding any element, we first reset them.
-            for (i of (bulkCheckboxes ? bulkCheckboxes : [])) {
+            for (const i of bulkCheckboxes) {
                 i.checked = false;
             }
-            for (hidden of document.querySelectorAll(hiddenSelector)) {
-                hidden.parentElement.parentElement.style.display = "none";
+            for (const hidden of document.querySelectorAll(hiddenSelector)) {
+                hidden.parentElement.parentElement.style.display = 'none';
             }
         }
     });
