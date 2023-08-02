@@ -101,7 +101,7 @@
         <label for="comment">#acs-subsite.Comment#</label>
         <textarea id="comment" name="comment" class="form-control" required></textarea>
       </div>
-      <button type="submit" class="btn btn-default">#acs-kernel.common_Save#</button>
+      <button type="submit" class="btn btn-default btn-light">#acs-kernel.common_Save#</button>
     </form>
   </div>
 </div>
@@ -234,7 +234,7 @@
         </div>
 
         <p>
-          <a href="@back_url@" class="btn btn-default">#acs-subsite.Go_back#</a>
+          <a href="@back_url@" class="btn btn-default btn-light">#acs-subsite.Go_back#</a>
         </p>
         <p>
           <button data-href="@bulk_unflag_url@" id="unflag-all"
@@ -408,7 +408,7 @@
                   :
                   <span name="comment"></span>
                 </div>
-                <button class="comment btn btn-default"
+                <button class="comment btn btn-default btn-light"
                         data-artifact-id="@events.artifact_id@">
                   #acs-subsite.Comment#
                 </button>
@@ -583,7 +583,7 @@
                 :
                 <span name="comment"></span>
               </div>
-              <button class="comment btn btn-default"
+              <button class="comment btn btn-default btn-light"
                       style="display:none;"
                       data-artifact-id="">#acs-subsite.Comment#</button>
             </div>
