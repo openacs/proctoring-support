@@ -1,13 +1,22 @@
+const modal = document.querySelector('#modal-messages');
+const modalBody = modal.querySelector('.modal-body');
+const modalClose = modal.querySelector('.acs-modal-close');
+
+//
+// The modal disappearing is the same as clicking on the close button.
+//
+const modalObserver = new window.IntersectionObserver((entries) => {
+    if (entries[0].intersectionRatio === 0) {
+        modalClose.dispatchEvent(new window.Event('click'));
+    }
+});
+modalObserver.observe(modal);
+
 function modalAlert(message, handler) {
-    if (typeof jQuery !== 'undefined') {
-        document.querySelector('#modal-messages .modal-body').innerHTML = message;
-        const dialog = $('#modal-messages');
-        if (typeof handler === 'function') {
-            dialog.on('hidden.bs.modal', handler);
-        }
-        dialog.modal('show');
-    } else {
-        alert(message);
+    modalBody.innerHTML = message;
+    modal.style.display = 'block';
+    modalClose.onclick = function () {
+        modal.style.display = 'none';
         handler();
     }
 }

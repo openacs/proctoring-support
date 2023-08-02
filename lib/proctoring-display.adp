@@ -3,6 +3,9 @@
     <property name="doc(title)">#proctoring-support.Proctoring#</property>
 </if>
 
+<link rel="stylesheet" href="/resources/acs-templating/modal.css">
+<script src="/resources/acs-templating/modal.js"></script>
+
 <style>
 #fullpage {
   display: none;
@@ -19,39 +22,16 @@
   background-color: black;
 }
 
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
 /* The Close Button */
-.close {
+.acs-modal-close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.acs-modal-close:hover,
+.acs-modal-close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -111,10 +91,10 @@
 </style>
 
 <!-- The Modal -->
-<div id="modal" class="modal">
+<div id="modal" class="acs-modal">
   <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
+  <div class="acs-modal-content">
+    <span class="acs-modal-close">&times;</span>
     <form>
       <input name="artifact_id" type="hidden">
       <div class="form-group">
@@ -140,7 +120,7 @@
                 var artifactId = modalIdElement.value;
                 updateArtifactComments(artifactId, this.response);
                 form.reset();
-                closeModal();
+                modal.style.display = "none";
                 document.querySelector(".comment[data-artifact-id='" + artifactId + "']")?.focus();
             } else {
                 alert(this.response);
@@ -150,25 +130,11 @@
         request.send(new FormData(form));
     });
 
-    function closeModal() {
-        modal.style.display = "none";
-    }
     function openReview(e) {
         var artifactId = this.getAttribute('data-artifact-id');
         modalIdElement.value = artifactId;
-        modal.style.display = "block";
         modal.querySelector("#comment").focus();
     };
-
-    // When the user clicks on <span> (x), close the modal
-    document.querySelector('#modal .close').addEventListener('click', closeModal);
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            closeModal();
-        }
-    });
 
     function initWS(URL, onMessage) {
         if ("WebSocket" in window) {
@@ -642,6 +608,7 @@
         </div>
         <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
            function setEventButtonHandlers(element) {
+               acsModal(".comment");
                for (e of element.querySelectorAll(".comment")) {
                    e.addEventListener('click', openReview);
                }

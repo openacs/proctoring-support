@@ -10,14 +10,15 @@
   <script src="/resources/proctoring-support/audiowave.js"></script>
   <link rel="stylesheet" href="/resources/proctoring-support/proctored-page.css">
 
+  <link rel="stylesheet" href="/resources/acs-templating/modal.css">
+  <script src="/resources/acs-templating/modal.js"></script>
+
   <!-- Alert/Error messages -->
-  <div class="modal fade" id="modal-messages" tabindex="-1" role="dialog" aria-labelledby="modal-messages-title" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" data-backdrop="static" data-keyboard="false">OK</button>
-        </div>
+  <div id="modal-messages" class="acs-modal">
+    <div class="acs-modal-content">
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary acs-modal-close">OK</button>
       </div>
     </div>
   </div>
