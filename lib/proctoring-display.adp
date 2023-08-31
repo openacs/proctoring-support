@@ -728,6 +728,10 @@
         }
     });
 
+    const bulkCheckboxes = document.querySelectorAll(`
+            #users-bulkaction-control,
+            form[name=users] input[name=user_id]`);
+
     // Enable the bulk-action delete button only when something has
     // been selected.
     const deleteButton = document.querySelector('#users-bulk_action-1');
@@ -739,9 +743,6 @@
                 e.stopImmediatePropagation();
             }
         });
-        const bulkCheckboxes = document.querySelectorAll(`
-            #users-bulkaction-control,
-            form[name=users] input[name=user_id]`);
         function toggleBulkActionsOnSelection(e) {
             let selected = false;
             for (const i of bulkCheckboxes) {
