@@ -15,10 +15,6 @@
     display: none;
 }
 
-#prevBtn {
-    background-color: #bbbbbb;
-}
-
 /* Make circles that indicate the steps of the form: */
 .step {
     height: 15px;

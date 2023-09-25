@@ -63,9 +63,9 @@
     <div id="error-message" class="text-danger"></div>
     <div style="overflow:auto;">
       <div style="float:right;">
-        <button class="btn btn-secondary" type="button" id="prevBtn">#acs-kernel.common_Previous#</button>
-        <button class="btn btn-secondary" type="button" id="retryBtn">#proctoring-support.check_again#</button>
-        <button class="btn btn-secondary" type="button" id="nextBtn">#acs-kernel.common_Next#</button>
+        <button class="btn btn-outline-secondary btn-default" type="button" id="prevBtn">#acs-kernel.common_Previous#</button>
+        <button class="btn btn-primary" type="button" id="retryBtn">#proctoring-support.check_again#</button>
+        <button class="btn btn-primary" type="button" id="nextBtn">#acs-kernel.common_Next#</button>
       </div>
     </div>
     <!-- Circles which indicates the steps of the form: -->
