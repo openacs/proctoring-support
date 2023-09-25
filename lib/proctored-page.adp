@@ -1,8 +1,10 @@
 <master>
   <if @doc@ defined><property name="&doc">doc</property></if>
   <property name="show_header">0</property>
+  <property name="show_context_bar">0</property>
   <property name="side_menu">0</property>
   <property name="show_title">0</property>
+  <property name="show_footer">0</property>
   <property name="show_community_title">0</property>
 
   <script src="/resources/proctoring-support/gif.js"></script>
