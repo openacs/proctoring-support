@@ -47,7 +47,8 @@ function embedAudioTrackFromStream(fromStream, toStream) {
 function createIframe() {
     console.log('creating iframe');
     const iframe = document.createElement('iframe');
-    iframe.setAttribute('class', 'embed-responsive-item');
+    iframe.style.width = '100%';
+    iframe.style.height = '100vh';
     iframe.setAttribute('id', 'proctored-iframe-' + objectId);
     iframe.addEventListener('load', function(e) {
         try {
