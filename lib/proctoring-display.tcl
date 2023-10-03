@@ -297,25 +297,19 @@ if {$delete_p && [llength $user_id] >= 1} {
                p.last_name || ' ' || p.first_names as name,
                count(*) as n_artifacts,
                count(
-                   (select 1 from
-                    jsonb_path_query(a.metadata->'revisions',
-                                     '$[*] ? (@.flag == "false")')
-                    fetch first 1 rows only
-                    )
-                   ) as n_reviewed,
+                    jsonb_path_exists(a.metadata->'revisions',
+                                      '$[*] ? (@.flag == "false")')
+                    ) as n_reviewed,
                count(
-                   (select 1 from
-                    jsonb_path_query(a.metadata->'revisions',
+                    jsonb_path_exists(a.metadata->'revisions',
                                      '$[*] ? (@.flag == "true")')
-                    fetch first 1 rows only
-                    )
-                   ) as n_flagged
+                    ) as n_flagged
         from proctoring_object_artifacts a,
              persons p
         where object_id = :object_id
           and (a.type = 'audio' or
                a.name = (case when exists (select 1 from proctoring_object_artifacts
-                                            where object_id = a.object_id
+                                            where object_id = :object_id
                                               and type <> 'audio'
                                               and name = 'camera') then 'camera'
                          else 'desktop' end))
