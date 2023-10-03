@@ -297,12 +297,12 @@ if {$delete_p && [llength $user_id] >= 1} {
                p.last_name || ' ' || p.first_names as name,
                count(*) as n_artifacts,
                count(
-                    jsonb_path_exists(a.metadata->'revisions',
-                                      '$[*] ? (@.flag == "false")')
+                    jsonb_path_query_first(a.metadata->'revisions',
+                                           '$[*] ? (@.flag == "false")')
                     ) as n_reviewed,
                count(
-                    jsonb_path_exists(a.metadata->'revisions',
-                                     '$[*] ? (@.flag == "true")')
+                    jsonb_path_query_first(a.metadata->'revisions',
+                                           '$[*] ? (@.flag == "true")')
                     ) as n_flagged
         from proctoring_object_artifacts a,
              persons p
