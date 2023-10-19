@@ -60,6 +60,10 @@
     padding: 5px;
 }
 
+.iframe_with_border {
+    border: 5pt red solid;
+}
+
 #steps {
     text-align: center;
     margin-top: 40px;

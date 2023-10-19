@@ -69,6 +69,11 @@ ad_include_contract {
            recording of proctored content for e.g. mock exams to avoid
            privacy issues.
     @param proctoring_name a human readable name for the proctoring session
+    @param border_p When this flag is enabled, an extra border will be
+                    drawn around the iframe embedding the proctored
+                    object. Useful in contexts where the proctoring
+                    session should be more visible, e.g. by exam
+                    supervisors in an exam room.
 } {
     object_url:localurl
     object_id:naturalnum,notnull
@@ -81,6 +86,7 @@ ad_include_contract {
     {proctoring_p:boolean true}
     {camera_p:boolean true}
     {desktop_p:boolean true}
+    {border_p:boolean false}
     {check_active_p:boolean true}
     {examination_statement_p:boolean true}
     {examination_statement_url:localurl "/proctoring/examination-statement-accept"}

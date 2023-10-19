@@ -94,7 +94,9 @@
       <div id="preview-placeholder"></div>
     </div>
 
-    <div id="proctored-iframe-placeholder"></div>
+    <div id="proctored-iframe-placeholder"
+         <if @border_p;literal@ true>class="iframe_with_border"</if>
+         ></div>
   </div>
 
   <script <if @::__csp_nonce@ not nil>nonce="@::__csp_nonce@"</if>>
