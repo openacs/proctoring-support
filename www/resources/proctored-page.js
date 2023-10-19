@@ -49,6 +49,7 @@ function createIframe() {
     const iframe = document.createElement('iframe');
     iframe.style.width = '100%';
     iframe.style.height = '100vh';
+    iframe.style.border = 0;
     iframe.setAttribute('id', 'proctored-iframe-' + objectId);
     iframe.addEventListener('load', function(e) {
         try {
