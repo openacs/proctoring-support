@@ -758,9 +758,16 @@ class Proctoring {
                 throw 'canvas is monochrome';
             }
 
+            //
             // Check that we are not sending the same picture over and
             // over.
-            if (prevPicture &&
+            //
+            // We can perform this check reliably only when the camera
+            // is recorded, because the desktop may be still for
+            // longer than the average picture interval.
+            //
+            if (streamName === 'camera' &&
+                prevPicture &&
                 this.areCanvasEquals(canvas, prevPicture)) {
                 throw 'you are sending the same identical picture twice.';
             }
