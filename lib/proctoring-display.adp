@@ -152,54 +152,6 @@
         return websocket;
     }
 
-    // borrowed from https://css-tricks.com/the-complete-guide-to-lazy-loading-images/
-    document.addEventListener('DOMContentLoaded', function() {
-        const lazyloadImages = document.querySelectorAll('.lazy');
-
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver(function(entries, observer) {
-                for (const entry of entries) {
-                    if (entry.isIntersecting) {
-                        const image = entry.target;
-                        image.src = image.dataset.src;
-                        image.classList.remove('lazy');
-                        imageObserver.unobserve(image);
-                    }
-                }
-            });
-
-            for (const img of lazyloadImages) {
-                imageObserver.observe(img);
-            }
-        } else {
-            let lazyloadThrottleTimeout;
-
-            function lazyload () {
-                if (lazyloadThrottleTimeout) {
-                    clearTimeout(lazyloadThrottleTimeout);
-                }
-
-                lazyloadThrottleTimeout = setTimeout(function() {
-                    const scrollTop = window.pageYOffset;
-                    for (const img of lazyloadImages) {
-                        if (img.offsetTop < (window.innerHeight + scrollTop)) {
-                            img.src = img.dataset.src;
-                            img.classList.remove('lazy');
-                        }
-                    }
-                    if (lazyloadImages.length === 0) {
-                        document.removeEventListener('scroll', lazyload);
-                        window.removeEventListener('resize', lazyload);
-                        window.removeEventListener('orientationChange', lazyload);
-                    }
-                }, 20);
-            }
-
-            document.addEventListener('scroll', lazyload);
-            window.addEventListener('resize', lazyload);
-            window.addEventListener('orientationChange', lazyload);
-        }
-    });
 </script>
 <if @user_id@ not nil>
     <if @file@ nil>
@@ -384,17 +336,17 @@
               </div>
               <if @events.camera_url@ ne "">
                 <span name="camera" class="flex-3">
-                  <img class="lazy" data-src="@events.camera_url@">
+                  <img loading="lazy" src="@events.camera_url@">
                 </span>
               </if>
               <if @events.desktop_url@ ne "">
                 <span name="desktop" class="flex-9">
-                  <img class="lazy" data-src="@events.desktop_url@">
+                  <img loading="lazy" src="@events.desktop_url@">
                 </span>
               </if>
               <if @events.audio_url@ ne "">
                 <span name="audio" class="flex-12">
-                  <audio class="lazy" data-src="@events.audio_url@" controls></audio>
+                  <audio preload="metadata" src="@events.audio_url@" controls></audio>
                 </span>
               </if>
               <div class="flex-12" name="revisions" data-revisions="@events.revisions@">
@@ -443,7 +395,7 @@
                   fullPage.style.display = 'block';
               }
           }
-          for (const img of document.querySelectorAll('img.lazy')) {
+          for (const img of document.querySelectorAll('img[loading=lazy]')) {
               img.addEventListener('click', clickToEnlargeImage);
           }
 
@@ -565,13 +517,13 @@
               <h3 name="title"></h3>
             </div>
             <span name="camera" class="flex-3">
-              <img class="lazy" data-src="">
+              <img loading="lazy">
             </span>
             <span name="desktop" class="flex-9">
-              <img class="lazy" data-src="">
+              <img loading="lazy">
             </span>
             <span name="audio" class="flex-12">
-              <audio class="lazy" data-src="" controls></audio>
+              <audio preload="metadata" controls></audio>
             </span>
             <div class="flex-12" name="revisions" data-revisions="">
               <div name="revision" class="flex-12" style="display:none;">
@@ -673,15 +625,14 @@
                    if (e.type === 'audio') {
                        place = event.querySelector('[name=audio]');
                        element = place.querySelector('audio');
-                       element.setAttribute('data-src', getFileURL(e));
+                       element.setAttribute('src', getFileURL(e));
                    } else {
                        place = event.querySelector('[name="' + e.name + '"]');
                        element = place.querySelector('img');
-                       element.setAttribute('data-src', getFileURL(e));
+                       element.setAttribute('src', getFileURL(e));
                        element.addEventListener('click', clickToEnlargeImage);
                    }
                    place.style.display = null;
-                   imageObserver.observe(element);
 
                    hideFiltered();
                }
