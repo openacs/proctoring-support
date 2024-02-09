@@ -467,7 +467,7 @@ function nextPrev(n) {
     showTab(currentTab);
 }
 
-// Retreiving the stream happens asynchronously
+// Retrieving the stream happens asynchronously
 let valid = false;
 function validateForm() {
     // If the valid status is true, mark the step as finished and valid:
