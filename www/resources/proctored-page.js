@@ -157,6 +157,7 @@ function checkUpload() {
 function upload() {
     if (!hasUpload) {
         uploadQueue.length = 0;
+        checkUpload();
         console.log('Dummy upload');
     }
 
