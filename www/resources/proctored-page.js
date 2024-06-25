@@ -144,7 +144,18 @@ function scheduleUpload(name, type, blob) {
 // and abort the session.
 //
 let latestSuccessfulUploadTimeout;
-function checkUpload() {
+function checkUpload(formData) {
+    //
+    // We enforce this timeout only for image uploads for 2 reasons:
+    // 1) images are sent consistently throughout the session, while
+    //    audios not
+    // 2) if audios were produced often due to noise, but images were
+    //    not, we would not be able to tell the difference
+    //
+    if (formData && formData.get('type') !== 'image') {
+        return;
+    }
+
     clearTimeout(latestSuccessfulUploadTimeout);
 
     latestSuccessfulUploadTimeout = setTimeout(function () {
@@ -190,7 +201,7 @@ function upload() {
                     // Success: reschedule the upload 1s from now.
                     //
                     reschedule(1000);
-                    checkUpload();
+                    checkUpload(formData);
                 } else {
                     //
                     // Proctoring is over: redirect to the unproctored
