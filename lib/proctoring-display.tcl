@@ -7,7 +7,7 @@ ad_include_contract {
     pictures. The UI can update automatically when new pictures are
     available if websockets have been enabled for uploads.
 
-    Site wide admins can also delete the pictures collected for the
+    Site-wide admins can also delete the pictures collected for the
     whole object or for the single users.
 
     @param object_id the proctored object id.
