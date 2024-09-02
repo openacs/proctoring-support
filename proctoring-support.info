@@ -13,6 +13,7 @@
     <version name="3.5.1" url="http://openacs.org/repository/download/apm/proctoring-support-3.5.1.apm">
         <owner url="mailto:apisano@wu.ac.at">Antonio Pisano</owner>
         <summary>Set of tools to implement proctoring of user interaction</summary>
+        <release-date>2024-09-02</release-date>
         <vendor url="https://www.wu.ac.at/">Wirtschaftsuniversität Wien</vendor>
         <description format="text/html">This package collects includes and javascript machinery to implement proctoring of the user session using multimedia browser capabilities.&lt;br&gt;
 &lt;br&gt;
